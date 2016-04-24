@@ -23,6 +23,12 @@
 	#define RNJ_KEYS_COUNT SDL_NUM_SCANCODES
 #endif
 
+/* Константы отражения спрайта */
+#define DRAW_FLIP_NONE 0x00000000
+#define DRAW_FLIP_HORIZONTAL 0x00000001
+#define DRAW_FLIP_VERTICAL 0x00000002
+#define DRAW_FLIP_BOTH 0x00000003
+
 /* Типы сообщений лога */
 #define MT_NONE -1 /* Не указывать тип */
 #define MT_INFO 0 /* Информация */

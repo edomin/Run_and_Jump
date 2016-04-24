@@ -231,7 +231,7 @@ int DrawOutput(void)
             }
             default:
             {
-//                SpritesBlitSprite(DrawRound[i].spriteNum, DrawRound[i].clipNum, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, DrawRound[i].centerX, DrawRound[i].centerY, DrawRound[i].angle, DrawRound[i].a, DrawRound[i].flip);
+                SpritesBlitSprite(DrawRound[i].spriteNum, DrawRound[i].clipNum, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, DrawRound[i].centerX, DrawRound[i].centerY, DrawRound[i].angle, DrawRound[i].a, DrawRound[i].flip);
                 break;
             }
         }

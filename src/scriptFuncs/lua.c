@@ -205,9 +205,8 @@ int SFSpriteChangeTextWrapped(lua_State* l)
 
 int SFSpriteGetClipWidthHeight(lua_State* l)
 {
-    int spriteNum = lua_tonumber(Scripts.vm, 1);
-
     #if !defined(LSPRITES_DUMMY)
+    int spriteNum = lua_tonumber(Scripts.vm, 1);
     lua_pushnumber(Scripts.vm, (Sprite[spriteNum].clip[0].w));
     lua_pushnumber(Scripts.vm, (Sprite[spriteNum].clip[0].h));
     #else

@@ -2,13 +2,14 @@
 
 void SpritesInit(int sprites)
 {
-    uint32_t version;
     LogWrite("Initializing Sprite Manager", 0, MT_INFO, NULL);
     Sprites.spritesCount = 0; /* устанавливаем количество загруженных спрайтов в 0 */
     Sprite = malloc(sizeof(struct sprite) * sprites);
     if (Sprite == NULL)
         ErrorGive("Can not allocate memory for Sprites", 1);
-
+	LogWrite("Reporting loadpng for Allegro 4.2 library version:", 0, MT_INFO, LOADPNG_VERSIONSTR);
+	register_png_datafile_object(DAT_ID('P','N','G',' '));
+	register_png_file_type();
     LogWrite("Sprite Manager initialized", 0, MT_INFO, NULL);
 }
 
@@ -29,13 +30,11 @@ void SpritesQuit(void)
 int SpritesCreateSprite(char *filename, int clips)
 {
     int i;
-    int w;
-    int h;
     Sprite[Sprites.spritesCount].name = malloc(sizeof(char) * (strlen(filename) + 1));
     Sprite[Sprites.spritesCount].name = strcpy(Sprite[Sprites.spritesCount].name, (const char *)filename);
     LogWrite("Creating sprite", 0, MT_INFO, Sprite[Sprites.spritesCount].name);
     Sprites.spritesCount += 1; /* ”величиваем кол-во спрайтов на 1 */
-    Sprite[Sprites.spritesCount - 1].text = NULL; /* “екст спрайта (дл€ текстовых спрайтов) */
+//    Sprite[Sprites.spritesCount - 1].text = NULL; /* “екст спрайта (дл€ текстовых спрайтов) */
     /* «агружаем файл */
     Sprite[Sprites.spritesCount - 1].texture = NULL;/* обнул€ем поверхность спрайта */
 
@@ -46,18 +45,18 @@ int SpritesCreateSprite(char *filename, int clips)
     else
         ErrorGive("Can not load image", 1);
 
-    Sprite[Sprites.spritesCount - 1].width = Sprite[Sprites.spritesCount - 1].texture.w;
-    Sprite[Sprites.spritesCount - 1].height = Sprite[Sprites.spritesCount - 1].texture.h;
+    Sprite[Sprites.spritesCount - 1].width = Sprite[Sprites.spritesCount - 1].texture->w;
+    Sprite[Sprites.spritesCount - 1].height = Sprite[Sprites.spritesCount - 1].texture->h;
 
     /* устанавливаем число кадров дл€ спрайта */
     Sprite[Sprites.spritesCount - 1].clip = malloc(sizeof(Rect) * clips);
     /* разбиваем спрайтшит на кадры */
     for (i = 0; i <= clips - 1; i++)
     {
-        Sprite[Sprites.spritesCount - 1].clip[i].x = i * w / clips;
+        Sprite[Sprites.spritesCount - 1].clip[i].x = i * Sprite[Sprites.spritesCount - 1].width / clips;
         Sprite[Sprites.spritesCount - 1].clip[i].y = 0;
-        Sprite[Sprites.spritesCount - 1].clip[i].w = w / clips;
-        Sprite[Sprites.spritesCount - 1].clip[i].h = h;
+        Sprite[Sprites.spritesCount - 1].clip[i].w = Sprite[Sprites.spritesCount - 1].width / clips;
+        Sprite[Sprites.spritesCount - 1].clip[i].h = Sprite[Sprites.spritesCount - 1].height;
     }
     Sprite[Sprites.spritesCount - 1].clipsCount = clips;
     LogWrite("Sprite Created", 0, MT_INFO, NULL);
@@ -126,26 +125,44 @@ void SpritesChangeText(int num, char *text, int fontnum, int text_r, int text_g,
 
 void SpritesBlitSprite(int num, int clip, int x, int y, int width, int height, int centerX, int centerY, double angle, int a, int flip)
 {
-	if (Sprite[num].text == NULL)
-	{
+//	if (Sprite[num].text == NULL)
+//	{
 		if (Sprite[num].texture != NULL)
 		{
-			al_draw_tinted_scaled_rotated_bitmap_region(Sprite[num].texture,
-			  Sprite[num].clip[clip].x, Sprite[num].clip[clip].y, Sprite[num].clip[clip].w, Sprite[num].clip[clip].h,
-			  al_map_rgba(255 * a / 255, 255 * a / 255, 255 * a / 255, 255 * a / 255),
-			  centerX, centerY, x, y, width / Sprite[num].clip[clip].w, height / Sprite[num].clip[clip].h,
-			  angle, 0);
+			set_clip_rect(
+			  Sprite[num].texture,
+			  Sprite[num].clip[clip].x,
+			  Sprite[num].clip[clip].y,
+			  Sprite[num].clip[clip].x + Sprite[num].clip[clip].w,
+			  Sprite[num].clip[clip].y + Sprite[num].clip[clip].w
+			);
+			switch (flip)
+			{
+				case DRAW_FLIP_HORIZONTAL:
+					pivot_scaled_sprite_v_flip(Draw.renderer, Sprite[num].texture, x, y, centerX, centerY, ftofix(128 - angle * 0.711111), ftofix(width / Sprite[Sprites.spritesCount - 1].width));
+					break;
+				case DRAW_FLIP_VERTICAL:
+					pivot_scaled_sprite_v_flip(Draw.renderer, Sprite[num].texture, x, y, centerX, centerY, ftofix(0 - angle * 0.711111), ftofix(width / Sprite[Sprites.spritesCount - 1].width));
+					break;
+				case DRAW_FLIP_BOTH:
+					pivot_scaled_sprite(Draw.renderer, Sprite[num].texture, x, y, centerX, centerY, ftofix(128 - angle * 0.711111), ftofix(width / Sprite[Sprites.spritesCount - 1].width));
+					break;
+				default:
+					pivot_scaled_sprite(Draw.renderer, Sprite[num].texture, x, y, centerX, centerY, ftofix(0 - angle * 0.711111), ftofix(width / Sprite[Sprites.spritesCount - 1].width));
+					break;
+			}
+
 		}
-	}
-	else
-	{
-		al_draw_ustr(Fonts.font[Sprite[num].fontNum],
-		  al_map_rgba(Sprite[num].textR * a / 255, Sprite[num].textG * a / 255, Sprite[num].textB * a / 255, 255 * a / 255),
-		  x,
-		  y,
-		  ALLEGRO_ALIGN_INTEGER,
-		  (const ALLEGRO_USTR *)Sprite[num].text);
-	}
+//	}
+//	else
+//	{
+//		al_draw_ustr(Fonts.font[Sprite[num].fontNum],
+//		  al_map_rgba(Sprite[num].textR * a / 255, Sprite[num].textG * a / 255, Sprite[num].textB * a / 255, 255 * a / 255),
+//		  x,
+//		  y,
+//		  ALLEGRO_ALIGN_INTEGER,
+//		  (const ALLEGRO_USTR *)Sprite[num].text);
+//	}
 }
 
 void SpritesDestroySprite(int num)

@@ -14,16 +14,16 @@ void SpritesInit(int sprites)
 
 void SpritesQuit(void)
 {
-//    int i;
-//    LogWrite("Destroying Sprite Manager.", 0, MT_INFO, NULL);
-//    for (i = 0; i < Sprites.spritesCount; i++)
-//    {
-//        LogWrite("Destroying sprite", 1, MT_INFO, Sprite[i].name);
-//        SpritesDestroySprite(i);
-//    }
-//    free(Sprite);
+    int i;
+    LogWrite("Destroying Sprite Manager.", 0, MT_INFO, NULL);
+    for (i = 0; i < Sprites.spritesCount; i++)
+    {
+        LogWrite("Destroying sprite", 1, MT_INFO, Sprite[i].name);
+        SpritesDestroySprite(i);
+    }
+    free(Sprite);
 //    al_shutdown_image_addon();
-//    LogWrite("Sprite Manager Destroyed.", 0, MT_INFO, NULL);
+    LogWrite("Sprite Manager Destroyed.", 0, MT_INFO, NULL);
 }
 
 int SpritesCreateSprite(char *filename, int clips)

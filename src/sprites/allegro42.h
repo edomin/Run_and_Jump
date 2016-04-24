@@ -5,9 +5,11 @@
 #include <string.h>
 
 #include "allegro42/allegro.h"
+#include "allegro42/loadpng.h"
 
 #include "app.h"
 #include "fonts.h"
+#include "draw.h"
 #include "error.h"
 #include "log.h"
 #include "defines.h"

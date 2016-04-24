@@ -49,268 +49,272 @@
 		</Linker>
 		<Unit filename="Config.mk" />
 		<Unit filename="Makefile" />
-		<Unit filename="src\app.h" />
-		<Unit filename="src\app\allegro42.c">
+		<Unit filename="src/app.h" />
+		<Unit filename="src/app/allegro42.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\app\allegro42.h" />
-		<Unit filename="src\app\allegro5.c">
+		<Unit filename="src/app/allegro42.h" />
+		<Unit filename="src/app/allegro5.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\app\allegro5.h" />
-		<Unit filename="src\app\sdl12.c">
+		<Unit filename="src/app/allegro5.h" />
+		<Unit filename="src/app/sdl12.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\app\sdl12.h" />
-		<Unit filename="src\app\sdl2.c">
+		<Unit filename="src/app/sdl12.h" />
+		<Unit filename="src/app/sdl2.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\app\sdl2.h" />
-		<Unit filename="src\configfile.h" />
-		<Unit filename="src\configfile\allegro5.c">
+		<Unit filename="src/app/sdl2.h" />
+		<Unit filename="src/configfile.h" />
+		<Unit filename="src/configfile/allegro5.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\configfile\allegro5.h" />
-		<Unit filename="src\configfile\dummy.c">
+		<Unit filename="src/configfile/allegro5.h" />
+		<Unit filename="src/configfile/dummy.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\configfile\dummy.h" />
-		<Unit filename="src\configfile\iniparser.c">
+		<Unit filename="src/configfile/dummy.h" />
+		<Unit filename="src/configfile/iniparser.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\configfile\iniparser.h" />
-		<Unit filename="src\defines.h" />
-		<Unit filename="src\dialogs.h" />
-		<Unit filename="src\dialogs\allegro5_nd.c">
+		<Unit filename="src/configfile/iniparser.h" />
+		<Unit filename="src/defines.h" />
+		<Unit filename="src/dialogs.h" />
+		<Unit filename="src/dialogs/allegro5_nd.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\dialogs\allegro5_nd.h" />
-		<Unit filename="src\dialogs\dummy.c">
+		<Unit filename="src/dialogs/allegro5_nd.h" />
+		<Unit filename="src/dialogs/dummy.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\dialogs\dummy.h" />
-		<Unit filename="src\dialogs\native.c">
+		<Unit filename="src/dialogs/dummy.h" />
+		<Unit filename="src/dialogs/native.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\dialogs\native.h" />
-		<Unit filename="src\dialogs\sdl2.c">
+		<Unit filename="src/dialogs/native.h" />
+		<Unit filename="src/dialogs/sdl2.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\dialogs\sdl2.h" />
-		<Unit filename="src\dialogs\windows_h.c">
+		<Unit filename="src/dialogs/sdl2.h" />
+		<Unit filename="src/dialogs/windows_h.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\dialogs\windows_h.h" />
-		<Unit filename="src\draw.h" />
-		<Unit filename="src\draw\allegro5.c">
+		<Unit filename="src/dialogs/windows_h.h" />
+		<Unit filename="src/draw.h" />
+		<Unit filename="src/draw/allegro42.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\draw\allegro5.h" />
-		<Unit filename="src\draw\dummy.c">
+		<Unit filename="src/draw/allegro42.h" />
+		<Unit filename="src/draw/allegro5.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\draw\dummy.h" />
-		<Unit filename="src\draw\sdl12.c">
+		<Unit filename="src/draw/allegro5.h" />
+		<Unit filename="src/draw/dummy.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\draw\sdl12.h" />
-		<Unit filename="src\draw\sdl2.c">
+		<Unit filename="src/draw/dummy.h" />
+		<Unit filename="src/draw/sdl12.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\draw\sdl2.h" />
-		<Unit filename="src\error.c">
+		<Unit filename="src/draw/sdl12.h" />
+		<Unit filename="src/draw/sdl2.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\error.h" />
-		<Unit filename="src\files.c">
+		<Unit filename="src/draw/sdl2.h" />
+		<Unit filename="src/error.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\files.h" />
-		<Unit filename="src\fonts.h" />
-		<Unit filename="src\fonts\allegro5.c">
+		<Unit filename="src/error.h" />
+		<Unit filename="src/files.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\fonts\allegro5.h" />
-		<Unit filename="src\fonts\dummy.c">
+		<Unit filename="src/files.h" />
+		<Unit filename="src/fonts.h" />
+		<Unit filename="src/fonts/allegro5.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\fonts\dummy.h" />
-		<Unit filename="src\fonts\sdl12_ttf.c">
+		<Unit filename="src/fonts/allegro5.h" />
+		<Unit filename="src/fonts/dummy.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\fonts\sdl12_ttf.h" />
-		<Unit filename="src\fonts\sdl2_ttf.c">
+		<Unit filename="src/fonts/dummy.h" />
+		<Unit filename="src/fonts/sdl12_ttf.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\fonts\sdl2_ttf.h" />
-		<Unit filename="src\images.h" />
-		<Unit filename="src\images\allegro5_image.c">
+		<Unit filename="src/fonts/sdl12_ttf.h" />
+		<Unit filename="src/fonts/sdl2_ttf.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\images\allegro5_image.h" />
-		<Unit filename="src\images\dummy.c">
+		<Unit filename="src/fonts/sdl2_ttf.h" />
+		<Unit filename="src/images.h" />
+		<Unit filename="src/images/allegro5_image.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\images\dummy.h" />
-		<Unit filename="src\images\freeimage.c">
+		<Unit filename="src/images/allegro5_image.h" />
+		<Unit filename="src/images/dummy.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\images\freeimage.h" />
-		<Unit filename="src\images\sdl2_image.c">
+		<Unit filename="src/images/dummy.h" />
+		<Unit filename="src/images/freeimage.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\images\sdl2_image.h" />
-		<Unit filename="src\input.h" />
-		<Unit filename="src\input\allegro5.c">
+		<Unit filename="src/images/freeimage.h" />
+		<Unit filename="src/images/sdl2_image.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\input\allegro5.h" />
-		<Unit filename="src\input\dummy.c">
+		<Unit filename="src/images/sdl2_image.h" />
+		<Unit filename="src/input.h" />
+		<Unit filename="src/input/allegro5.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\input\dummy.h" />
-		<Unit filename="src\input\native.c">
+		<Unit filename="src/input/allegro5.h" />
+		<Unit filename="src/input/dummy.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\input\native.h" />
-		<Unit filename="src\input\sdl12.c">
+		<Unit filename="src/input/dummy.h" />
+		<Unit filename="src/input/native.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\input\sdl12.h" />
-		<Unit filename="src\input\sdl2.c">
+		<Unit filename="src/input/native.h" />
+		<Unit filename="src/input/sdl12.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\input\sdl2.h" />
-		<Unit filename="src\log.c">
+		<Unit filename="src/input/sdl12.h" />
+		<Unit filename="src/input/sdl2.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\log.h" />
-		<Unit filename="src\main.c">
+		<Unit filename="src/input/sdl2.h" />
+		<Unit filename="src/log.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\physics.h" />
-		<Unit filename="src\physics\dummy.c">
+		<Unit filename="src/log.h" />
+		<Unit filename="src/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\physics\dummy.h" />
-		<Unit filename="src\physics\ode.c">
+		<Unit filename="src/physics.h" />
+		<Unit filename="src/physics/dummy.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\physics\ode.h" />
-		<Unit filename="src\screen.h" />
-		<Unit filename="src\screen\allegro42.c">
+		<Unit filename="src/physics/dummy.h" />
+		<Unit filename="src/physics/ode.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\screen\allegro42.h" />
-		<Unit filename="src\screen\allegro5.c">
+		<Unit filename="src/physics/ode.h" />
+		<Unit filename="src/screen.h" />
+		<Unit filename="src/screen/allegro42.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\screen\allegro5.h" />
-		<Unit filename="src\screen\sdl12.c">
+		<Unit filename="src/screen/allegro42.h" />
+		<Unit filename="src/screen/allegro5.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\screen\sdl12.h" />
-		<Unit filename="src\screen\sdl2.c">
+		<Unit filename="src/screen/allegro5.h" />
+		<Unit filename="src/screen/sdl12.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\screen\sdl2.h" />
-		<Unit filename="src\scriptFuncs.c">
+		<Unit filename="src/screen/sdl12.h" />
+		<Unit filename="src/screen/sdl2.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\scriptFuncs.h" />
-		<Unit filename="src\scriptFuncs\dummy.c">
+		<Unit filename="src/screen/sdl2.h" />
+		<Unit filename="src/scriptFuncs.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\scriptFuncs\dummy.h" />
-		<Unit filename="src\scriptFuncs\lua.c">
+		<Unit filename="src/scriptFuncs.h" />
+		<Unit filename="src/scriptFuncs/dummy.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\scriptFuncs\lua.h" />
-		<Unit filename="src\scriptFuncs\squirrel.c">
+		<Unit filename="src/scriptFuncs/dummy.h" />
+		<Unit filename="src/scriptFuncs/lua.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\scriptFuncs\squirrel.h" />
-		<Unit filename="src\scripts.h" />
-		<Unit filename="src\scripts\dummy.c">
+		<Unit filename="src/scriptFuncs/lua.h" />
+		<Unit filename="src/scriptFuncs/squirrel.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\scripts\dummy.h" />
-		<Unit filename="src\scripts\lua.c">
+		<Unit filename="src/scriptFuncs/squirrel.h" />
+		<Unit filename="src/scripts.h" />
+		<Unit filename="src/scripts/dummy.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\scripts\lua.h" />
-		<Unit filename="src\scripts\squirrel.c">
+		<Unit filename="src/scripts/dummy.h" />
+		<Unit filename="src/scripts/lua.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\scripts\squirrel.h" />
-		<Unit filename="src\sounds.h" />
-		<Unit filename="src\sounds\allegro5_audio.c">
+		<Unit filename="src/scripts/lua.h" />
+		<Unit filename="src/scripts/squirrel.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\sounds\allegro5_audio.h" />
-		<Unit filename="src\sounds\dummy.c">
+		<Unit filename="src/scripts/squirrel.h" />
+		<Unit filename="src/sounds.h" />
+		<Unit filename="src/sounds/allegro5_audio.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\sounds\dummy.h" />
-		<Unit filename="src\sounds\sdl2_mixer.c">
+		<Unit filename="src/sounds/allegro5_audio.h" />
+		<Unit filename="src/sounds/dummy.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\sounds\sdl2_mixer.h" />
-		<Unit filename="src\specification.h" />
-		<Unit filename="src\specification\dummy.c">
+		<Unit filename="src/sounds/dummy.h" />
+		<Unit filename="src/sounds/sdl2_mixer.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\specification\dummy.h" />
-		<Unit filename="src\specification\sdl2.c">
+		<Unit filename="src/sounds/sdl2_mixer.h" />
+		<Unit filename="src/specification.h" />
+		<Unit filename="src/specification/dummy.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\specification\sdl2.h" />
-		<Unit filename="src\sprites.h" />
-		<Unit filename="src\sprites\allegro42.c">
+		<Unit filename="src/specification/dummy.h" />
+		<Unit filename="src/specification/sdl2.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\sprites\allegro42.h" />
-		<Unit filename="src\sprites\allegro5_image.c">
+		<Unit filename="src/specification/sdl2.h" />
+		<Unit filename="src/sprites.h" />
+		<Unit filename="src/sprites/allegro42.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\sprites\allegro5_image.h" />
-		<Unit filename="src\sprites\dummy.c">
+		<Unit filename="src/sprites/allegro42.h" />
+		<Unit filename="src/sprites/allegro5_image.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\sprites\dummy.h" />
-		<Unit filename="src\sprites\sdl12_image.c">
+		<Unit filename="src/sprites/allegro5_image.h" />
+		<Unit filename="src/sprites/dummy.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\sprites\sdl12_image.h" />
-		<Unit filename="src\sprites\sdl2_image.c">
+		<Unit filename="src/sprites/dummy.h" />
+		<Unit filename="src/sprites/sdl12_image.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\sprites\sdl2_image.h" />
-		<Unit filename="src\timer.h" />
-		<Unit filename="src\timer\allegro5.c">
+		<Unit filename="src/sprites/sdl12_image.h" />
+		<Unit filename="src/sprites/sdl2_image.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\timer\allegro5.h" />
-		<Unit filename="src\timer\native.c">
+		<Unit filename="src/sprites/sdl2_image.h" />
+		<Unit filename="src/timer.h" />
+		<Unit filename="src/timer/allegro5.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\timer\native.h" />
-		<Unit filename="src\timer\sdl12.c">
+		<Unit filename="src/timer/allegro5.h" />
+		<Unit filename="src/timer/native.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\timer\sdl12.h" />
-		<Unit filename="src\timer\sdl2.c">
+		<Unit filename="src/timer/native.h" />
+		<Unit filename="src/timer/sdl12.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\timer\sdl2.h" />
-		<Unit filename="src\timer\time_h.c">
+		<Unit filename="src/timer/sdl12.h" />
+		<Unit filename="src/timer/sdl2.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\timer\time_h.h" />
-		<Unit filename="src\utils.c">
+		<Unit filename="src/timer/sdl2.h" />
+		<Unit filename="src/timer/time_h.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\utils.h" />
+		<Unit filename="src/timer/time_h.h" />
+		<Unit filename="src/utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/utils.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

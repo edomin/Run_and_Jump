@@ -2,7 +2,7 @@
 #define RNJ_SCREEN_ALLEGRO42_H
 
 #include "allegro42/allegro.h"
-//#include "allegro42/allegro_windows.h"
+#include "allegro42/winalleg.h"
 
 #include "app.h"
 #include "log.h"

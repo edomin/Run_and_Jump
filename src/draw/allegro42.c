@@ -2,7 +2,7 @@
 
 void DrawInit(int driver, int filtering)
 {
-    uint32_t version;
+    //uint32_t version;
 
     LogWrite("Initializing Draw Subsystem", 0, MT_INFO, NULL);
 
@@ -242,6 +242,6 @@ int DrawOutput(void)
 
 void DrawFlip(void)
 {
-    al_flip_display();
+    //al_flip_display();
 }
 

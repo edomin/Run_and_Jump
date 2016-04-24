@@ -20,31 +20,31 @@ DEFINES =
 RNJ_VERSION ="1.3.2"
 
 #sdl12, sdl2, allegro42, allegro5
-LAPP = sdl2
+LAPP = allegro42
 #allegro5, iniparser, dummy
 LCONFIGFILE = dummy
 #sdl12, sdl2, allegro42, allegro5
-LSCREEN = sdl2
-#sdl12, sdl2, allegro5, dummy
-LDRAW = sdl2
+LSCREEN = allegro42
+#sdl12, sdl2, allegro42, allegro5, dummy
+LDRAW = allegro42
 #sdl12_image, sdl2_image, allegro42, allegro5_image, dummy
-LSPRITES = sdl2_image
+LSPRITES = allegro42
 #sdl12_ttf, sdl2_ttf, allegro5, dummy
-LFONTS = sdl2_ttf
+LFONTS = dummy
 #lua, squirrel, dummy
 LS = lua
 #sdl2, windows_h, allegro5_nd, native, dummy
-LDIALOGS = sdl2
-#sdl12, sdl2, allegro5, directinput7, native, dummy
-LINPUT = sdl2
+LDIALOGS = dummy
+#sdl12, sdl2, allegro5, native, dummy
+LINPUT = dummy
 #sdl2, dummy
-LSPEC = sdl2
+LSPEC = dummy
 #sdl12, sdl2, time_h, allegro5, native
-LTIMER = sdl2
+LTIMER = time_h
 #sdl2_mixer, dummy
-LSOUNDS = sdl2_mixer
+LSOUNDS = dummy
 #freeimage, sdl2_image, allegro5_image, dummy
-LIMAGES = sdl2_image
+LIMAGES = dummy
 #ode, dummy
 LPHYSICS = dummy
 #Если ни в одном из подключаемых модулей нет типа bool, то надо включить эту директиву для подключения специальной библиотеки
@@ -208,6 +208,9 @@ ifeq ($(LSPRITES), sdl2_image)
 endif
 ifeq ($(LSPRITES), allegro42)
   LSPRITES_DEF = -DLSPRITES_ALLEGRO42
+  LIBS += -lldpng \
+    -lpng \
+    -lz
 endif
 ifeq ($(LSPRITES), allegro5_image)
   LSPRITES_DEF = -DLSPRITES_ALLEGRO5_IMAGE
@@ -272,7 +275,7 @@ endif
 ifeq ($(LSCREEN), sdl2)
   LSCREEN_DEF = -DLSCREEN_SDL2
 endif
-ifeq ($(LSCREEN), allegro5)
+ifeq ($(LSCREEN), allegro42)
   LSCREEN_DEF = -DLSCREEN_ALLEGRO42
 endif
 ifeq ($(LSCREEN), allegro5)
@@ -284,6 +287,9 @@ ifeq ($(LDRAW), sdl12)
 endif
 ifeq ($(LDRAW), sdl2)
   LDRAW_DEF = -DLDRAW_SDL2
+endif
+ifeq ($(LDRAW), allegro42)
+  LDRAW_DEF = -DLDRAW_ALLEGRO42
 endif
 ifeq ($(LDRAW), allegro5)
   LDRAW_DEF = -DLDRAW_ALLEGRO5

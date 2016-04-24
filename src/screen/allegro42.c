@@ -42,6 +42,8 @@ void ScreenInit(int w, int h, const char *title, bool fullscreen)
         LogWrite("Screen resolution set.", 1, MT_INFO, NULL);
     }
 
+	set_color_conversion(COLORCONV_NONE);
+
 //	LogWrite("Creating Window", 1, MT_INFO, NULL);
 //    if (!fullscreen)
 //	{

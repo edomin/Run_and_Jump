@@ -10,11 +10,9 @@ MTOOLS = $(DIR_ROOT)/Utils/mtools
 #Toolchains
 TC_MINGW_4_8_1 = MinGW_4.8.1
 TC_DJGPP_2_03 = DJGPP_2.03
-#TC_DJGPP_2_04 = DJGPP_2.04
 TC_KOS_4_8_2 = KOS_4.8.2
 
 #Compilers
-#CC_MINGW = $(DIR_TOOLCHAINS)/$(TOOLCHAIN)/bin/mingw32-gcc
 CC_MINGW = mingw32-gcc
 CC_DJGPP = gcc
 CC_KOS = kos32-gcc

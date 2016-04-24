@@ -27,6 +27,7 @@ struct drawStep{
 } *DrawRound;
 
 struct {
+	BITMAP *renderer; /* Рендерер */
     int roundLength; /* Длина очереди рисования */
 } Draw;
 

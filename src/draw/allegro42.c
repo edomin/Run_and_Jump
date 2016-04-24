@@ -2,14 +2,16 @@
 
 void DrawInit(int driver, int filtering)
 {
-    //uint32_t version;
-
     LogWrite("Initializing Draw Subsystem", 0, MT_INFO, NULL);
-
     DrawRound = malloc(sizeof(struct drawStep) * RNJ_DRAW_ROUND_LENGTH);
     if (DrawRound == NULL)
         ErrorGive("Can not allocate memory for DrawRound", 1);
     Draw.roundLength = 0;
+    Draw.renderer = create_bitmap(SCREEN_W, SCREEN_H);
+    if (Draw.renderer == NULL)
+        ErrorGive("Can not create backbuffer", 0);
+	else
+		LogWrite("Backbuffer created", 0, MT_INFO, NULL);;
     LogWrite("Draw subsystem initialized", 0, MT_INFO, NULL);
 }
 
@@ -156,8 +158,8 @@ void DrawAddRect(int x, int y, int width, int height, int r, int g, int b, int a
     DrawRound[Draw.roundLength - 1].clipNum = 0;
     DrawRound[Draw.roundLength - 1].x = x;
     DrawRound[Draw.roundLength - 1].y = y;
-    DrawRound[Draw.roundLength - 1].width = width;
-    DrawRound[Draw.roundLength - 1].height = height;
+    DrawRound[Draw.roundLength - 1].width = x + width;
+    DrawRound[Draw.roundLength - 1].height = y + height;
     DrawRound[Draw.roundLength - 1].r = r;
     DrawRound[Draw.roundLength - 1].g = g;
     DrawRound[Draw.roundLength - 1].b = b;
@@ -172,8 +174,8 @@ void DrawAddFilledRect(int x, int y, int width, int height, int r, int g, int b,
     DrawRound[Draw.roundLength - 1].clipNum = 0;
     DrawRound[Draw.roundLength - 1].x = x;
     DrawRound[Draw.roundLength - 1].y = y;
-    DrawRound[Draw.roundLength - 1].width = width;
-    DrawRound[Draw.roundLength - 1].height = height;
+    DrawRound[Draw.roundLength - 1].width = x + width;
+    DrawRound[Draw.roundLength - 1].height = y + height;
     DrawRound[Draw.roundLength - 1].r = r;
     DrawRound[Draw.roundLength - 1].g = g;
     DrawRound[Draw.roundLength - 1].b = b;
@@ -204,27 +206,27 @@ int DrawOutput(void)
         {
             case (RNJ_SPRITE_NUM_POINT):
             {
-                putpixel(screen, DrawRound[i].x, DrawRound[i].y, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
+                putpixel(Draw.renderer, DrawRound[i].x, DrawRound[i].y, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
                 break;
             }
             case (RNJ_SPRITE_NUM_LINE):
             {
-                line(screen, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
+                line(Draw.renderer, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
                 break;
             }
             case (RNJ_SPRITE_NUM_RECT):
             {
-                rect(screen, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
+                rect(Draw.renderer, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
                 break;
             }
             case (RNJ_SPRITE_NUM_FILLED_RECT):
             {
-                rectfill(screen, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
+                rectfill(Draw.renderer, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
                 break;
             }
             case (RNJ_SPRITE_NUM_FILL):
             {
-                clear_to_color(screen, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
+                clear_to_color(Draw.renderer, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
                 break;
             }
             default:
@@ -242,6 +244,6 @@ int DrawOutput(void)
 
 void DrawFlip(void)
 {
-    //al_flip_display();
+     draw_sprite(screen, Draw.renderer, 0, 0);
 }
 

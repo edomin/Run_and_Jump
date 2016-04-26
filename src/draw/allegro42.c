@@ -11,13 +11,15 @@ void DrawInit(int driver, int filtering)
     if (Draw.renderer == NULL)
         ErrorGive("Can not create backbuffer", 0);
 	else
-		LogWrite("Backbuffer created", 0, MT_INFO, NULL);;
+		LogWrite("Backbuffer created", 0, MT_INFO, NULL);
+	set_alpha_blender();
     LogWrite("Draw subsystem initialized", 0, MT_INFO, NULL);
 }
 
 void DrawDestroy(void)
 {
     free(DrawRound);
+	destroy_bitmap(Draw.renderer);
     LogWrite("Draw subsystem Destroyed", 0, MT_INFO, NULL);
 }
 
@@ -244,6 +246,8 @@ int DrawOutput(void)
 
 void DrawFlip(void)
 {
-     draw_sprite(screen, Draw.renderer, 0, 0);
+//    acquire_screen();
+	draw_sprite(screen, Draw.renderer, 0, 0);
+//    release_screen();
 }
 

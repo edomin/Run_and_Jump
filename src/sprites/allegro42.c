@@ -37,7 +37,6 @@ int SpritesCreateSprite(char *filename, int clips)
 //    Sprite[Sprites.spritesCount - 1].text = NULL; /* Текст спрайта (для текстовых спрайтов) */
     /* Загружаем файл */
     Sprite[Sprites.spritesCount - 1].texture = NULL;/* обнуляем поверхность спрайта */
-
 	Sprite[Sprites.spritesCount - 1].texture = load_bitmap((const char*)filename, NULL);
 
     if (Sprite[Sprites.spritesCount - 1].texture != NULL)
@@ -136,22 +135,26 @@ void SpritesBlitSprite(int num, int clip, int x, int y, int width, int height, i
 			  Sprite[num].clip[clip].x + Sprite[num].clip[clip].w,
 			  Sprite[num].clip[clip].y + Sprite[num].clip[clip].w
 			);
-			switch (flip)
+			if ((width == Sprite[num].width) && (height == Sprite[num].height) && (angle == 0) && (flip == DRAW_FLIP_NONE))
+				draw_trans_sprite(Draw.renderer, Sprite[num].texture, x, y);
+			else
 			{
-				case DRAW_FLIP_HORIZONTAL:
-					pivot_scaled_sprite_v_flip(Draw.renderer, Sprite[num].texture, x, y, centerX, centerY, ftofix(128 - angle * 0.711111), ftofix(width / Sprite[Sprites.spritesCount - 1].width));
-					break;
-				case DRAW_FLIP_VERTICAL:
-					pivot_scaled_sprite_v_flip(Draw.renderer, Sprite[num].texture, x, y, centerX, centerY, ftofix(0 - angle * 0.711111), ftofix(width / Sprite[Sprites.spritesCount - 1].width));
-					break;
-				case DRAW_FLIP_BOTH:
-					pivot_scaled_sprite(Draw.renderer, Sprite[num].texture, x, y, centerX, centerY, ftofix(128 - angle * 0.711111), ftofix(width / Sprite[Sprites.spritesCount - 1].width));
-					break;
-				default:
-					pivot_scaled_sprite(Draw.renderer, Sprite[num].texture, x, y, centerX, centerY, ftofix(0 - angle * 0.711111), ftofix(width / Sprite[Sprites.spritesCount - 1].width));
-					break;
+				switch (flip)
+				{
+					case DRAW_FLIP_HORIZONTAL:
+						pivot_scaled_sprite_v_flip(Draw.renderer, Sprite[num].texture, x, y, centerX, centerY, ftofix(128 - angle * 0.711111), ftofix(width / Sprite[Sprites.spritesCount - 1].width));
+						break;
+					case DRAW_FLIP_VERTICAL:
+						pivot_scaled_sprite_v_flip(Draw.renderer, Sprite[num].texture, x, y, centerX, centerY, ftofix(0 - angle * 0.711111), ftofix(width / Sprite[Sprites.spritesCount - 1].width));
+						break;
+					case DRAW_FLIP_BOTH:
+						pivot_scaled_sprite(Draw.renderer, Sprite[num].texture, x, y, centerX, centerY, ftofix(128 - angle * 0.711111), ftofix(width / Sprite[Sprites.spritesCount - 1].width));
+						break;
+					default:
+						pivot_scaled_sprite(Draw.renderer, Sprite[num].texture, x, y, centerX, centerY, ftofix(0 - angle * 0.711111), ftofix(width / Sprite[Sprites.spritesCount - 1].width));
+						break;
+				}
 			}
-
 		}
 //	}
 //	else

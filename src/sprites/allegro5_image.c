@@ -124,7 +124,7 @@ void SpritesChangeText(int num, char *text, int fontnum, int text_r, int text_g,
 	Sprite[num].wrapLength = wrapLength;
 
     Sprite[num].width =  al_get_text_width((const ALLEGRO_FONT *)Fonts.font[fontnum], (const char *)text);
-    Sprite[Sprites.spritesCount - 1].height = al_get_font_ascent((const ALLEGRO_FONT *)Fonts.font[fontnum]);
+    Sprite[num].height = al_get_font_ascent((const ALLEGRO_FONT *)Fonts.font[fontnum]);
 
     Sprite[num].texture = NULL;/* обнуляем поверхность спрайта */
 

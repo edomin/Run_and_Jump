@@ -12,7 +12,6 @@ void DrawInit(int driver, int filtering)
         ErrorGive("Can not create backbuffer", 0);
 	else
 		LogWrite("Backbuffer created", 0, MT_INFO, NULL);
-	set_alpha_blender();
     LogWrite("Draw subsystem initialized", 0, MT_INFO, NULL);
 }
 

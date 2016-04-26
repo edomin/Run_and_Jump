@@ -29,8 +29,8 @@ LSCREEN = allegro42
 LDRAW = allegro42
 #sdl12_image, sdl2_image, allegro42, allegro5_image, dummy
 LSPRITES = allegro42
-#sdl12_ttf, sdl2_ttf, allegro5, dummy
-LFONTS = dummy
+#sdl12_ttf, sdl2_ttf, allegro42font, allegro5, dummy
+LFONTS = allegro42font
 #lua, squirrel, dummy
 LS = lua
 #sdl2, windows_h, allegro5_nd, native, dummy
@@ -180,6 +180,38 @@ RNJ_SPEC = -DRNJ_VERSION=\"$(RNJ_VERSION)\" \
 	-DRNJ_SOUNDS=\"$(LSOUNDS)\" \
 	-DRNJ_IMAGES=\"$(LIMAGES)\" \
 	-DRNJ_PHYSICS=\"$(LPHYSICS)\"
+############ = FONTS = ########
+ifeq ($(LFONTS), sdl12_ttf)
+  LFONTS_DEF = -DLFONTS_SDL12_TTF
+  LIBS += -lSDL_ttf
+  ifeq ($(CC), $(CC_KOS))
+    LIBS += -lfreetype
+  endif
+  ifeq ($(CC), $(CC_MINGW))
+    DLLS += $(DLL_SDL12_TTF) \
+	  $(DLL_FREE_TYPE)
+  endif
+endif
+ifeq ($(LFONTS), sdl2_ttf)
+  LFONTS_DEF = -DLFONTS_SDL2_TTF
+  LIBS += -lSDL2_ttf
+  DLLS += $(DLL_SDL2_TTF) \
+	$(DLL_FREE_TYPE)
+endif
+ifeq ($(LFONTS), allegro42font)
+  LFONTS_DEF = -DLFONTS_ALLEGRO42_FONT
+  LIBS += -lalfont
+endif
+ifeq ($(LFONTS), allegro5)
+  LFONTS_DEF = -DLFONTS_ALLEGRO5
+  LIBS += -lallegro_ttf-5.0.10-md \
+	-lallegro_font-5.0.10-md
+  DLLS += $(DLL_ALLEGRO5_TTF) \
+	$(DLL_ALLEGRO5_FONT)
+endif
+ifeq ($(LFONTS), dummy)
+  LFONTS_DEF = -DLFONTS_DUMMY
+endif
 ############ = SPRITES = ########
 ifeq ($(LSPRITES), sdl12_image)
   LSPRITES_DEF = -DLSPRITES_SDL12_IMAGE
@@ -298,34 +330,6 @@ ifeq ($(LDRAW), allegro5)
 endif
 ifeq ($(LDRAW), dummy)
   LDRAW_DEF = -DLDRAW_DUMMY
-endif
-############ = FONTS = ########
-ifeq ($(LFONTS), sdl12_ttf)
-  LFONTS_DEF = -DLFONTS_SDL12_TTF
-  LIBS += -lSDL_ttf
-  ifeq ($(CC), $(CC_KOS))
-    LIBS += -lfreetype
-  endif
-  ifeq ($(CC), $(CC_MINGW))
-    DLLS += $(DLL_SDL12_TTF) \
-	  $(DLL_FREE_TYPE)
-  endif
-endif
-ifeq ($(LFONTS), sdl2_ttf)
-  LFONTS_DEF = -DLFONTS_SDL2_TTF
-  LIBS += -lSDL2_ttf
-  DLLS += $(DLL_SDL2_TTF) \
-	$(DLL_FREE_TYPE)
-endif
-ifeq ($(LFONTS), allegro5)
-  LFONTS_DEF = -DLFONTS_ALLEGRO5
-  LIBS += -lallegro_ttf-5.0.10-md \
-	-lallegro_font-5.0.10-md
-  DLLS += $(DLL_ALLEGRO5_TTF) \
-	$(DLL_ALLEGRO5_FONT)
-endif
-ifeq ($(LFONTS), dummy)
-  LFONTS_DEF = -DLFONTS_DUMMY
 endif
 ############ = SCRIPTS = ########
 ifeq ($(LS), lua)

@@ -7,6 +7,9 @@
 #ifdef LFONTS_SDL2_TTF
     #include "fonts/sdl2_ttf.h"
 #endif
+#ifdef LFONTS_ALLEGRO42_FONT
+    #include "fonts/allegro42font.h"
+#endif
 #ifdef LFONTS_ALLEGRO5
     #include "fonts/allegro5.h"
 #endif

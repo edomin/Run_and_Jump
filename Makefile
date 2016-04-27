@@ -35,8 +35,8 @@ LFONTS = allegro42font
 LS = lua
 #sdl2, windows_h, allegro5_nd, native, dummy
 LDIALOGS = dummy
-#sdl12, sdl2, allegro5, native, dummy
-LINPUT = dummy
+#sdl12, sdl2, allegro42, allegro5, native, dummy
+LINPUT = allegro42
 #sdl2, dummy
 LSPEC = dummy
 #sdl12, sdl2, time_h, allegro5, native
@@ -374,6 +374,9 @@ endif
 ifeq ($(LINPUT), sdl2)
   LINPUT_DEF = -DLINPUT_SDL2
   DLLS += $(DLL_GAME_CONTROLLER_DB_TXT)
+endif
+ifeq ($(LINPUT), allegro42)
+  LINPUT_DEF = -DLINPUT_ALLEGRO42
 endif
 ifeq ($(LINPUT), allegro5)
   LINPUT_DEF = -DLINPUT_ALLEGRO5

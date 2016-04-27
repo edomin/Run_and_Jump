@@ -7,6 +7,9 @@
 #ifdef LINPUT_SDL2
     #include "input/sdl2.h"
 #endif
+#ifdef LINPUT_ALLEGRO42
+    #include "input/allegro42.h"
+#endif
 #ifdef LINPUT_ALLEGRO5
     #include "input/allegro5.h"
 #endif

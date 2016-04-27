@@ -2,6 +2,7 @@
 #define RNJ_FONTS_ALLEGRO42_FONT_H
 
 #include <string.h>
+#define ALLEGRO_NO_MAGIC_MAIN
 #include "allegro42/alfont.h"
 
 #include "log.h"

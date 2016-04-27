@@ -11,6 +11,11 @@
 #define RNJ_SPRITE_NUM_FILL         -5   /* Номер спрайта заливки экрана     */
 
 /* Число клавиш */
+#ifdef LINPUT_ALLEGRO42
+    #define ALLEGRO_NO_MAGIC_MAIN
+    #include "allegro42/allegro.h"
+    #define RNJ_KEYS_COUNT          KEY_MAX
+#endif
 #ifdef LINPUT_ALLEGRO5
     #include "allegro5/allegro.h"
     #define RNJ_KEYS_COUNT          ALLEGRO_KEY_MAX

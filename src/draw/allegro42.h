@@ -2,6 +2,7 @@
 #define RNJ_DRAW_ALLEGRO42_H
 
 #include <stdlib.h>
+#define ALLEGRO_NO_MAGIC_MAIN
 #include "allegro42/allegro.h"
 
 #include "screen.h"

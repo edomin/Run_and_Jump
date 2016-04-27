@@ -1,6 +1,7 @@
 #ifndef RNJ_SCREEN_ALLEGRO42_H
 #define RNJ_SCREEN_ALLEGRO42_H
 
+#define ALLEGRO_NO_MAGIC_MAIN
 #include "allegro42/allegro.h"
 #include "allegro42/winalleg.h"
 

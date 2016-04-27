@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ALLEGRO_NO_MAGIC_MAIN
 #include "allegro42/allegro.h"
 #include "allegro42/loadpng.h"
 

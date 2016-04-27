@@ -19,20 +19,20 @@ typedef bool ControllerState[16];
 typedef int16_t ControllerAxes[7];
 
 struct {
-    bool currentKeystate[KEYS_COUNT]; /* Текущее состояние клавиатуры */
-    bool previousKeystate[KEYS_COUNT]; /* Предыдущее состояние клавиатуры */
+    bool currentKeystate[KEYS_COUNT]; /* РўРµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РєР»Р°РІРёР°С‚СѓСЂС‹ */
+    bool previousKeystate[KEYS_COUNT]; /* РџСЂРµРґС‹РґСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РєР»Р°РІРёР°С‚СѓСЂС‹ */
     ALLEGRO_EVENT_QUEUE *keyboardEQ;
     ALLEGRO_EVENT keyboardEvent;
     ALLEGRO_EVENT_QUEUE *mouseEQ;
     ALLEGRO_EVENT mouseEvent;
     ALLEGRO_EVENT_QUEUE *controllerEQ;
     ALLEGRO_EVENT controllerEvent;
-    bool currentMouseLeft; /* Текущее состояние левой клавиши мыши */
-    bool currentMouseMiddle; /* Текущее состояние средней клавиши мыши */
-    bool currentMouseRight; /* Текущее состояние правой клавиши мыши */
-    bool previousMouseLeft; /* Предыдущее состояние левой клавиши мыши */
-    bool previousMouseMiddle; /* Предыдущее состояние средней клавиши мыши */
-    bool previousMouseRight; /* Предыдущее состояние правой клавиши мыши */
+    bool currentMouseLeft; /* РўРµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ Р»РµРІРѕР№ РєР»Р°РІРёС€Рё РјС‹С€Рё */
+    bool currentMouseMiddle; /* РўРµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ СЃСЂРµРґРЅРµР№ РєР»Р°РІРёС€Рё РјС‹С€Рё */
+    bool currentMouseRight; /* РўРµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РїСЂР°РІРѕР№ РєР»Р°РІРёС€Рё РјС‹С€Рё */
+    bool previousMouseLeft; /* РџСЂРµРґС‹РґСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ Р»РµРІРѕР№ РєР»Р°РІРёС€Рё РјС‹С€Рё */
+    bool previousMouseMiddle; /* РџСЂРµРґС‹РґСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ СЃСЂРµРґРЅРµР№ РєР»Р°РІРёС€Рё РјС‹С€Рё */
+    bool previousMouseRight; /* РџСЂРµРґС‹РґСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РїСЂР°РІРѕР№ РєР»Р°РІРёС€Рё РјС‹С€Рё */
     ControllerState *currentControllerState;
     ControllerState *previousControllerState;
     ControllerAxes *controllerAxis;
@@ -40,18 +40,18 @@ struct {
     ALLEGRO_JOYSTICK **controller;
 } Input;
 
-void InputInit(void); /* Инициализация ввода */
+void InputInit(void); /* РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РІРІРѕРґР° */
 void InputQuit(void);
-void InputKeystatesRefresh(void); /* Обновление состояния клавиатуры */
-bool InputKeyPress(signed int); /* Проверка нажатия клавиши */
-bool InputKeyRelease(signed int); /* Проверка отпускания клавиши */
-bool InputKeyPressed(signed int); /* Проверка зажатия клавиши */
-void InputMouseRefresh(void); /* Обновления состояния мыши */
-void InputControllersRefresh(void); /* Обновить информацию о состоянии контроллеров */
-bool InputControllerButtonPress(int, uint8_t); /* Проверка нажатия кнопки */
-bool InputControllerButtonRelease(int, uint8_t); /* Проверка отпускания кнопки */
-bool InputControllerButtonPressed(int, uint8_t); /* Проверка зажатия кнопки */
-int16_t InputControllerGetAxis(int, int); /* Получения значения оси */
+void InputKeystatesRefresh(void); /* РћР±РЅРѕРІР»РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РєР»Р°РІРёР°С‚СѓСЂС‹ */
+bool InputKeyPress(signed int); /* РџСЂРѕРІРµСЂРєР° РЅР°Р¶Р°С‚РёСЏ РєР»Р°РІРёС€Рё */
+bool InputKeyRelease(signed int); /* РџСЂРѕРІРµСЂРєР° РѕС‚РїСѓСЃРєР°РЅРёСЏ РєР»Р°РІРёС€Рё */
+bool InputKeyPressed(signed int); /* РџСЂРѕРІРµСЂРєР° Р·Р°Р¶Р°С‚РёСЏ РєР»Р°РІРёС€Рё */
+void InputMouseRefresh(void); /* РћР±РЅРѕРІР»РµРЅРёСЏ СЃРѕСЃС‚РѕСЏРЅРёСЏ РјС‹С€Рё */
+void InputControllersRefresh(void); /* РћР±РЅРѕРІРёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЃРѕСЃС‚РѕСЏРЅРёРё РєРѕРЅС‚СЂРѕР»Р»РµСЂРѕРІ */
+bool InputControllerButtonPress(int, uint8_t); /* РџСЂРѕРІРµСЂРєР° РЅР°Р¶Р°С‚РёСЏ РєРЅРѕРїРєРё */
+bool InputControllerButtonRelease(int, uint8_t); /* РџСЂРѕРІРµСЂРєР° РѕС‚РїСѓСЃРєР°РЅРёСЏ РєРЅРѕРїРєРё */
+bool InputControllerButtonPressed(int, uint8_t); /* РџСЂРѕРІРµСЂРєР° Р·Р°Р¶Р°С‚РёСЏ РєРЅРѕРїРєРё */
+int16_t InputControllerGetAxis(int, int); /* РџРѕР»СѓС‡РµРЅРёСЏ Р·РЅР°С‡РµРЅРёСЏ РѕСЃРё */
 
 int InputJoyToID(ALLEGRO_JOYSTICK *);
 int InputStickAxisToAxisnum(int, int, int);

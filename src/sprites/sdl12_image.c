@@ -8,7 +8,7 @@ void SpritesInit(int sprites)
     LogWrite("Initializing Sprite Manager", 0, MT_INFO, NULL);
 
     #ifndef CC_KOS
-	SDL_IMAGE_VERSION(&ctVersion);
+    SDL_IMAGE_VERSION(&ctVersion);
     LogWrite("Checking SDL_image compile-time version", 1, MT_INFO, NULL);
     LogWrite2("Major:", 2, MT_INFO, ctVersion.major);
     LogWrite2("Minor:", 2, MT_INFO, ctVersion.minor);
@@ -21,7 +21,8 @@ void SpritesInit(int sprites)
     LogWrite2("Patch:", 2, MT_INFO, dllVersion->patch);
     #endif
 
-    Sprites.spritesCount = 0; /* устанавливаем количество загруженных спрайтов в 0 */
+    /* СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РіСЂСѓР¶РµРЅРЅС‹С… СЃРїСЂР°Р№С‚РѕРІ РІ 0 */
+    Sprites.spritesCount = 0;
     Sprite = malloc(sizeof(struct sprite) * sprites);
     if (Sprite == NULL)
         ErrorGive("Can not allocate memory for Sprites", 1);
@@ -47,13 +48,15 @@ int SpritesCreateSprite(char *filename, int clips)
     int w;
     int h;
     Sprite[Sprites.spritesCount].name = malloc(sizeof(char) * (strlen(filename) + 1));
-    Sprite[Sprites.spritesCount].name = strcpy(Sprite[Sprites.spritesCount].name, (const char *)filename);
+    Sprite[Sprites.spritesCount].name = strcpy(Sprite[Sprites.spritesCount].name,
+                                               (const char *)filename);
     LogWrite("Creating sprite", 0, MT_INFO, Sprite[Sprites.spritesCount].name);
-    Sprites.spritesCount += 1; /* Увеличиваем кол-во спрайтов на 1 */
-    /* Загружаем файл */
-    Sprites.loadedImage = NULL;/* обнуляем временную поверхность */
-
-    Sprites.loadedImage = IMG_Load(filename);/* грузим картинку из файла во временную поверхность */
+    /* РЈРІРµР»РёС‡РёРІР°РµРј РєРѕР»-РІРѕ СЃРїСЂР°Р№С‚РѕРІ РЅР° 1 */
+    Sprites.spritesCount += 1;
+    /* Р—Р°РіСЂСѓР¶Р°РµРј С„Р°Р№Р» */
+    Sprites.loadedImage = NULL;/* РѕР±РЅСѓР»СЏРµРј РІСЂРµРјРµРЅРЅСѓСЋ РїРѕРІРµСЂС…РЅРѕСЃС‚СЊ */
+    /* РіСЂСѓР·РёРј РєР°СЂС‚РёРЅРєСѓ РёР· С„Р°Р№Р»Р° РІРѕ РІСЂРµРјРµРЅРЅСѓСЋ РїРѕРІРµСЂС…РЅРѕСЃС‚СЊ */
+    Sprites.loadedImage = IMG_Load(filename);
 
     if (Sprites.loadedImage != NULL)
         LogWrite("Image loaded", 1, MT_INFO, NULL);
@@ -65,11 +68,13 @@ int SpritesCreateSprite(char *filename, int clips)
 
     Sprite[Sprites.spritesCount - 1].width = w;
     Sprite[Sprites.spritesCount - 1].height = h;
-
-	Sprites.tempImage = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);/* обнуляем поверхность спрайта */
+    /* РѕР±РЅСѓР»СЏРµРј РїРѕРІРµСЂС…РЅРѕСЃС‚СЊ СЃРїСЂР°Р№С‚Р° */
+    Sprites.tempImage = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 32,
+                                             0x00FF0000, 0x0000FF00, 0x000000FF,
+                                             0xFF000000);
     Sprite[Sprites.spritesCount - 1].texture = SDL_ConvertSurface(Sprites.loadedImage, Sprites.tempImage->format, 0);
-    SDL_FreeSurface(Sprites.loadedImage); /* освобождаем временную поверхность */
-    SDL_FreeSurface(Sprites.tempImage); /* освобождаем временную поверхность */
+    SDL_FreeSurface(Sprites.loadedImage);/* РѕСЃРІРѕР±РѕР¶РґР°РµРј РІСЂРµРјРµРЅРЅСѓСЋ РїРѕРІРµСЂС…РЅРѕСЃС‚СЊ */
+    SDL_FreeSurface(Sprites.tempImage); /* РѕСЃРІРѕР±РѕР¶РґР°РµРј РІСЂРµРјРµРЅРЅСѓСЋ РїРѕРІРµСЂС…РЅРѕСЃС‚СЊ */
 
 //    Sprite[Sprites.spritesCount - 1].texture = SDL_DisplayFormat(Sprites.loadedImage);
 
@@ -78,9 +83,9 @@ int SpritesCreateSprite(char *filename, int clips)
     else
         ErrorGive("Can not create texture", 1);
 
-    /* устанавливаем число кадров для спрайта */
+    /* СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј С‡РёСЃР»Рѕ РєР°РґСЂРѕРІ РґР»СЏ СЃРїСЂР°Р№С‚Р° */
     Sprite[Sprites.spritesCount - 1].clip = malloc(sizeof(SDL_Rect) * clips);
-    /* разбиваем спрайтшит на кадры */
+    /* СЂР°Р·Р±РёРІР°РµРј СЃРїСЂР°Р№С‚С€РёС‚ РЅР° РєР°РґСЂС‹ */
     for (i = 0; i <= clips - 1; i++)
     {
         Sprite[Sprites.spritesCount - 1].clip[i].x = i * w / clips;
@@ -93,29 +98,32 @@ int SpritesCreateSprite(char *filename, int clips)
     return Sprites.spritesCount - 1;
 }
 
-int SpritesCreateText(char *text, int fontnum, int text_r, int text_g, int text_b, int wrapLength)
+int SpritesCreateText(char *text, int fontnum, int text_r, int text_g,
+                      int text_b, int wrapLength)
 {
     SDL_Color textcolor;
     int w;
     int h;
     Sprite[Sprites.spritesCount].name = malloc(sizeof(char) * (strlen(text) + 1));
-    Sprite[Sprites.spritesCount].name = strcpy(Sprite[Sprites.spritesCount].name, (const char *)text);
-    LogWrite("Creating text sprite", 0, MT_INFO, Sprite[Sprites.spritesCount].name);
+    Sprite[Sprites.spritesCount].name = strcpy(Sprite[Sprites.spritesCount].name,
+                                               (const char *)text);
+    LogWrite("Creating text sprite", 0, MT_INFO,
+             Sprite[Sprites.spritesCount].name);
 
-    Sprites.spritesCount += 1; /* Увеличиваем кол-во спрайтов на 1 */
+    Sprites.spritesCount += 1; /* РЈРІРµР»РёС‡РёРІР°РµРј РєРѕР»-РІРѕ СЃРїСЂР°Р№С‚РѕРІ РЅР° 1 */
 
     #ifndef LFONTS_DUMMY
     Sprites.loadedImage = NULL;
 
-    /* Переводим текст на поверхность спрайта */
-
+    /* РџРµСЂРµРІРѕРґРёРј С‚РµРєСЃС‚ РЅР° РїРѕРІРµСЂС…РЅРѕСЃС‚СЊ СЃРїСЂР°Р№С‚Р° */
     textcolor.r = text_r;
     textcolor.g = text_g;
     textcolor.b = text_b;
     textcolor.unused = 255;
 
 //    if (wrapLength <= WRAP_NOWRAP)
-        Sprites.loadedImage = TTF_RenderUTF8_Blended(Fonts.font[fontnum], text, textcolor);
+        Sprites.loadedImage = TTF_RenderUTF8_Blended(Fonts.font[fontnum], text,
+                                                     textcolor);
 //    else
 //        Sprites.loadedImage = TTF_RenderUTF8_Blended_Wrapped(Fonts.font[fontnum], text, textcolor, wrapLength);
 
@@ -130,8 +138,9 @@ int SpritesCreateText(char *text, int fontnum, int text_r, int text_g, int text_
     Sprite[Sprites.spritesCount - 1].width = w;
     Sprite[Sprites.spritesCount - 1].height = h;
 
-    Sprite[Sprites.spritesCount - 1].texture = NULL;/* обнуляем поверхность спрайта */
-    Sprite[Sprites.spritesCount - 1].texture = Sprites.loadedImage;//SDL_DisplayFormat(Sprites.loadedImage);
+    /* РѕР±РЅСѓР»СЏРµРј РїРѕРІРµСЂС…РЅРѕСЃС‚СЊ СЃРїСЂР°Р№С‚Р° */
+    Sprite[Sprites.spritesCount - 1].texture = NULL;
+    Sprite[Sprites.spritesCount - 1].texture = Sprites.loadedImage;
 
     Sprites.loadedImage = NULL;
 
@@ -140,11 +149,11 @@ int SpritesCreateText(char *text, int fontnum, int text_r, int text_g, int text_
     else
         ErrorGive("Can not create text texture", 1);
 
-    SDL_FreeSurface(Sprites.loadedImage); /* освобождаем временную поверхность */
+    SDL_FreeSurface(Sprites.loadedImage);/* РѕСЃРІРѕР±РѕР¶РґР°РµРј РІСЂРµРјРµРЅРЅСѓСЋ РїРѕРІРµСЂС…РЅРѕСЃС‚СЊ */
 
-    /* устанавливаем число кадров для спрайта - для текста 1 кадр */
+    /* СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј С‡РёСЃР»Рѕ РєР°РґСЂРѕРІ РґР»СЏ СЃРїСЂР°Р№С‚Р° - РґР»СЏ С‚РµРєСЃС‚Р° 1 РєР°РґСЂ */
     Sprite[Sprites.spritesCount - 1].clip = malloc(sizeof(SDL_Rect) * 1);
-    /* разбиваем спрайтшит на кадры */
+    /* СЂР°Р·Р±РёРІР°РµРј СЃРїСЂР°Р№С‚С€РёС‚ РЅР° РєР°РґСЂС‹ */
 
     Sprite[Sprites.spritesCount - 1].clip[0].x = 0;
     Sprite[Sprites.spritesCount - 1].clip[0].y = 0;
@@ -160,7 +169,8 @@ int SpritesCreateText(char *text, int fontnum, int text_r, int text_g, int text_
     return Sprites.spritesCount - 1;
 }
 
-void SpritesChangeText(int num, char *text, int fontnum, int text_r, int text_g, int text_b, int wrapLength)
+void SpritesChangeText(int num, char *text, int fontnum, int text_r, int text_g,
+                       int text_b, int wrapLength)
 {
     #ifndef LFONTS_DUMMY
     SDL_Color textcolor;
@@ -173,7 +183,8 @@ void SpritesChangeText(int num, char *text, int fontnum, int text_r, int text_g,
 
 //    if (wrapLength <= WRAP_NOWRAP)
 //    {
-        Sprites.loadedImage = TTF_RenderUTF8_Blended(Fonts.font[fontnum], text, textcolor);
+        Sprites.loadedImage = TTF_RenderUTF8_Blended(Fonts.font[fontnum], text,
+                                                     textcolor);
 //    }
 //    else
 //    {
@@ -187,14 +198,14 @@ void SpritesChangeText(int num, char *text, int fontnum, int text_r, int text_g,
     Sprite[num].height = h;
 
     SDL_FreeSurface(Sprite[num].texture);
-    Sprite[num].texture = NULL;/* обнуляем поверхность спрайта */
-    Sprite[num].texture = Sprites.loadedImage;//SDL_DisplayFormat(Sprites.loadedImage);
+    Sprite[num].texture = NULL;/* РѕР±РЅСѓР»СЏРµРј РїРѕРІРµСЂС…РЅРѕСЃС‚СЊ СЃРїСЂР°Р№С‚Р° */
+    Sprite[num].texture = Sprites.loadedImage;
 
     Sprites.loadedImage = NULL;
 
-    /* устанавливаем число кадров для спрайта - для текста 1 кадр */
-    /* Уже установлено */
-    /* разбиваем спрайтшит на кадры */
+    /* СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј С‡РёСЃР»Рѕ РєР°РґСЂРѕРІ РґР»СЏ СЃРїСЂР°Р№С‚Р° - РґР»СЏ С‚РµРєСЃС‚Р° 1 РєР°РґСЂ */
+    /* РЈР¶Рµ СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ */
+    /* СЂР°Р·Р±РёРІР°РµРј СЃРїСЂР°Р№С‚С€РёС‚ РЅР° РєР°РґСЂС‹ */
 
     Sprite[num].clip[0].x = 0;
     Sprite[num].clip[0].y = 0;
@@ -205,9 +216,10 @@ void SpritesChangeText(int num, char *text, int fontnum, int text_r, int text_g,
     #endif
 }
 
-void SpritesBlitSprite(int num, int clip, int x, int y, int width, int height, int centerX, int centerY, double angle, int a, int flip)
+void SpritesBlitSprite(int num, int clip, int x, int y, int width, int height,
+                       int centerX, int centerY, double angle, int a, int flip)
 {
-    /* сдвиг спрайта */
+    /* СЃРґРІРёРі СЃРїСЂР°Р№С‚Р° */
     SDL_Rect offset;
 //    SDL_Point point;
 
@@ -229,7 +241,8 @@ void SpritesBlitSprite(int num, int clip, int x, int y, int width, int height, i
 //        point.y = centerY;
 //        SDL_RenderCopyEx(Draw.renderer, Sprite[num].texture, &Sprite[num].clip[clip], &offset, -angle, &point, flip);
 //    }
-    SDL_BlitSurface(Sprite[num].texture, &Sprite[num].clip[clip], Draw.renderer, &offset);
+    SDL_BlitSurface(Sprite[num].texture, &Sprite[num].clip[clip], Draw.renderer,
+                    &offset);
 }
 
 void SpritesDestroySprite(int num)

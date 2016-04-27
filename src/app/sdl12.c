@@ -7,7 +7,7 @@ void AppInit(void)
 
     LogWrite("Initializing application", 0, MT_INFO, NULL);
 
-	SDL_VERSION(&ctVersion)
+    SDL_VERSION(&ctVersion)
     LogWrite("Checking SDL compile-time version", 1, MT_INFO, NULL);
     LogWrite2("Major:", 2, MT_INFO, ctVersion.major);
     LogWrite2("Minor:", 2, MT_INFO, ctVersion.minor);
@@ -20,7 +20,7 @@ void AppInit(void)
     LogWrite2("Patch:", 2, MT_INFO, dllVersion->patch);
 
     LogWrite("Initializing SDL", 1, MT_INFO, NULL);
-    if (SDL_Init(SDL_INIT_EVENTTHREAD) == 0) /* Инициализируем SDL */
+    if (SDL_Init(SDL_INIT_EVENTTHREAD) == 0) /* РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј SDL */
     {
         LogWrite("SDL initialized", 1, MT_INFO, NULL);
     }

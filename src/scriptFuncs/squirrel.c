@@ -13,8 +13,8 @@ SQInteger SFInitScreen(HSQUIRRELVM v)
     int h;
     const char *title;
     bool fullscreen;
-    sq_getinteger(Scripts.vm, 2, &w);    /* получаем 1-ый */
-                                         /* переданный параметр */
+    sq_getinteger(Scripts.vm, 2, &w);    /* РїРѕР»СѓС‡Р°РµРј 1-С‹Р№ */
+                                         /* РїРµСЂРµРґР°РЅРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ */
     sq_getinteger(Scripts.vm, 3, &h);
     sq_getstring(Scripts.vm, 4, &title);
     sq_getbool(Scripts.vm, 5, &fullscreen);
@@ -194,7 +194,8 @@ SQInteger SFSpriteCreateText(HSQUIRRELVM v)
     sq_getinteger(Scripts.vm, 5, &text_g);
     sq_getinteger(Scripts.vm, 6, &text_b);
 
-    sprite = SpritesCreateText(text, fontnum, text_r, text_g, text_b, WRAP_NOWRAP);
+    sprite = SpritesCreateText(text, fontnum, text_r, text_g, text_b,
+                               WRAP_NOWRAP);
     sq_pushinteger(Scripts.vm, sprite);
     return 1;
 }
@@ -235,7 +236,8 @@ SQInteger SFSpriteChangeText(HSQUIRRELVM v)
     sq_getinteger(Scripts.vm, 6, &textG);
     sq_getinteger(Scripts.vm, 7, &textB);
 
-    SpritesChangeText(spriteNum, text, fontNum, textR, textG, textB, WRAP_NOWRAP);
+    SpritesChangeText(spriteNum, text, fontNum, textR, textG, textB,
+                      WRAP_NOWRAP);
     return 0;
 }
 
@@ -256,7 +258,8 @@ SQInteger SFSpriteChangeTextWrapped(HSQUIRRELVM v)
     sq_getinteger(Scripts.vm, 7, &textB);
     sq_getinteger(Scripts.vm, 8, &wrapLength);
 
-    SpritesChangeText(spriteNum, text, fontNum, textR, textG, textB, wrapLength);
+    SpritesChangeText(spriteNum, text, fontNum, textR, textG, textB,
+                      wrapLength);
     return 0;
 }
 
@@ -265,8 +268,8 @@ SQInteger SFSpriteGetClipWidthHeight(HSQUIRRELVM v)
     int spriteNum;
     sq_getinteger(Scripts.vm, 2, &spriteNum);
 
-	sq_pushinteger(Scripts.vm, (Sprite[spriteNum].clip[0].w));
-	sq_pushinteger(Scripts.vm, (Sprite[spriteNum].clip[0].h));
+    sq_pushinteger(Scripts.vm, (Sprite[spriteNum].clip[0].w));
+    sq_pushinteger(Scripts.vm, (Sprite[spriteNum].clip[0].h));
     return 2;
 }
 
@@ -369,36 +372,36 @@ SQInteger SFMousePressed(HSQUIRRELVM v) /* 1 - left; 2 - middle; 3 - right; */
         {
             if (Input.currentMouseLeft)
             {
-				sq_pushbool(Scripts.vm, SQTrue);
-			}
-			else
-			{
-				sq_pushbool(Scripts.vm, SQFalse);
-			}
+                sq_pushbool(Scripts.vm, SQTrue);
+            }
+            else
+            {
+                sq_pushbool(Scripts.vm, SQFalse);
+            }
             break;
         }
         case 2: /* middle */
         {
             if (Input.currentMouseMiddle)
-			{
-				sq_pushbool(Scripts.vm, SQTrue);
-			}
-			else
-			{
-				sq_pushbool(Scripts.vm, SQFalse);
-			}
+            {
+                sq_pushbool(Scripts.vm, SQTrue);
+            }
+            else
+            {
+                sq_pushbool(Scripts.vm, SQFalse);
+            }
             break;
         }
         case 3: /* right */
         {
             if (Input.currentMouseRight)
             {
-				sq_pushbool(Scripts.vm, SQTrue);
-			}
-			else
-			{
-				sq_pushbool(Scripts.vm, SQFalse);
-			}
+                sq_pushbool(Scripts.vm, SQTrue);
+            }
+            else
+            {
+                sq_pushbool(Scripts.vm, SQFalse);
+            }
             break;
         }
     }
@@ -415,36 +418,36 @@ SQInteger SFMousePress(HSQUIRRELVM v) /* 1 - left; 2 - middle; 3 - right; */
         {
             if (Input.currentMouseLeft && !(Input.previousMouseLeft))
             {
-				sq_pushbool(Scripts.vm, SQTrue);
-			}
-			else
-			{
-				sq_pushbool(Scripts.vm, SQFalse);
-			}
+                sq_pushbool(Scripts.vm, SQTrue);
+            }
+            else
+            {
+                sq_pushbool(Scripts.vm, SQFalse);
+            }
             break;
         }
         case 2: /* middle */
         {
             if (Input.currentMouseMiddle && !(Input.previousMouseMiddle))
             {
-				sq_pushbool(Scripts.vm, SQTrue);
-			}
-			else
-			{
-				sq_pushbool(Scripts.vm, SQFalse);
-			}
+                sq_pushbool(Scripts.vm, SQTrue);
+            }
+            else
+            {
+                sq_pushbool(Scripts.vm, SQFalse);
+            }
             break;
         }
         case 3: /* right */
         {
             if (Input.currentMouseRight && !(Input.previousMouseRight))
             {
-				sq_pushbool(Scripts.vm, SQTrue);
-			}
-			else
-			{
-				sq_pushbool(Scripts.vm, SQFalse);
-			}
+                sq_pushbool(Scripts.vm, SQTrue);
+            }
+            else
+            {
+                sq_pushbool(Scripts.vm, SQFalse);
+            }
             break;
         }
     }
@@ -461,36 +464,36 @@ SQInteger SFMouseRelease(HSQUIRRELVM v) /* 1 - left; 2 - middle; 3 - right; */
         {
             if (Input.previousMouseLeft && !(Input.currentMouseLeft))
             {
-				sq_pushbool(Scripts.vm, SQTrue);
-			}
-			else
-			{
-				sq_pushbool(Scripts.vm, SQFalse);
-			}
+                sq_pushbool(Scripts.vm, SQTrue);
+            }
+            else
+            {
+                sq_pushbool(Scripts.vm, SQFalse);
+            }
             break;
         }
         case 2: /* middle */
         {
             if (Input.previousMouseMiddle && !(Input.currentMouseMiddle))
             {
-				sq_pushbool(Scripts.vm, SQTrue);
-			}
-			else
-			{
-				sq_pushbool(Scripts.vm, SQFalse);
-			}
+                sq_pushbool(Scripts.vm, SQTrue);
+            }
+            else
+            {
+                sq_pushbool(Scripts.vm, SQFalse);
+            }
             break;
         }
         case 3: /* right */
         {
             if (Input.previousMouseRight && !(Input.currentMouseRight))
             {
-				sq_pushbool(Scripts.vm, SQTrue);
-			}
-			else
-			{
-				sq_pushbool(Scripts.vm, SQFalse);
-			}
+                sq_pushbool(Scripts.vm, SQTrue);
+            }
+            else
+            {
+                sq_pushbool(Scripts.vm, SQFalse);
+            }
             break;
         }
     }
@@ -523,12 +526,12 @@ SQInteger SFControllerPress(HSQUIRRELVM v)
     sq_getinteger(Scripts.vm, 3, (SQInteger *)&button);
     if (InputControllerButtonPress(controllerNum, button))
     {
-		sq_pushbool(Scripts.vm, SQTrue);
-	}
-	else
-	{
-		sq_pushbool(Scripts.vm, SQFalse);
-	}
+        sq_pushbool(Scripts.vm, SQTrue);
+    }
+    else
+    {
+        sq_pushbool(Scripts.vm, SQFalse);
+    }
     return 1;
 }
 
@@ -540,12 +543,12 @@ SQInteger SFControllerRelease(HSQUIRRELVM v)
     sq_getinteger(Scripts.vm, 3, (SQInteger *)&button);
     if (InputControllerButtonRelease(controllerNum, button))
     {
-		sq_pushbool(Scripts.vm, SQTrue);
-	}
-	else
-	{
-		sq_pushbool(Scripts.vm, SQFalse);
-	}
+        sq_pushbool(Scripts.vm, SQTrue);
+    }
+    else
+    {
+        sq_pushbool(Scripts.vm, SQFalse);
+    }
     return 1;
 }
 
@@ -557,12 +560,12 @@ SQInteger SFControllerPressed(HSQUIRRELVM v)
     sq_getinteger(Scripts.vm, 3, (SQInteger *)&button);
     if (InputControllerButtonPressed(controllerNum, button))
     {
-		sq_pushbool(Scripts.vm, SQTrue);
-	}
-	else
-	{
-		sq_pushbool(Scripts.vm, SQFalse);
-	}
+        sq_pushbool(Scripts.vm, SQTrue);
+    }
+    else
+    {
+        sq_pushbool(Scripts.vm, SQFalse);
+    }
     return 1;
 }
 
@@ -755,7 +758,8 @@ SQInteger SFDrawAddSpriteGeneral(HSQUIRRELVM v)
     sq_getinteger(Scripts.vm, 11, &alpha);
     sq_getinteger(Scripts.vm, 12, &alpha);
 
-    DrawAddSpriteGeneral(spriteNum, clipNum, x, y, width, height, centerX, centerY, angle, alpha, flip);
+    DrawAddSpriteGeneral(spriteNum, clipNum, x, y, width, height, centerX,
+                         centerY, angle, alpha, flip);
 
     return 0;
 }
@@ -1129,13 +1133,13 @@ SQInteger SFMax(HSQUIRRELVM v)
     sq_getfloat(Scripts.vm, 2, &x);
     sq_getfloat(Scripts.vm, 3, &y);
     #ifndef CC_DJGPP
-		sq_pushfloat(Scripts.vm, fmax(x, y));
-	#else
-		if (x > y)
-			sq_pushfloat(Scripts.vm, x);
-		else
-			sq_pushfloat(Scripts.vm, y);
-	#endif
+        sq_pushfloat(Scripts.vm, fmax(x, y));
+    #else
+        if (x > y)
+            sq_pushfloat(Scripts.vm, x);
+        else
+            sq_pushfloat(Scripts.vm, y);
+    #endif
     return 1;
 }
 
@@ -1146,13 +1150,13 @@ SQInteger SFMin(HSQUIRRELVM v)
     sq_getfloat(Scripts.vm, 2, &x);
     sq_getfloat(Scripts.vm, 3, &y);
     #ifndef CC_DJGPP
-		sq_pushfloat(Scripts.vm, fmin(x, y));
-	#else
-		if (x < y)
-			sq_pushfloat(Scripts.vm, x);
-		else
-			sq_pushfloat(Scripts.vm, y);
-	#endif
+        sq_pushfloat(Scripts.vm, fmin(x, y));
+    #else
+        if (x < y)
+            sq_pushfloat(Scripts.vm, x);
+        else
+            sq_pushfloat(Scripts.vm, y);
+    #endif
     return 1;
 }
 
@@ -1161,12 +1165,12 @@ SQInteger SFRound(HSQUIRRELVM v)
     SQFloat x;
     sq_getfloat(Scripts.vm, 2, &x);
     #ifndef CC_DJGPP
-		sq_pushfloat(Scripts.vm, round(x));
+        sq_pushfloat(Scripts.vm, round(x));
     #else
-		if (floor(x) < x - 0.5)
-			sq_pushfloat(Scripts.vm, ceil(x));
-		else
-			sq_pushfloat(Scripts.vm, floor(x));
+        if (floor(x) < x - 0.5)
+            sq_pushfloat(Scripts.vm, ceil(x));
+        else
+            sq_pushfloat(Scripts.vm, floor(x));
     #endif
     return 1;
 }
@@ -1470,22 +1474,22 @@ SQInteger SFLogWrite(HSQUIRRELVM v)
 
 SQInteger SFScriptRegisterNumericVariable(HSQUIRRELVM v)
 {
-	char *name;
-	SQFloat value;
-	sq_getstring(Scripts.vm, 2, (const char **)&name);
-	sq_getfloat(Scripts.vm, 3, &value);
-	ScriptsRegisterNumericVariable(name, value);
-	return 0;
+    char *name;
+    SQFloat value;
+    sq_getstring(Scripts.vm, 2, (const char **)&name);
+    sq_getfloat(Scripts.vm, 3, &value);
+    ScriptsRegisterNumericVariable(name, value);
+    return 0;
 }
 
 SQInteger SFScriptRegisterStringVariable(HSQUIRRELVM v)
 {
-	char *name;
-	char *value;
-	sq_getstring(Scripts.vm, 2, (const char **)&name);
-	sq_getstring(Scripts.vm, 3, (const char **)&value);
-	ScriptsRegisterStringVariable(name, value);
-	return 0;
+    char *name;
+    char *value;
+    sq_getstring(Scripts.vm, 2, (const char **)&name);
+    sq_getstring(Scripts.vm, 3, (const char **)&value);
+    ScriptsRegisterStringVariable(name, value);
+    return 0;
 }
 
 #endif

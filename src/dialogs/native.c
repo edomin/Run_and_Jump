@@ -26,7 +26,7 @@ void kolibrios_DialogThread(void)
 
 void kolibrios_DialogExitThread(void)
 {
-	__asm__ __volatile__(
+    __asm__ __volatile__(
     "int $0x40"
     :
     :"a"(-1)
@@ -40,8 +40,8 @@ void DialogsShowSimpleMessageBox(int type, char *title, char *message)
     dialogStack = malloc(THREAD_STACK_SIZE);
     new_esp = (uint32_t *)&dialogStack[THREAD_STACK_SIZE-sizeof(size_t)*2];
 
-	new_esp[0] = (uint32_t)kolibrios_DialogExitThread;
-//	new_esp[1] = (uint32_t)data;
+    new_esp[0] = (uint32_t)kolibrios_DialogExitThread;
+//    new_esp[1] = (uint32_t)data;
 
     __asm__ __volatile__(
     "int $0x40"

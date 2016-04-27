@@ -5,7 +5,7 @@ void ScriptsInit(void)
     LogWrite("Initializing Script Manager", 0, MT_INFO, NULL);
     Scripts.vm = sq_open(1024);
     LogWrite("Squirrel VM created", 1, MT_INFO, NULL);
-    //sqstd_seterrorhandlers(v); // это для обработки ошибок. Сделать позже
+    //sqstd_seterrorhandlers(v); // СЌС‚Рѕ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё РѕС€РёР±РѕРє. РЎРґРµР»Р°С‚СЊ РїРѕР·Р¶Рµ
     RegisterAll();
     LogWrite("Script functions registered", 1, MT_INFO, NULL);
     LogWrite("Script Manager initialized", 0, MT_INFO, NULL);
@@ -24,15 +24,15 @@ void ScriptsRegisterFunction(SQFUNCTION func, char *funcname)
 void ScriptsRegisterStringVariable(char *name, char *value)
 {
 //    lua_pushstring(Scripts.vm, value);
-//	lua_setglobal(Scripts.vm, name);
-	;
+//    lua_setglobal(Scripts.vm, name);
+    ;
 }
 
 void ScriptsRegisterNumericVariable(char *name, double value)
 {
 //    lua_pushnumber(Scripts.vm, value);
-//	lua_setglobal(Scripts.vm, name);
-	;
+//    lua_setglobal(Scripts.vm, name);
+    ;
 }
 
 int ScriptsDoFile(char * filename)

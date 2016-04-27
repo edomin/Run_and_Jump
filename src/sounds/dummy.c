@@ -1,6 +1,7 @@
 #include "sounds/dummy.h"
 
-void SoundsInit(int maxSounds, int maxMusic, unsigned int freq, int channels, int chunksize)
+void SoundsInit(int maxSounds, int maxMusic, unsigned int freq, int channels,
+                int chunksize)
 {
     return;
 }

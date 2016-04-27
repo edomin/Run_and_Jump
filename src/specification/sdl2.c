@@ -22,8 +22,10 @@ void SpecificationReport(void)
 {
     LogWrite("Reporting specification", 0, MT_INFO, NULL);
     LogWrite("Platform:", 1, MT_INFO, (char *)Specification.platform);
-    LogWrite2("Logical CPU cores count:", 1, MT_INFO, Specification.LogicalCPUCoresCount);
-    LogWrite2("L1 Cash line size (Bytes):", 1, MT_INFO, Specification.L1CashLineSize);
+    LogWrite2("Logical CPU cores count:", 1, MT_INFO,
+              Specification.LogicalCPUCoresCount);
+    LogWrite2("L1 Cash line size (Bytes):", 1, MT_INFO,
+              Specification.L1CashLineSize);
     if (Specification.RDTSC)
     {
         LogWrite("RDTSC instruction:", 1, MT_INFO, "Supported");
@@ -104,6 +106,7 @@ void SpecificationReport(void)
     {
         LogWrite("AVX:", 1, MT_INFO, "Not Supported");
     }
-    LogWrite2("System physical memory (MiB):", 1, MT_INFO, Specification.RAMMiB);
+    LogWrite2("System physical memory (MiB):", 1, MT_INFO,
+              Specification.RAMMiB);
 }
 

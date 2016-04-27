@@ -5,7 +5,7 @@ void ImagesInit(int images)
     LogWrite("Initializing Image Manager", 0, MT_INFO, NULL);
     Images.imagesCount = 0;
     #ifdef FREEIMAGE_LIB
-        FreeImage_Initialise();
+    FreeImage_Initialise();
     #endif /* FREEIMAGE_LIB */
     Bitmap = malloc(sizeof(struct bitmap) * images);
     if (Bitmap == NULL)
@@ -19,7 +19,8 @@ int ImagesCreateBitmap(int width, int height, int bpp)
 {
     LogWrite("Creating bitmap", 0, MT_INFO, NULL);
     Images.imagesCount += 1;
-    Bitmap[Images.imagesCount - 1].data = FreeImage_Allocate(width, height, bpp, 0, 0, 0);
+    Bitmap[Images.imagesCount - 1].data = FreeImage_Allocate(width, height,
+                                                             bpp, 0, 0, 0);
     if (Bitmap[Images.imagesCount - 1].data)
         LogWrite("Bitmap created", 0, MT_INFO, NULL);
     else
@@ -64,7 +65,7 @@ void ImagesQuit()
     free(Bitmap);
 
     #ifdef FREEIMAGE_LIB
-        FreeImage_DeInitialise();
+    FreeImage_DeInitialise();
     #endif /* FREEIMAGE_LIB */
     LogWrite("Image Manager Destroyed", 0, MT_INFO, NULL);
 }

@@ -2,9 +2,9 @@
 
 void InitTimer(void)
 {
-	LogWrite("Initializing timer", 0, MT_INFO, NULL);
-	srand(time(NULL));
-	LogWrite("Timer initialized", 1, MT_INFO, NULL);
+    LogWrite("Initializing timer", 0, MT_INFO, NULL);
+    srand(time(NULL));
+    LogWrite("Timer initialized", 1, MT_INFO, NULL);
 }
 
 void TimerStart(void)
@@ -19,7 +19,7 @@ int TimerGetTicks(void)
 
 int TimerDelay(int ms)
 {
-	al_rest(ms / 1000);
+    al_rest(ms / 1000);
     return ONE_SECOND / (TimerGetTicks());
 }
 

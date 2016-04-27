@@ -10,15 +10,15 @@ void DrawInit(int driver, int filtering)
     Draw.renderer = create_bitmap(SCREEN_W, SCREEN_H);
     if (Draw.renderer == NULL)
         ErrorGive("Can not create backbuffer", 0);
-	else
-		LogWrite("Backbuffer created", 0, MT_INFO, NULL);
+    else
+        LogWrite("Backbuffer created", 0, MT_INFO, NULL);
     LogWrite("Draw subsystem initialized", 0, MT_INFO, NULL);
 }
 
 void DrawDestroy(void)
 {
     free(DrawRound);
-	destroy_bitmap(Draw.renderer);
+    destroy_bitmap(Draw.renderer);
     LogWrite("Draw subsystem Destroyed", 0, MT_INFO, NULL);
 }
 
@@ -38,7 +38,8 @@ void DrawAddSprite(int spriteNum, int clipNum, int x, int y)
     DrawRound[Draw.roundLength - 1].flip = 0;
 }
 
-void DrawAddSpriteSized(int spriteNum, int clipNum, int x, int y, int width, int height)
+void DrawAddSpriteSized(int spriteNum, int clipNum, int x, int y, int width,
+                        int height)
 {
     if (width == 0)
     {
@@ -63,7 +64,8 @@ void DrawAddSpriteSized(int spriteNum, int clipNum, int x, int y, int width, int
     DrawRound[Draw.roundLength - 1].flip = 0;
 }
 
-void DrawAddSpriteAngled(int spriteNum, int clipNum, int x, int y, int centerX, int centerY, double angle)
+void DrawAddSpriteAngled(int spriteNum, int clipNum, int x, int y, int centerX,
+                         int centerY, double angle)
 {
     Draw.roundLength += 1;
     DrawRound[Draw.roundLength - 1].spriteNum = spriteNum;
@@ -95,7 +97,9 @@ void DrawAddSpriteAlpha(int spriteNum, int clipNum, int x, int y, int a)
     DrawRound[Draw.roundLength - 1].flip = 0;
 }
 
-void DrawAddSpriteGeneral(int spriteNum, int clipNum, int x, int y, int width, int height, int centerX, int centerY, double angle, int a, int flip)
+void DrawAddSpriteGeneral(int spriteNum, int clipNum, int x, int y, int width,
+                          int height, int centerX, int centerY, double angle,
+                          int a, int flip)
 {
     if (width == 0)
     {
@@ -152,7 +156,8 @@ void DrawAddLine(int x1, int y1, int x2, int y2, int r, int g, int b, int a)
     DrawRound[Draw.roundLength - 1].flip = 0;
 }
 
-void DrawAddRect(int x, int y, int width, int height, int r, int g, int b, int a)
+void DrawAddRect(int x, int y, int width, int height, int r, int g, int b,
+                 int a)
 {
     Draw.roundLength += 1;
     DrawRound[Draw.roundLength - 1].spriteNum = RNJ_SPRITE_NUM_RECT;
@@ -168,7 +173,8 @@ void DrawAddRect(int x, int y, int width, int height, int r, int g, int b, int a
     DrawRound[Draw.roundLength - 1].flip = 0;
 }
 
-void DrawAddFilledRect(int x, int y, int width, int height, int r, int g, int b, int a)
+void DrawAddFilledRect(int x, int y, int width, int height, int r, int g, int b,
+                       int a)
 {
     Draw.roundLength += 1;
     DrawRound[Draw.roundLength - 1].spriteNum = RNJ_SPRITE_NUM_FILLED_RECT;
@@ -200,53 +206,64 @@ int DrawOutput(void)
 {
     int i;
     int roundLength;
-    /* Блитинг всех элементов из очереди */
+    /* Р‘Р»РёС‚РёРЅРі РІСЃРµС… СЌР»РµРјРµРЅС‚РѕРІ РёР· РѕС‡РµСЂРµРґРё */
     for (i = 0; i <= Draw.roundLength - 1; i++)
     {
         switch (DrawRound[i].spriteNum)
         {
             case (RNJ_SPRITE_NUM_POINT):
             {
-                putpixel(Draw.renderer, DrawRound[i].x, DrawRound[i].y, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
+                putpixel(Draw.renderer, DrawRound[i].x, DrawRound[i].y,
+                         makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
                 break;
             }
             case (RNJ_SPRITE_NUM_LINE):
             {
-                line(Draw.renderer, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
+                line(Draw.renderer, DrawRound[i].x, DrawRound[i].y,
+                     DrawRound[i].width, DrawRound[i].height,
+                     makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
                 break;
             }
             case (RNJ_SPRITE_NUM_RECT):
             {
-                rect(Draw.renderer, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
+                rect(Draw.renderer, DrawRound[i].x, DrawRound[i].y,
+                     DrawRound[i].width, DrawRound[i].height,
+                     makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
                 break;
             }
             case (RNJ_SPRITE_NUM_FILLED_RECT):
             {
-                rectfill(Draw.renderer, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
+                rectfill(Draw.renderer, DrawRound[i].x, DrawRound[i].y,
+                         DrawRound[i].width, DrawRound[i].height,
+                         makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
                 break;
             }
             case (RNJ_SPRITE_NUM_FILL):
             {
-                clear_to_color(Draw.renderer, makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
+                clear_to_color(Draw.renderer,
+                               makeacol32(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
                 break;
             }
             default:
             {
-                SpritesBlitSprite(DrawRound[i].spriteNum, DrawRound[i].clipNum, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, DrawRound[i].centerX, DrawRound[i].centerY, DrawRound[i].angle, DrawRound[i].a, DrawRound[i].flip);
+                SpritesBlitSprite(DrawRound[i].spriteNum, DrawRound[i].clipNum,
+                                  DrawRound[i].x, DrawRound[i].y,
+                                  DrawRound[i].width, DrawRound[i].height,
+                                  DrawRound[i].centerX, DrawRound[i].centerY,
+                                  DrawRound[i].angle, DrawRound[i].a,
+                                  DrawRound[i].flip);
                 break;
             }
         }
     }
     roundLength = Draw.roundLength;
-    /* Обнуление длины очереди */
+    /* РћР±РЅСѓР»РµРЅРёРµ РґР»РёРЅС‹ РѕС‡РµСЂРµРґРё */
     Draw.roundLength = 0;
     return roundLength;
 }
 
 void DrawFlip(void)
 {
-//    acquire_screen();
-	draw_sprite(screen, Draw.renderer, 0, 0);
-//    release_screen();
+    draw_sprite(screen, Draw.renderer, 0, 0);
 }
 

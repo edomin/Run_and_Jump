@@ -20,7 +20,8 @@ int ImagesCreateBitmap(int width, int height, int bpp)
     Bitmap[Images.imagesCount - 1].width = width;
     Bitmap[Images.imagesCount - 1].height = height;
     Bitmap[Images.imagesCount - 1].bpp = bpp;
-    Bitmap[Images.imagesCount - 1].data = SDL_CreateRGBSurface(0, width, height, bpp, 0, 0, 0, 0);
+    Bitmap[Images.imagesCount - 1].data = SDL_CreateRGBSurface(0, width, height,
+                                                               bpp, 0, 0, 0, 0);
     if (Bitmap[Images.imagesCount - 1].data != NULL)
         LogWrite("Bitmap created", 0, MT_INFO, NULL);
     else
@@ -30,20 +31,20 @@ int ImagesCreateBitmap(int width, int height, int bpp)
 
 void ImagesSetPixel(int bitmapNum, int x, int y, int r, int g, int b, int a)
 {
-	Uint32 *pixels;
-	Uint32 pixel;
+    Uint32 *pixels;
+    Uint32 pixel;
 
-	//If the surface must be locked
+    //If the surface must be locked
     if(SDL_MUSTLOCK(Bitmap[bitmapNum].data))
     {
         //Lock the surface
         SDL_LockSurface(Bitmap[bitmapNum].data);
     }
 
-	pixel = (Uint8)b + ((Uint8)g << 8) + ((Uint8)r << 16) + ((Uint8)a << 24);
+    pixel = (Uint8)b + ((Uint8)g << 8) + ((Uint8)r << 16) + ((Uint8)a << 24);
 
-	pixels = (Uint32 *)Bitmap[bitmapNum].data->pixels;
-	pixels[((Bitmap[bitmapNum].data->h - y) * Bitmap[bitmapNum].data->w) + x] = pixel;
+    pixels = (Uint32 *)Bitmap[bitmapNum].data->pixels;
+    pixels[((Bitmap[bitmapNum].data->h - y) * Bitmap[bitmapNum].data->w) + x] = pixel;
 
     if(SDL_MUSTLOCK(Bitmap[bitmapNum].data))
     {
@@ -54,7 +55,7 @@ void ImagesSetPixel(int bitmapNum, int x, int y, int r, int g, int b, int a)
 
 void ImagesSaveBitmap(int bitmapNum, char *filename)
 {
-	IMG_SavePNG(Bitmap[bitmapNum].data, (const char *)filename);
+    IMG_SavePNG(Bitmap[bitmapNum].data, (const char *)filename);
 }
 
 void ImagesDestroyBitmap(int num)

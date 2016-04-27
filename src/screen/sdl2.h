@@ -10,18 +10,18 @@
 #include "defines.h"
 
 struct {
-    int width; /* Высота окна */
-    int height; /* Ширина окна */
-    SDL_Window *window; /* Указатель на окно */
+    int         width;  /* Р’С‹СЃРѕС‚Р° РѕРєРЅР° */
+    int         height; /* РЁРёСЂРёРЅР° РѕРєРЅР° */
+    SDL_Window *window; /* РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РѕРєРЅРѕ */
     #ifdef PLATFORM_WIN32
-    HWND hwnd;
+    HWND        hwnd;
     #endif
 } Screen;
 
-void ScreenInit(int, int, const char *, bool); /* Инициализация окна */
-void ScreenDestroy(void); /* Деинициализация окна */
-void ScreenCursorShow(void); /* Показать курсор */
-void ScreenCursorHide(void); /* Скрыть курсор */
+void ScreenInit(int, int, const char *, bool);  /* РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РѕРєРЅР° */
+void ScreenDestroy(void);                       /* Р”РµРёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РѕРєРЅР° */
+void ScreenCursorShow(void);                    /* РџРѕРєР°Р·Р°С‚СЊ РєСѓСЂСЃРѕСЂ */
+void ScreenCursorHide(void);                    /* РЎРєСЂС‹С‚СЊ РєСѓСЂСЃРѕСЂ */
 
 #endif
 

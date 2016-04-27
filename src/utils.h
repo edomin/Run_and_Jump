@@ -6,8 +6,8 @@
 
 #include "defines.h"
 
-int RnjuDigitsCount(int); /* Посчитать число знаков в числе */
-char *RnjuItoa(int); /* Число в строку */
-int16_t RnjuAxisFloatToInt(float); /* Перевести число из диапазона -1..1 в -32768..32767 */
-
+int RnjuDigitsCount(int);           /* Посчитать число знаков в числе       */
+char *RnjuItoa(int);                /* Число в строку                       */
+int16_t RnjuAxisFloatToInt(float);  /* Перевести число из диапазона -1..1
+                                       в -32768..32767                      */
 #endif

@@ -9,8 +9,8 @@ int SFInitApp(lua_State* l)
 
 int SFInitScreen(lua_State* l)
 {
-    int w = lua_tonumber(Scripts.vm, 1); /* получаем 1-ый */
-                                         /* переданный параметр */
+    int w = lua_tonumber(Scripts.vm, 1); /* РїРѕР»СѓС‡Р°РµРј 1-С‹Р№ */
+                                         /* РїРµСЂРµРґР°РЅРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ */
     int h = lua_tonumber(Scripts.vm, 2);
     const char *title = lua_tostring(Scripts.vm, 3);
     bool fullscreen = lua_toboolean(Scripts.vm, 4);
@@ -127,8 +127,8 @@ int SFConfigfileGetKeyValue(lua_State* l)
 
 int SFFontLoad(lua_State* l)
 {
-    char *filename = (char *)lua_tostring(Scripts.vm, 1); /* получаем 1-ый */
-                                                               /* переданный параметр */
+    char *filename = (char *)lua_tostring(Scripts.vm, 1); /* РїРѕР»СѓС‡Р°РµРј 1-С‹Р№
+                                                          РїРµСЂРµРґР°РЅРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ */
     int size = lua_tonumber(Scripts.vm, 2);
 
     int font = FontsLoadFont(filename, size);
@@ -157,7 +157,8 @@ int SFSpriteCreateText(lua_State* l)
     int text_g = lua_tonumber(Scripts.vm, 4);
     int text_b = lua_tonumber(Scripts.vm, 5);
 
-    int sprite = SpritesCreateText(text, fontnum, text_r, text_g, text_b, WRAP_NOWRAP);
+    int sprite = SpritesCreateText(text, fontnum, text_r, text_g, text_b,
+                                   WRAP_NOWRAP);
     lua_pushnumber(Scripts.vm, sprite);
     return 1;
 }
@@ -171,7 +172,8 @@ int SFSpriteCreateTextWrapped(lua_State* l)
     int textB = lua_tonumber(Scripts.vm, 5);
     int wrapLength = lua_tonumber(Scripts.vm, 6);
 
-    int sprite = SpritesCreateText(text, fontnum, textR, textG, textB, wrapLength);
+    int sprite = SpritesCreateText(text, fontnum, textR, textG, textB,
+                                   wrapLength);
     lua_pushnumber(Scripts.vm, sprite);
     return 1;
 }
@@ -185,7 +187,8 @@ int SFSpriteChangeText(lua_State* l)
     int textG = lua_tonumber(Scripts.vm, 5);
     int textB = lua_tonumber(Scripts.vm, 6);
 
-    SpritesChangeText(spriteNum, text, fontNum, textR, textG, textB, WRAP_NOWRAP);
+    SpritesChangeText(spriteNum, text, fontNum, textR, textG, textB,
+                      WRAP_NOWRAP);
     return 0;
 }
 
@@ -199,7 +202,8 @@ int SFSpriteChangeTextWrapped(lua_State* l)
     int textB = lua_tonumber(Scripts.vm, 6);
     int wrapLength = lua_tonumber(Scripts.vm, 7);
 
-    SpritesChangeText(spriteNum, text, fontNum, textR, textG, textB, wrapLength);
+    SpritesChangeText(spriteNum, text, fontNum, textR, textG, textB,
+                      wrapLength);
     return 0;
 }
 
@@ -650,7 +654,8 @@ int SFDrawAddSpriteGeneral(lua_State* l)
     int alpha = lua_tonumber(Scripts.vm, 10);
     int flip = lua_tonumber(Scripts.vm, 11);
 
-    DrawAddSpriteGeneral(spriteNum, clipNum, x, y, width, height, centerX, centerY, angle, alpha, flip);
+    DrawAddSpriteGeneral(spriteNum, clipNum, x, y, width, height, centerX,
+                         centerY, angle, alpha, flip);
 
     return 0;
 }
@@ -941,12 +946,12 @@ int SFMax(lua_State* l)
     double x = lua_tonumber(Scripts.vm, 1);
     double y = lua_tonumber(Scripts.vm, 2);
     #ifndef CC_DJGPP
-		lua_pushnumber(Scripts.vm, fmax(x, y));
+        lua_pushnumber(Scripts.vm, fmax(x, y));
     #else
-		if (x > y)
-			lua_pushnumber(Scripts.vm, x);
-		else
-			lua_pushnumber(Scripts.vm, y);
+        if (x > y)
+            lua_pushnumber(Scripts.vm, x);
+        else
+            lua_pushnumber(Scripts.vm, y);
     #endif
     return 1;
 }
@@ -956,12 +961,12 @@ int SFMin(lua_State* l)
     double x = lua_tonumber(Scripts.vm, 1);
     double y = lua_tonumber(Scripts.vm, 2);
     #ifndef CC_DJGPP
-		lua_pushnumber(Scripts.vm, fmin(x, y));
-	#else
-		if (x < y)
-			lua_pushnumber(Scripts.vm, x);
-		else
-			lua_pushnumber(Scripts.vm, y);
+        lua_pushnumber(Scripts.vm, fmin(x, y));
+    #else
+        if (x < y)
+            lua_pushnumber(Scripts.vm, x);
+        else
+            lua_pushnumber(Scripts.vm, y);
     #endif
     return 1;
 }
@@ -970,12 +975,12 @@ int SFRound(lua_State* l)
 {
     double x = lua_tonumber(Scripts.vm, 1);
     #ifndef CC_DJGPP
-		lua_pushnumber(Scripts.vm, round(x));
+        lua_pushnumber(Scripts.vm, round(x));
     #else
-		if (floor(x) < x - 0.5)
-			lua_pushnumber(Scripts.vm, ceil(x));
-		else
-			lua_pushnumber(Scripts.vm, floor(x));
+        if (floor(x) < x - 0.5)
+            lua_pushnumber(Scripts.vm, ceil(x));
+        else
+            lua_pushnumber(Scripts.vm, floor(x));
     #endif
     return 1;
 }
@@ -1210,7 +1215,7 @@ int SFDialogShowYesNoMessageBox(lua_State* l)
 {
     char *title = (char *)lua_tostring(Scripts.vm, 1);
     char *message = (char *)lua_tostring(Scripts.vm, 2);
-	lua_pushboolean(Scripts.vm, DialogsShowYesNoMessageBox(title, message));
+    lua_pushboolean(Scripts.vm, DialogsShowYesNoMessageBox(title, message));
     return 1;
 }
 
@@ -1226,16 +1231,16 @@ int SFLogWrite(lua_State* l)
 
 int SFScriptRegisterNumericVariable(lua_State* l)
 {
-	char *name = (char *)lua_tostring(Scripts.vm, 1);
-	double value = lua_tonumber(Scripts.vm, 2);
-	ScriptsRegisterNumericVariable(name, value);
-	return 0;
+    char *name = (char *)lua_tostring(Scripts.vm, 1);
+    double value = lua_tonumber(Scripts.vm, 2);
+    ScriptsRegisterNumericVariable(name, value);
+    return 0;
 }
 
 int SFScriptRegisterStringVariable(lua_State* l)
 {
-	char *name = (char *)lua_tostring(Scripts.vm, 1);
-	char *value = (char *)lua_tostring(Scripts.vm, 2);
-	ScriptsRegisterStringVariable(name, value);
-	return 0;
+    char *name = (char *)lua_tostring(Scripts.vm, 1);
+    char *value = (char *)lua_tostring(Scripts.vm, 2);
+    ScriptsRegisterStringVariable(name, value);
+    return 0;
 }

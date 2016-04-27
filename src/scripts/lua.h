@@ -11,15 +11,21 @@
 #include "defines.h"
 
 struct {
-    lua_State* vm; /* виртуальная машина */
-    int ObjectsCount;
+    lua_State*  vm; /* РІРёСЂС‚СѓР°Р»СЊРЅР°СЏ РјР°С€РёРЅР° */
+    int         ObjectsCount;
 } Scripts;
 
-void ScriptsInit(void); /* Инициализация Менеджера Скриптов */
-void ScriptsRegisterFunction(lua_CFunction, char *); /* Регистрация функции */
-void ScriptsRegisterNumericVariable(char *, double); /* Регистрация глобальной числовой переменной */
-void ScriptsRegisterStringVariable(char *, char *); /* Регистрация глобальной строковой переменной */
-int ScriptsDoFile(char *); /* Выполнение скрипта */
-void ScriptsQuit(void); /* Деинициализация Менеджера Скриптов */
+/* РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РњРµРЅРµРґР¶РµСЂР° РЎРєСЂРёРїС‚РѕРІ */
+void ScriptsInit(void);
+/* Р РµРіРёСЃС‚СЂР°С†РёСЏ С„СѓРЅРєС†РёРё */
+void ScriptsRegisterFunction(lua_CFunction, char *);
+/* Р РµРіРёСЃС‚СЂР°С†РёСЏ РіР»РѕР±Р°Р»СЊРЅРѕР№ С‡РёСЃР»РѕРІРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№ */
+void ScriptsRegisterNumericVariable(char *, double);
+/* Р РµРіРёСЃС‚СЂР°С†РёСЏ РіР»РѕР±Р°Р»СЊРЅРѕР№ СЃС‚СЂРѕРєРѕРІРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№ */
+void ScriptsRegisterStringVariable(char *, char *);
+/* Р’С‹РїРѕР»РЅРµРЅРёРµ СЃРєСЂРёРїС‚Р° */
+int ScriptsDoFile(char *);
+/* Р”РµРёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РњРµРЅРµРґР¶РµСЂР° РЎРєСЂРёРїС‚РѕРІ */
+void ScriptsQuit(void);
 
 #endif

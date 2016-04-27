@@ -2,60 +2,60 @@
 
 void InputInit(void)
 {
-	return;
+    return;
 }
 
 void InputQuit(void)
 {
-	return;
+    return;
 }
 
 bool InputKeyPress(signed int key)
 {
-	return false;
+    return false;
 }
 
 bool InputKeyRelease(signed int key)
 {
-	return false;
+    return false;
 }
 
 bool InputKeyPressed(signed int key)
 {
-	return false;
+    return false;
 }
 
 void InputKeystatesRefresh(void)
 {
-	return;
+    return;
 }
 
 void InputMouseRefresh(void)
 {
-	return;
+    return;
 }
 
 void InputControllersRefresh(void)
 {
-	return;
+    return;
 }
 
 bool InputControllerButtonPress(int controllerNum, uint8_t button)
 {
-	return false;
+    return false;
 }
 
 bool InputControllerButtonRelease(int controllerNum, uint8_t button)
 {
-	return false;
+    return false;
 }
 
 bool InputControllerButtonPressed(int controllerNum, uint8_t button)
 {
-	return false;
+    return false;
 }
 
 int16_t InputControllerGetAxis(int controllerNum, int axis)
 {
-	return 0;
+    return 0;
 }

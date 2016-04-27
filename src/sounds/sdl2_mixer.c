@@ -1,6 +1,7 @@
 #include "sounds/sdl2_mixer.h"
 
-void SoundsInit(int maxSounds, int maxMusic, unsigned int freq, int channels, int chunksize)
+void SoundsInit(int maxSounds, int maxMusic, unsigned int freq, int channels,
+                int chunksize)
 {
     int flags;
 
@@ -15,7 +16,7 @@ void SoundsInit(int maxSounds, int maxMusic, unsigned int freq, int channels, in
 
     LogWrite("Initializing Sound Manager", 0, MT_INFO, NULL);
 
-	SDL_MIXER_VERSION(&ctVersion)
+    SDL_MIXER_VERSION(&ctVersion)
     LogWrite("Checking SDL_mixer compile-time version", 1, MT_INFO, NULL);
     LogWrite2("Major:", 2, MT_INFO, ctVersion.major);
     LogWrite2("Minor:", 2, MT_INFO, ctVersion.minor);
@@ -27,11 +28,11 @@ void SoundsInit(int maxSounds, int maxMusic, unsigned int freq, int channels, in
     LogWrite2("Minor:", 2, MT_INFO, dllVersion->minor);
     LogWrite2("Patch:", 2, MT_INFO, dllVersion->patch);
 
-	LogWrite("Checking audio device parameters", 1, MT_INFO, NULL);
-	Mix_QuerySpec(&frequency, &format, &channelsCount);
-	LogWrite2("Frequency", 2, MT_INFO, freq);
-	LogWrite2("Format", 2, MT_INFO, format);
-	LogWrite2("Channels count", 2, MT_INFO, channels);
+    LogWrite("Checking audio device parameters", 1, MT_INFO, NULL);
+    Mix_QuerySpec(&frequency, &format, &channelsCount);
+    LogWrite2("Frequency", 2, MT_INFO, freq);
+    LogWrite2("Format", 2, MT_INFO, format);
+    LogWrite2("Channels count", 2, MT_INFO, channels);
 
     Sound = malloc(sizeof(Mix_Chunk*) * maxSounds);
     if (Sound == NULL)
@@ -40,36 +41,40 @@ void SoundsInit(int maxSounds, int maxMusic, unsigned int freq, int channels, in
     if (Music == NULL)
         ErrorGive("Can not allocate memory for Music", 1);
 
-	if (SDL_InitSubSystem(SDL_INIT_AUDIO) == 0)
-	{
-		LogWrite("Audio initialized", 1, MT_INFO, NULL);
-	}
-	else
-	{
-		ErrorGive("Can not initialize Audio", 1);
-	}
+    if (SDL_InitSubSystem(SDL_INIT_AUDIO) == 0)
+    {
+        LogWrite("Audio initialized", 1, MT_INFO, NULL);
+    }
+    else
+    {
+        ErrorGive("Can not initialize Audio", 1);
+    }
 
     flags = (MIX_INIT_MP3 | MIX_INIT_FLAC | MIX_INIT_OGG | MIX_INIT_MOD);
     if((Mix_Init(flags) & flags) != flags)
-        LogWrite("Can not initialize loading of all supported formats", 1, MT_WARNING, NULL);
+        LogWrite("Can not initialize loading of all supported formats", 1,
+                 MT_WARNING, NULL);
     else
-        LogWrite("Loading of all supported formats initialized", 1, MT_INFO, NULL);
+        LogWrite("Loading of all supported formats initialized", 1,
+                 MT_INFO, NULL);
 
     if (Mix_OpenAudio(freq, MIX_DEFAULT_FORMAT, channels, chunksize) == 0)
-	{
-		LogWrite("SDL_mixer initialized", 1, MT_INFO, NULL);
+    {
+        LogWrite("SDL_mixer initialized", 1, MT_INFO, NULL);
 
-        LogWrite("Checking built in SDL_mixer chunk decoders", 1, MT_INFO, NULL);
-		for (i = 0; i < Mix_GetNumChunkDecoders(); i++)
-		{
-			LogWrite((char *)SDLCALL Mix_GetChunkDecoder(i), 2, MT_INFO, NULL);
-		}
-		LogWrite("Checking built in SDL_mixer music decoders", 1, MT_INFO, NULL);
-		for (i = 0; i < Mix_GetNumMusicDecoders(); i++)
-		{
-			LogWrite((char *)SDLCALL Mix_GetMusicDecoder(i), 2, MT_INFO, NULL);
-		}
-	}
+        LogWrite("Checking built in SDL_mixer chunk decoders", 1, MT_INFO,
+                 NULL);
+        for (i = 0; i < Mix_GetNumChunkDecoders(); i++)
+        {
+            LogWrite((char *)SDLCALL Mix_GetChunkDecoder(i), 2, MT_INFO, NULL);
+        }
+        LogWrite("Checking built in SDL_mixer music decoders", 1, MT_INFO,
+                 NULL);
+        for (i = 0; i < Mix_GetNumMusicDecoders(); i++)
+        {
+            LogWrite((char *)SDLCALL Mix_GetMusicDecoder(i), 2, MT_INFO, NULL);
+        }
+    }
     else
         ErrorGive("Can not initialize SDL_mixer", 1);
     LogWrite("Sound Manager initialized", 0, MT_INFO, NULL);

@@ -748,20 +748,20 @@ void InputInit(void)
     Input.currentKeystate = GetKeyboardState();
     if (Input.currentKeystate != NULL)
     {
-    	LogWrite("Keyboard State initialized", 1, MT_INFO, NULL);
+        LogWrite("Keyboard State initialized", 1, MT_INFO, NULL);
     }
     else
     {
-    	ErrorGive("Can not initialize Keyboard State", 1);
+        ErrorGive("Can not initialize Keyboard State", 1);
     }
 //    LogWrite("Initializing Controller's support", 1, MT_INFO, NULL);
 //    if(SDL_InitSubSystem(SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER) == 0)
 //    {
-//    	LogWrite("Controller's support initialized", 1, MT_INFO, NULL);
+//        LogWrite("Controller's support initialized", 1, MT_INFO, NULL);
 //    }
 //    else
 //    {
-//    	ErrorGive("Can not initialize Controller's support", 1);
+//        ErrorGive("Can not initialize Controller's support", 1);
 //    }
 
 //    if (SDL_GameControllerAddMappingsFromFile("gamecontrollerdb.txt") != -1)

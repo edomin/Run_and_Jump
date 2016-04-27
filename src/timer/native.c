@@ -40,8 +40,8 @@ unsigned int kolibrios_Time(void)
 
 void InitTimer(void)
 {
-	LogWrite("Initializing timer", 0, MT_INFO, NULL);
-	srand(kolibrios_Time());
+    LogWrite("Initializing timer", 0, MT_INFO, NULL);
+    srand(kolibrios_Time());
     LogWrite("Timer initialized", 1, MT_INFO, NULL);
 }
 

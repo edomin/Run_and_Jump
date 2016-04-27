@@ -4,7 +4,7 @@ bool FontsInit(int fonts)
 {
     uint32_t version;
     LogWrite("Initializing Font Manager", 0, MT_INFO, NULL);
-    Fonts.fontsCount = 0; /* устанавливаем количество загруженных шрифтов в 0 */
+    Fonts.fontsCount = 0; /* СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РіСЂСѓР¶РµРЅРЅС‹С… С€СЂРёС„С‚РѕРІ РІ 0 */
 
     Fonts.font = malloc(sizeof(ALLEGRO_FONT *) * fonts);
     if (Fonts.font == NULL)
@@ -14,8 +14,9 @@ bool FontsInit(int fonts)
     al_init_font_addon();
     LogWrite("Allegro Font addon initialized", 1, MT_INFO, NULL);
 
-	version = al_get_allegro_font_version();
-    LogWrite("Checking Allegro Font Addon compile-time version", 1, MT_INFO, NULL);
+    version = al_get_allegro_font_version();
+    LogWrite("Checking Allegro Font Addon compile-time version", 1,
+             MT_INFO, NULL);
     LogWrite2("Major:", 2, MT_INFO, version >> 24);
     LogWrite2("Minor:", 2, MT_INFO, (version >> 16) & 255);
     LogWrite2("Revision:", 2, MT_INFO, (version >> 8) & 255);
@@ -23,15 +24,16 @@ bool FontsInit(int fonts)
 
     if (al_init_ttf_addon())
     {
-    	LogWrite("Allegro TTF addon initialized", 1, MT_INFO, NULL);
+        LogWrite("Allegro TTF addon initialized", 1, MT_INFO, NULL);
     }
     else
     {
-    	ErrorGive("Can not initialize TTF addon", 1);
+        ErrorGive("Can not initialize TTF addon", 1);
     }
 
     version = al_get_allegro_ttf_version();
-    LogWrite("Checking Allegro TTF Addon compile-time version", 1, MT_INFO, NULL);
+    LogWrite("Checking Allegro TTF Addon compile-time version", 1, MT_INFO,
+             NULL);
     LogWrite2("Major:", 2, MT_INFO, version >> 24);
     LogWrite2("Minor:", 2, MT_INFO, (version >> 16) & 255);
     LogWrite2("Revision:", 2, MT_INFO, (version >> 8) & 255);
@@ -44,13 +46,14 @@ bool FontsInit(int fonts)
 int FontsLoadFont(char *filename, int size)
 {
     Fonts.name[Fonts.fontsCount] = malloc(sizeof(char) * (strlen(filename) + 1));
-    Fonts.name[Fonts.fontsCount] = strcpy(Fonts.name[Fonts.fontsCount], (const char *)filename);
-    Fonts.fontsCount += 1; /* Увеличиваем кол-во шрифтов на 1 */
-    /* Загружаем файл */
+    Fonts.name[Fonts.fontsCount] = strcpy(Fonts.name[Fonts.fontsCount],
+                                          (const char *)filename);
+    Fonts.fontsCount += 1; /* РЈРІРµР»РёС‡РёРІР°РµРј РєРѕР»-РІРѕ С€СЂРёС„С‚РѕРІ РЅР° 1 */
+    /* Р—Р°РіСЂСѓР¶Р°РµРј С„Р°Р№Р» */
     LogWrite("Loading font", 0, MT_INFO, Fonts.name[Fonts.fontsCount - 1]);
-    Fonts.font[Fonts.fontsCount - 1] = NULL;/* обнуляем указатель на шрифт */
+    Fonts.font[Fonts.fontsCount - 1] = NULL;/* РѕР±РЅСѓР»СЏРµРј СѓРєР°Р·Р°С‚РµР»СЊ РЅР° С€СЂРёС„С‚ */
 
-	Fonts.font[Fonts.fontsCount - 1] = al_load_font(filename, size, 0);
+    Fonts.font[Fonts.fontsCount - 1] = al_load_font(filename, size, 0);
     LogWrite("Font loaded", 0, MT_INFO, NULL);
     return Fonts.fontsCount - 1;
 }

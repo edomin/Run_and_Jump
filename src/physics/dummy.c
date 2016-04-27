@@ -1,33 +1,35 @@
 #include "physics/dummy.h"
 
-/* Инициализация */
-void PhysicsInit(double xGrav, double yGrav, double cfm, double stepSize, int blocks, int objects)
+/* РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ */
+void PhysicsInit(double xGrav, double yGrav, double cfm, double stepSize,
+                 int blocks, int objects)
 {
     ;
 }
 
-/* Уничтожение */
+/* РЈРЅРёС‡С‚РѕР¶РµРЅРёРµ */
 void PhysicsDestroy(void)
 {
     ;
 }
 
-/* Добавление блока */
+/* Р”РѕР±Р°РІР»РµРЅРёРµ Р±Р»РѕРєР° */
 int PhysicsPlaceBlock(double x, double y, double width, double height)
 {
     return 0;
 }
 
-/* Добавление объекта */
-int PhysicsPlaceObject(double x, double y, double width, double height, double mass)
+/* Р”РѕР±Р°РІР»РµРЅРёРµ РѕР±СЉРµРєС‚Р° */
+int PhysicsPlaceObject(double x, double y, double width, double height,
+                       double mass)
 {
     return 0;
 }
 
-// /* Функция обработк столкновений */
+// /* Р¤СѓРЅРєС†РёСЏ РѕР±СЂР°Р±РѕС‚Рє СЃС‚РѕР»РєРЅРѕРІРµРЅРёР№ */
 //void PhysicsCollide(void* data, dGeomID o1, dGeomID o2)
 //{
-//     Я хз, как это работает. Выдрал Ѓсок кода из интернета */
+//     РЇ С…Р·, РєР°Рє СЌС‚Рѕ СЂР°Р±РѕС‚Р°РµС‚. Р’С‹РґСЂР°Р» РѓСЃРѕРє РєРѕРґР° РёР· РёРЅС‚РµСЂРЅРµС‚Р° */
 //    dBodyID b1 = dGeomGetBody(o1);
 //    dBodyID b2 = dGeomGetBody(o2);
 //    dContact contacts[PHYS_MAX_CONTACTS];
@@ -49,13 +51,13 @@ int PhysicsPlaceObject(double x, double y, double width, double height, double m
 //    }
 //}
 
-/* Итерация мира */
+/* РС‚РµСЂР°С†РёСЏ РјРёСЂР° */
 void PhysicsStep(void)
 {
     ;
 }
 
-/* Обновление данных о положении объекта */
+/* РћР±РЅРѕРІР»РµРЅРёРµ РґР°РЅРЅС‹С… Рѕ РїРѕР»РѕР¶РµРЅРёРё РѕР±СЉРµРєС‚Р° */
 void PhysicsBodyRefreshStats(int object)
 {
     ;

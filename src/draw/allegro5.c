@@ -11,13 +11,15 @@ void DrawInit(int driver, int filtering)
         ErrorGive("Can not allocate memory for DrawRound", 1);
     Draw.roundLength = 0;
 
-	if (al_init_primitives_addon())
-		LogWrite("Allegro Primitives addon initialized", 1, MT_INFO, NULL);
-	else
-		LogWrite("Can not initialize Allegro Primitives addon", 1, MT_INFO, NULL);
+    if (al_init_primitives_addon())
+        LogWrite("Allegro Primitives addon initialized", 1, MT_INFO, NULL);
+    else
+        LogWrite("Can not initialize Allegro Primitives addon", 1, MT_INFO,
+                 NULL);
 
-	version = al_get_allegro_primitives_version();
-    LogWrite("Checking Allegro Primitives Addon compile-time version", 1, MT_INFO, NULL);
+    version = al_get_allegro_primitives_version();
+    LogWrite("Checking Allegro Primitives Addon compile-time version", 1,
+             MT_INFO, NULL);
     LogWrite2("Major:", 2, MT_INFO, version >> 24);
     LogWrite2("Minor:", 2, MT_INFO, (version >> 16) & 255);
     LogWrite2("Revision:", 2, MT_INFO, (version >> 8) & 255);
@@ -49,7 +51,8 @@ void DrawAddSprite(int spriteNum, int clipNum, int x, int y)
     DrawRound[Draw.roundLength - 1].flip = 0;
 }
 
-void DrawAddSpriteSized(int spriteNum, int clipNum, int x, int y, int width, int height)
+void DrawAddSpriteSized(int spriteNum, int clipNum, int x, int y, int width,
+                        int height)
 {
     if (width == 0)
     {
@@ -74,7 +77,8 @@ void DrawAddSpriteSized(int spriteNum, int clipNum, int x, int y, int width, int
     DrawRound[Draw.roundLength - 1].flip = 0;
 }
 
-void DrawAddSpriteAngled(int spriteNum, int clipNum, int x, int y, int centerX, int centerY, double angle)
+void DrawAddSpriteAngled(int spriteNum, int clipNum, int x, int y, int centerX,
+                         int centerY, double angle)
 {
     Draw.roundLength += 1;
     DrawRound[Draw.roundLength - 1].spriteNum = spriteNum;
@@ -106,7 +110,9 @@ void DrawAddSpriteAlpha(int spriteNum, int clipNum, int x, int y, int a)
     DrawRound[Draw.roundLength - 1].flip = 0;
 }
 
-void DrawAddSpriteGeneral(int spriteNum, int clipNum, int x, int y, int width, int height, int centerX, int centerY, double angle, int a, int flip)
+void DrawAddSpriteGeneral(int spriteNum, int clipNum, int x, int y, int width,
+                          int height, int centerX, int centerY, double angle,
+                          int a, int flip)
 {
     if (width == 0)
     {
@@ -179,7 +185,8 @@ void DrawAddRect(int x, int y, int width, int height, int r, int g, int b, int a
     DrawRound[Draw.roundLength - 1].flip = 0;
 }
 
-void DrawAddFilledRect(int x, int y, int width, int height, int r, int g, int b, int a)
+void DrawAddFilledRect(int x, int y, int width, int height, int r, int g, int b,
+                       int a)
 {
     Draw.roundLength += 1;
     DrawRound[Draw.roundLength - 1].spriteNum = RNJ_SPRITE_NUM_FILLED_RECT;
@@ -211,29 +218,38 @@ int DrawOutput(void)
 {
     int i;
     int roundLength;
-    /* Блитинг всех элементов из очереди */
+    /* Р‘Р»РёС‚РёРЅРі РІСЃРµС… СЌР»РµРјРµРЅС‚РѕРІ РёР· РѕС‡РµСЂРµРґРё */
     for (i = 0; i <= Draw.roundLength - 1; i++)
     {
         switch (DrawRound[i].spriteNum)
         {
             case (RNJ_SPRITE_NUM_POINT):
             {
-                al_draw_pixel(DrawRound[i].x, DrawRound[i].y,  al_map_rgba(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
+                al_draw_pixel(DrawRound[i].x, DrawRound[i].y,
+                              al_map_rgba(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
                 break;
             }
             case (RNJ_SPRITE_NUM_LINE):
             {
-                al_draw_line(DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, al_map_rgba(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a), 1);
+                al_draw_line(DrawRound[i].x, DrawRound[i].y,
+                             DrawRound[i].width, DrawRound[i].height,
+                             al_map_rgba(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a), 1);
                 break;
             }
             case (RNJ_SPRITE_NUM_RECT):
             {
-                al_draw_rectangle(DrawRound[i].x, DrawRound[i].y, DrawRound[i].x + DrawRound[i].width, DrawRound[i].y + DrawRound[i].height, al_map_rgba(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a), 1);
+                al_draw_rectangle(DrawRound[i].x, DrawRound[i].y,
+                                  DrawRound[i].x + DrawRound[i].width,
+                                  DrawRound[i].y + DrawRound[i].height,
+                                  al_map_rgba(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a), 1);
                 break;
             }
             case (RNJ_SPRITE_NUM_FILLED_RECT):
             {
-                al_draw_filled_rectangle(DrawRound[i].x, DrawRound[i].y, DrawRound[i].x + DrawRound[i].width, DrawRound[i].y + DrawRound[i].height, al_map_rgba(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
+                al_draw_filled_rectangle(DrawRound[i].x, DrawRound[i].y,
+                                         DrawRound[i].x + DrawRound[i].width,
+                                         DrawRound[i].y + DrawRound[i].height,
+                                         al_map_rgba(DrawRound[i].r, DrawRound[i].g, DrawRound[i].b, DrawRound[i].a));
                 break;
             }
             case (RNJ_SPRITE_NUM_FILL):
@@ -243,13 +259,18 @@ int DrawOutput(void)
             }
             default:
             {
-                SpritesBlitSprite(DrawRound[i].spriteNum, DrawRound[i].clipNum, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, DrawRound[i].centerX, DrawRound[i].centerY, DrawRound[i].angle, DrawRound[i].a, DrawRound[i].flip);
+                SpritesBlitSprite(DrawRound[i].spriteNum,
+                                  DrawRound[i].clipNum, DrawRound[i].x,
+                                  DrawRound[i].y, DrawRound[i].width,
+                                  DrawRound[i].height, DrawRound[i].centerX,
+                                  DrawRound[i].centerY, DrawRound[i].angle,
+                                  DrawRound[i].a, DrawRound[i].flip);
                 break;
             }
         }
     }
     roundLength = Draw.roundLength;
-    /* Обнуление длины очереди */
+    /* РћР±РЅСѓР»РµРЅРёРµ РґР»РёРЅС‹ РѕС‡РµСЂРµРґРё */
     Draw.roundLength = 0;
     return roundLength;
 }

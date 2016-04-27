@@ -5,7 +5,7 @@ void DrawInit(int driver, int filtering)
 //    int i = 0;
 //    char *temp;
     LogWrite("Initializing Draw Subsystem", 0, MT_INFO, NULL);
-    /* Находим все доступные рендереры */
+    /* РќР°С…РѕРґРёРј РІСЃРµ РґРѕСЃС‚СѓРїРЅС‹Рµ СЂРµРЅРґРµСЂРµСЂС‹ */
 //    LogWrite("Checking available renderers", 1, MT_INFO, NULL);
 //    LogWrite2("Drivers found", 1, MT_INFO, SDL_GetNumRenderDrivers());
 //    while (SDL_GetRenderDriverInfo(i, &Draw.rendererInfo) == 0)
@@ -32,7 +32,7 @@ void DrawInit(int driver, int filtering)
         ErrorGive("Can not allocate memory for DrawRound", 1);
     Draw.roundLength = 0;
 
-    /* Создаем контекст на выбранном рендерере */
+    /* РЎРѕР·РґР°РµРј РєРѕРЅС‚РµРєСЃС‚ РЅР° РІС‹Р±СЂР°РЅРЅРѕРј СЂРµРЅРґРµСЂРµСЂРµ */
 //    SDL_GetRenderDriverInfo(driver, &Draw.rendererInfo);
 //    if ((Draw.rendererInfo.flags | SDL_RENDERER_ACCELERATED) == Draw.rendererInfo.flags)
 //        Draw.renderer = SDL_CreateRenderer(Screen.window, driver, SDL_RENDERER_ACCELERATED);
@@ -48,12 +48,12 @@ void DrawInit(int driver, int filtering)
 //    }
 //    else
 //        ErrorGive("Can not initialize renderer", 1);
-    /* Устанавливаем режим альфа-блендинга */
+    /* РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЂРµР¶РёРј Р°Р»СЊС„Р°-Р±Р»РµРЅРґРёРЅРіР° */
 //    if (SDL_SetRenderDrawBlendMode(Draw.renderer, SDL_BLENDMODE_BLEND) == 0)
 //        LogWrite("Alpha blend mode set", 1, MT_INFO, NULL);
 //    else
 //        ErrorGive("Can not set alpha blend mode", 1);
-    /* Устанавливаем фильтрацию текстур */
+    /* РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј С„РёР»СЊС‚СЂР°С†РёСЋ С‚РµРєСЃС‚СѓСЂ */
 //    do
 //    {
 //        switch (filtering)
@@ -109,7 +109,8 @@ void DrawAddSprite(int spriteNum, int clipNum, int x, int y)
     #endif
 }
 
-void DrawAddSpriteSized(int spriteNum, int clipNum, int x, int y, int width, int height)
+void DrawAddSpriteSized(int spriteNum, int clipNum, int x, int y, int width,
+                        int height)
 {
     #ifndef LSPRITES_DUMMY
     if (width == 0)
@@ -136,7 +137,8 @@ void DrawAddSpriteSized(int spriteNum, int clipNum, int x, int y, int width, int
     #endif
 }
 
-void DrawAddSpriteAngled(int spriteNum, int clipNum, int x, int y, int centerX, int centerY, double angle)
+void DrawAddSpriteAngled(int spriteNum, int clipNum, int x, int y, int centerX,
+                         int centerY, double angle)
 {
     #ifndef LSPRITES_DUMMY
     Draw.roundLength += 1;
@@ -172,7 +174,8 @@ void DrawAddSpriteAlpha(int spriteNum, int clipNum, int x, int y, int a)
     #endif
 }
 
-void DrawAddSpriteGeneral(int spriteNum, int clipNum, int x, int y, int width, int height, int centerX, int centerY, double angle, int a, int flip)
+void DrawAddSpriteGeneral(int spriteNum, int clipNum, int x, int y, int width,
+                          int height, int centerX, int centerY, double angle, int a, int flip)
 {
     #ifndef LSPRITES_DUMMY
     if (width == 0)
@@ -231,7 +234,8 @@ void DrawAddLine(int x1, int y1, int x2, int y2, int r, int g, int b, int a)
     DrawRound[Draw.roundLength - 1].flip = 0;
 }
 
-void DrawAddRect(int x, int y, int width, int height, int r, int g, int b, int a)
+void DrawAddRect(int x, int y, int width, int height, int r, int g, int b,
+                 int a)
 {
     Draw.roundLength += 1;
     DrawRound[Draw.roundLength - 1].spriteNum = RNJ_SPRITE_NUM_RECT;
@@ -247,7 +251,8 @@ void DrawAddRect(int x, int y, int width, int height, int r, int g, int b, int a
     DrawRound[Draw.roundLength - 1].flip = 0;
 }
 
-void DrawAddFilledRect(int x, int y, int width, int height, int r, int g, int b, int a)
+void DrawAddFilledRect(int x, int y, int width, int height, int r, int g, int b,
+                       int a)
 {
     Draw.roundLength += 1;
     DrawRound[Draw.roundLength - 1].spriteNum = RNJ_SPRITE_NUM_FILLED_RECT;
@@ -280,7 +285,7 @@ int DrawOutput(void)
     int i;
     SDL_Rect rect;
     int roundLength;
-    /* Блитинг всех элементов из очереди */
+    /* Р‘Р»РёС‚РёРЅРі РІСЃРµС… СЌР»РµРјРµРЅС‚РѕРІ РёР· РѕС‡РµСЂРµРґРё */
     for (i = 0; i <= Draw.roundLength - 1; i++)
     {
         switch (DrawRound[i].spriteNum)
@@ -313,7 +318,8 @@ int DrawOutput(void)
                 rect.y = DrawRound[i].y;
                 rect.w = DrawRound[i].width;
                 rect.h = DrawRound[i].height;
-                SDL_FillRect(Draw.renderer, &rect, SDL_MapRGB(Draw.renderer->format, DrawRound[i].r, DrawRound[i].g, DrawRound[i].b));
+                SDL_FillRect(Draw.renderer, &rect,
+                             SDL_MapRGB(Draw.renderer->format, DrawRound[i].r, DrawRound[i].g, DrawRound[i].b));
                 break;
             }
             case (RNJ_SPRITE_NUM_FILL):
@@ -325,14 +331,19 @@ int DrawOutput(void)
             default:
             {
                 #ifndef LSPRITES_DUMMY
-                SpritesBlitSprite(DrawRound[i].spriteNum, DrawRound[i].clipNum, DrawRound[i].x, DrawRound[i].y, DrawRound[i].width, DrawRound[i].height, DrawRound[i].centerX, DrawRound[i].centerY, DrawRound[i].angle, DrawRound[i].a, DrawRound[i].flip);
+                SpritesBlitSprite(DrawRound[i].spriteNum,
+                                  DrawRound[i].clipNum, DrawRound[i].x,
+                                  DrawRound[i].y, DrawRound[i].width,
+                                  DrawRound[i].height, DrawRound[i].centerX,
+                                  DrawRound[i].centerY, DrawRound[i].angle,
+                                  DrawRound[i].a, DrawRound[i].flip);
                 #endif
                 break;
             }
         }
     }
     roundLength = Draw.roundLength;
-    /* Обнуление длины очереди */
+    /* РћР±РЅСѓР»РµРЅРёРµ РґР»РёРЅС‹ РѕС‡РµСЂРµРґРё */
     Draw.roundLength = 0;
     return roundLength;
 }

@@ -1,7 +1,7 @@
 #ifndef RNJ_INPUT_NATIVE_H
 #define RNJ_INPUT_NATIVE_H
 
-/* В данный момент модуль только для KolibriOS */
+/* Р’ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ РјРѕРґСѓР»СЊ С‚РѕР»СЊРєРѕ РґР»СЏ KolibriOS */
 
 #include <stdlib.h>
 
@@ -18,14 +18,14 @@
 //typedef Sint16 ControllerAxes[7];
 
 struct {
-    const Uint8 *currentKeystate; /* Текущее состояние клавиатуры */
-    Uint8 previousKeystate[513]; /* Предыдущее состояние клавиатуры */
-    bool currentMouseLeft; /* Текущее состояние левой клавиши мыши */
-    bool currentMouseMiddle; /* Текущее состояние средней клавиши мыши */
-    bool currentMouseRight; /* Текущее состояние правой клавиши мыши */
-    bool previousMouseLeft; /* Предыдущее состояние левой клавиши мыши */
-    bool previousMouseMiddle; /* Предыдущее состояние средней клавиши мыши */
-    bool previousMouseRight; /* Предыдущее состояние правой клавиши мыши */
+    const Uint8 *currentKeystate; /* РўРµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РєР»Р°РІРёР°С‚СѓСЂС‹ */
+    Uint8 previousKeystate[513]; /* РџСЂРµРґС‹РґСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РєР»Р°РІРёР°С‚СѓСЂС‹ */
+    bool currentMouseLeft; /* РўРµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ Р»РµРІРѕР№ РєР»Р°РІРёС€Рё РјС‹С€Рё */
+    bool currentMouseMiddle; /* РўРµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ СЃСЂРµРґРЅРµР№ РєР»Р°РІРёС€Рё РјС‹С€Рё */
+    bool currentMouseRight; /* РўРµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РїСЂР°РІРѕР№ РєР»Р°РІРёС€Рё РјС‹С€Рё */
+    bool previousMouseLeft; /* РџСЂРµРґС‹РґСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ Р»РµРІРѕР№ РєР»Р°РІРёС€Рё РјС‹С€Рё */
+    bool previousMouseMiddle; /* РџСЂРµРґС‹РґСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ СЃСЂРµРґРЅРµР№ РєР»Р°РІРёС€Рё РјС‹С€Рё */
+    bool previousMouseRight; /* РџСЂРµРґС‹РґСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РїСЂР°РІРѕР№ РєР»Р°РІРёС€Рё РјС‹С€Рё */
 //    ControllerState *currentControllerState;
 //    ControllerState *previousControllerState;
 //    ControllerAxes *controllerAxis;
@@ -34,18 +34,18 @@ struct {
     Uint8 *keyboardState;
 } Input;
 
-void InputInit(void); /* Инициализация ввода */
+void InputInit(void); /* РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РІРІРѕРґР° */
 void InputQuit(void);
-void InputKeystatesRefresh(void); /* Обновление состояния клавиатуры */
-bool InputKeyPress(signed int); /* Проверка нажатия клавиши */
-bool InputKeyRelease(signed int); /* Проверка отпускания клавиши */
-bool InputKeyPressed(signed int); /* Проверка зажатия клавиши */
-void InputMouseRefresh(void); /* Обновления состояния мыши */
-void InputControllersRefresh(void); /* Обновить информацию о состоянии контроллеров */
-bool InputControllerButtonPress(int, Uint8); /* Проверка нажатия кнопки */
-bool InputControllerButtonRelease(int, Uint8); /* Проверка отпускания кнопки */
-bool InputControllerButtonPressed(int, Uint8); /* Проверка зажатия кнопки */
-Sint16 InputControllerGetAxis(int, int); /* Получения значения оси */
+void InputKeystatesRefresh(void); /* РћР±РЅРѕРІР»РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РєР»Р°РІРёР°С‚СѓСЂС‹ */
+bool InputKeyPress(signed int); /* РџСЂРѕРІРµСЂРєР° РЅР°Р¶Р°С‚РёСЏ РєР»Р°РІРёС€Рё */
+bool InputKeyRelease(signed int); /* РџСЂРѕРІРµСЂРєР° РѕС‚РїСѓСЃРєР°РЅРёСЏ РєР»Р°РІРёС€Рё */
+bool InputKeyPressed(signed int); /* РџСЂРѕРІРµСЂРєР° Р·Р°Р¶Р°С‚РёСЏ РєР»Р°РІРёС€Рё */
+void InputMouseRefresh(void); /* РћР±РЅРѕРІР»РµРЅРёСЏ СЃРѕСЃС‚РѕСЏРЅРёСЏ РјС‹С€Рё */
+void InputControllersRefresh(void); /* РћР±РЅРѕРІРёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЃРѕСЃС‚РѕСЏРЅРёРё РєРѕРЅС‚СЂРѕР»Р»РµСЂРѕРІ */
+bool InputControllerButtonPress(int, Uint8); /* РџСЂРѕРІРµСЂРєР° РЅР°Р¶Р°С‚РёСЏ РєРЅРѕРїРєРё */
+bool InputControllerButtonRelease(int, Uint8); /* РџСЂРѕРІРµСЂРєР° РѕС‚РїСѓСЃРєР°РЅРёСЏ РєРЅРѕРїРєРё */
+bool InputControllerButtonPressed(int, Uint8); /* РџСЂРѕРІРµСЂРєР° Р·Р°Р¶Р°С‚РёСЏ РєРЅРѕРїРєРё */
+Sint16 InputControllerGetAxis(int, int); /* РџРѕР»СѓС‡РµРЅРёСЏ Р·РЅР°С‡РµРЅРёСЏ РѕСЃРё */
 
 #endif
 

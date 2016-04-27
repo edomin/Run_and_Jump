@@ -7,7 +7,7 @@ void ScreenInit(int w, int h, const char *title, bool fullscreen)
 //    SDL_DisplayMode mode;
     SDL_SysWMinfo sdlinfo;
     SDL_version sdlver;
-    /* Находим все доступные режимы дисплея */
+    /* РќР°С…РѕРґРёРј РІСЃРµ РґРѕСЃС‚СѓРїРЅС‹Рµ СЂРµР¶РёРјС‹ РґРёСЃРїР»РµСЏ */
 //    LogWrite("Checking available display modes", 0, MT_INFO, NULL);
 //    i = SDL_GetNumDisplayModes(0);
 //    if (i < 0)
@@ -34,11 +34,11 @@ void ScreenInit(int w, int h, const char *title, bool fullscreen)
     LogWrite("Initializing Video", 1, MT_INFO, NULL);
     if(SDL_InitSubSystem(SDL_INIT_VIDEO) == 0)
     {
-    	LogWrite("Video initialized", 1, MT_INFO, NULL);
+        LogWrite("Video initialized", 1, MT_INFO, NULL);
     }
     else
     {
-    	ErrorGive("Can not initialize Video", 1);
+        ErrorGive("Can not initialize Video", 1);
     }
 
     #if defined (CC_KOS)
@@ -48,11 +48,13 @@ void ScreenInit(int w, int h, const char *title, bool fullscreen)
     }
     else
     {
-        LogWrite("Supported only memory surfaces and 24 bpp for KolibriOS", 1, MT_WARNING, NULL);
+        LogWrite("Supported only memory surfaces and 24 bpp for KolibriOS", 1,
+                 MT_WARNING, NULL);
         if (!fullscreen)
             Screen.window = SDL_SetVideoMode(w, h, 24, SDL_SWSURFACE);
         else
-            Screen.window = SDL_SetVideoMode(w, h, 24, SDL_SWSURFACE | SDL_FULLSCREEN);
+            Screen.window = SDL_SetVideoMode(w, h, 24,
+                                             SDL_SWSURFACE | SDL_FULLSCREEN);
         if(Screen.window != 0)
             LogWrite("Window created", 1, MT_INFO, NULL);
         else
@@ -62,7 +64,8 @@ void ScreenInit(int w, int h, const char *title, bool fullscreen)
     if (!fullscreen)
         Screen.window = SDL_SetVideoMode(w, h, 32, SDL_HWSURFACE);
     else
-        Screen.window = SDL_SetVideoMode(w, h, 32, SDL_HWSURFACE | SDL_FULLSCREEN);
+        Screen.window = SDL_SetVideoMode(w, h, 32,
+                                         SDL_HWSURFACE | SDL_FULLSCREEN);
     if(Screen.window != 0)
         LogWrite("Window created", 1, MT_INFO, NULL);
     else
@@ -74,7 +77,7 @@ void ScreenInit(int w, int h, const char *title, bool fullscreen)
     sdlinfo.version = sdlver;
     SDL_GetWMInfo(&sdlinfo);
     Screen.hwnd = sdlinfo.window;
-	#endif
+    #endif
 
     SDL_WM_SetCaption(title, NULL);
 

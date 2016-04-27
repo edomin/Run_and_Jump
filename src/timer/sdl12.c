@@ -2,9 +2,9 @@
 
 void InitTimer(void)
 {
-	LogWrite("Initializing timer", 0, MT_INFO, NULL);
-	srand(time(NULL));
-	if (SDL_InitSubSystem(SDL_INIT_TIMER) == 0) /* Инициализируем таймер */
+    LogWrite("Initializing timer", 0, MT_INFO, NULL);
+    srand(time(NULL));
+    if (SDL_InitSubSystem(SDL_INIT_TIMER) == 0) /* РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј С‚Р°Р№РјРµСЂ */
     {
         LogWrite("Timer initialized", 1, MT_INFO, NULL);
     }

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #if INCLUDE_BOOL
-	#include <bool.h>
+    #include <bool.h>
 #endif
 
 #include "scripts.h"

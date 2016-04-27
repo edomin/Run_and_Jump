@@ -10,19 +10,19 @@
 #include "SDL2/SDL_image.h"
 
 struct bitmap {
-    int width;
-    int height;
-    int bpp;
-    SDL_Surface* data;
+    int             width;
+    int             height;
+    int             bpp;
+    SDL_Surface*    data;
 } *Bitmap;
 
 struct {
     int imagesCount;
 } Images;
 
-void ImagesInit(int);/* Инициализация */
-void ImagesQuit(void); /* завершаем работу манеджера изображений */
-int ImagesCreateBitmap(int, int, int); /* создание изображения */
+void ImagesInit(int);               /* РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ */
+void ImagesQuit(void);              /* Р·Р°РІРµСЂС€Р°РµРј СЂР°Р±РѕС‚Сѓ РјР°РЅРµРґР¶РµСЂР° РёР·РѕР±СЂР°Р¶РµРЅРёР№ */
+int ImagesCreateBitmap(int, int, int);/* СЃРѕР·РґР°РЅРёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ */
 void ImagesSaveBitmap(int, char *);
 void ImagesSetPixel(int, int, int, int, int ,int, int);
 void ImagesDestroyBitmap(int);

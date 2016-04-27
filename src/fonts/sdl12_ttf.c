@@ -8,7 +8,7 @@ bool FontsInit(int fonts)
     LogWrite("Initializing Font Manager", 0, MT_INFO, NULL);
 
     #ifndef CC_KOS
-	SDL_TTF_VERSION(&ctVersion);
+    SDL_TTF_VERSION(&ctVersion);
     LogWrite("Checking SDL_ttf compile-time version", 1, MT_INFO, NULL);
     LogWrite2("Major:", 2, MT_INFO, ctVersion.major);
     LogWrite2("Minor:", 2, MT_INFO, ctVersion.minor);
@@ -21,7 +21,7 @@ bool FontsInit(int fonts)
     LogWrite2("Patch:", 2, MT_INFO, dllVersion->patch);
     #endif
 
-    Fonts.fontsCount = 0; /* устанавливаем количество загруженных шрифтов в 0 */
+    Fonts.fontsCount = 0; /* СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РіСЂСѓР¶РµРЅРЅС‹С… С€СЂРёС„С‚РѕРІ РІ 0 */
 
     Fonts.font = malloc(sizeof(TTF_Font *) * fonts);
     if (Fonts.font == NULL)
@@ -41,11 +41,12 @@ bool FontsInit(int fonts)
 int FontsLoadFont(char *filename, int size)
 {
     Fonts.name[Fonts.fontsCount] = malloc(sizeof(char) * (strlen(filename) + 1));
-    Fonts.name[Fonts.fontsCount] = strcpy(Fonts.name[Fonts.fontsCount], (const char *)filename);
-    Fonts.fontsCount += 1; /* Увеличиваем кол-во шрифтов на 1 */
-    /* Загружаем файл */
+    Fonts.name[Fonts.fontsCount] = strcpy(Fonts.name[Fonts.fontsCount],
+                                          (const char *)filename);
+    Fonts.fontsCount += 1; /* РЈРІРµР»РёС‡РёРІР°РµРј РєРѕР»-РІРѕ С€СЂРёС„С‚РѕРІ РЅР° 1 */
+    /* Р—Р°РіСЂСѓР¶Р°РµРј С„Р°Р№Р» */
     LogWrite("Loading font", 0, MT_INFO, Fonts.name[Fonts.fontsCount - 1]);
-    Fonts.font[Fonts.fontsCount - 1] = NULL;/* обнуляем указатель на шрифт */
+    Fonts.font[Fonts.fontsCount - 1] = NULL;/* РѕР±РЅСѓР»СЏРµРј СѓРєР°Р·Р°С‚РµР»СЊ РЅР° С€СЂРёС„С‚ */
 
     Fonts.font[Fonts.fontsCount - 1] = TTF_OpenFont(filename, size);
     LogWrite("Font loaded", 0, MT_INFO, NULL);

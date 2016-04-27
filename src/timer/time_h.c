@@ -2,9 +2,9 @@
 
 void InitTimer(void)
 {
-	LogWrite("Initializing timer", 0, MT_INFO, NULL);
-	srand(time(NULL));
-	LogWrite("Timer initialized", 0, MT_INFO, NULL);
+    LogWrite("Initializing timer", 0, MT_INFO, NULL);
+    srand(time(NULL));
+    LogWrite("Timer initialized", 0, MT_INFO, NULL);
 }
 
 void TimerStart(void)

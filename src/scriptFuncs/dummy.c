@@ -12,7 +12,7 @@ int SFInitScreen(void *l)
 
 int SFInitDraw(void *l)
 {
-	return 0;
+    return 0;
 }
 
 int SFInitInput(void *l)
@@ -593,11 +593,11 @@ int SFLogWrite(void *l)
 
 int SFScriptRegisterNumericVariable(void *l)
 {
-	return 0;
+    return 0;
 }
 
 int SFScriptRegisterStringVariable(void *l)
 {
-	return 0;
+    return 0;
 }
 

@@ -8,39 +8,40 @@
 #define dSINGLE
 #include "ode/ode.h"
 
-/* Статичная геометрия - блок */
+/* РЎС‚Р°С‚РёС‡РЅР°СЏ РіРµРѕРјРµС‚СЂРёСЏ - Р±Р»РѕРє */
 typedef struct {
-    dGeomID geom; /* геометрия */
-    /* Значения для отображения (только чтение) */
-    double x; /* координаты */
-    double y; /* координаты */
-    double width; /* размеры */
-    double height; /* размеры */
+    dGeomID geom;   /* РіРµРѕРјРµС‚СЂРёСЏ */
+    /* Р—РЅР°С‡РµРЅРёСЏ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ (С‚РѕР»СЊРєРѕ С‡С‚РµРЅРёРµ) */
+    double  x;      /* РєРѕРѕСЂРґРёРЅР°С‚С‹ */
+    double  y;      /* РєРѕРѕСЂРґРёРЅР°С‚С‹ */
+    double  width;  /* СЂР°Р·РјРµСЂС‹ */
+    double  height; /* СЂР°Р·РјРµСЂС‹ */
 } staticGeom;
 
-/* Физическое тело - объект */
+/* Р¤РёР·РёС‡РµСЃРєРѕРµ С‚РµР»Рѕ - РѕР±СЉРµРєС‚ */
 typedef struct {
-    dGeomID geom; /* геометрия */
-    dBodyID body; /* тело */
-    dMass mass; /* масса */
-    /* Значения для отображения (только чтение). Заполняются процедурой PhysicsBodyRefreshStats() */
-    double x; /* координаты */
-    double y; /* координаты */
-    double width; /* размеры */
-    double height; /* размеры */
-    double weight; /* масса */
-    double angle; /* угол поворота */
+    dGeomID geom;   /* РіРµРѕРјРµС‚СЂРёСЏ */
+    dBodyID body;   /* С‚РµР»Рѕ */
+    dMass   mass;   /* РјР°СЃСЃР° */
+    /* Р—РЅР°С‡РµРЅРёСЏ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ (С‚РѕР»СЊРєРѕ С‡С‚РµРЅРёРµ). Р—Р°РїРѕР»РЅСЏСЋС‚СЃСЏ РїСЂРѕС†РµРґСѓСЂРѕР№
+       PhysicsBodyRefreshStats() */
+    double  x;      /* РєРѕРѕСЂРґРёРЅР°С‚С‹ */
+    double  y;      /* РєРѕРѕСЂРґРёРЅР°С‚С‹ */
+    double  width;  /* СЂР°Р·РјРµСЂС‹ */
+    double  height; /* СЂР°Р·РјРµСЂС‹ */
+    double  weight; /* РјР°СЃСЃР° */
+    double  angle;  /* СѓРіРѕР» РїРѕРІРѕСЂРѕС‚Р° */
 } tbody;
 
 struct physics {
-    dWorldID world; /* общий мир */
-    dSpaceID space; /* общее пространство */
-    dJointGroupID jointGroup; /* общая группа точек соприкосновения */
-    staticGeom *block; /* массив статических геометрий */
-    tbody *object; /* массив физических тел */
-    int blocksCount; /* счетчик статических геометрий */
-    int objectsCount; /* счетчик физических тел */
-    dReal stepSize; /* длина шага симуляции */
+    dWorldID        world;      /* РѕР±С‰РёР№ РјРёСЂ */
+    dSpaceID        space;      /* РѕР±С‰РµРµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ */
+    dJointGroupID   jointGroup; /* РѕР±С‰Р°СЏ РіСЂСѓРїРїР° С‚РѕС‡РµРє СЃРѕРїСЂРёРєРѕСЃРЅРѕРІРµРЅРёСЏ */
+    staticGeom *    block;      /* РјР°СЃСЃРёРІ СЃС‚Р°С‚РёС‡РµСЃРєРёС… РіРµРѕРјРµС‚СЂРёР№ */
+    tbody *         object;     /* РјР°СЃСЃРёРІ С„РёР·РёС‡РµСЃРєРёС… С‚РµР» */
+    int             blocksCount;/* СЃС‡РµС‚С‡РёРє СЃС‚Р°С‚РёС‡РµСЃРєРёС… РіРµРѕРјРµС‚СЂРёР№ */
+    int             objectsCount;/* СЃС‡РµС‚С‡РёРє С„РёР·РёС‡РµСЃРєРёС… С‚РµР» */
+    dReal           stepSize;   /* РґР»РёРЅР° С€Р°РіР° СЃРёРјСѓР»СЏС†РёРё */
 } Physics;
 
 void PhysicsInit(dReal, dReal, dReal, dReal, int, int);

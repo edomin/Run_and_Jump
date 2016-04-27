@@ -16,7 +16,7 @@ void AppInit(void)
     LogWrite2("Middle:", 2, MT_INFO, ALLEGRO_SUB_VERSION);
     LogWrite2("Minor:", 2, MT_INFO, ALLEGRO_WIP_VERSION);
 
-    if (allegro_init() == 0) /* Инициализируем Allegro */
+    if (allegro_init() == 0) /* РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј Allegro */
     {
         LogWrite("Allegro initialized", 1, MT_INFO, NULL);
     }
@@ -25,7 +25,7 @@ void AppInit(void)
         ErrorGive("Can not initialize Allegro", 1);
     }
 
-	//App.eq = al_create_event_queue();
+    //App.eq = al_create_event_queue();
 
     App.quit = false;
     App.xed = false;
@@ -38,7 +38,8 @@ void AppInit(void)
     }
     else
     {
-        LogWrite("Can not install close button callback function", 1, MT_WARNING, NULL);
+        LogWrite("Can not install close button callback function", 1,
+                 MT_WARNING, NULL);
     }
 
     LogWrite("Application initialized", 0, MT_INFO, NULL);

@@ -7,6 +7,4 @@
 
 void ErrorGive(char *, int);
 
-
-
 #endif

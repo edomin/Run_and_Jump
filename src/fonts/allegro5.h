@@ -11,15 +11,15 @@
 #include "defines.h"
 
 struct {
-    int fontsCount;
-    ALLEGRO_FONT **font;
-    char **name;
+    int             fontsCount;
+    ALLEGRO_FONT ** font;
+    char **         name;
 } Fonts;
 
-bool FontsInit(int);/* Инициализация */
-int FontsLoadFont(char *, int);/* Загрузка шрифта */
-void FontsDestroyFont(int); /* уничтожение шрифта */
-void FontsQuit(void); /* завершаем работу менеджера шрифтов */
+bool FontsInit(int);            /* РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ */
+int FontsLoadFont(char *, int); /* Р—Р°РіСЂСѓР·РєР° С€СЂРёС„С‚Р° */
+void FontsDestroyFont(int);     /* СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ С€СЂРёС„С‚Р° */
+void FontsQuit(void);           /* Р·Р°РІРµСЂС€Р°РµРј СЂР°Р±РѕС‚Сѓ РјРµРЅРµРґР¶РµСЂР° С€СЂРёС„С‚РѕРІ */
 
 
 #endif

@@ -8,44 +8,60 @@
 #include "sprites.h"
 #include "defines.h"
 
-/* Структура элемента очереди рисования */
+/* РЎС‚СЂСѓРєС‚СѓСЂР° СЌР»РµРјРµРЅС‚Р° РѕС‡РµСЂРµРґРё СЂРёСЃРѕРІР°РЅРёСЏ */
 struct drawStep{
-    int spriteNum; /* Номер спрайта */
-    int clipNum; /* Номер кадра */
-    int x; /* Горизонтальная позиция */
-    int y; /* Вертикальная позиция */
-    int width; /* Длина */
-    int height; /* Высота */
-    double angle; /* Угол поворота */
-    int centerX; /* Точка поворота */
-    int centerY; /* Точка поворота */
-    int r; /* Красный для окраски примитивов */
-    int g; /* Зеленый для окраски примитивов */
-    int b; /* Синий для окраски примитивов */
-    int a; /* Альфа канал спрайта или примитива */
-    int flip; /* Отражение спрайта по горизонтали и вертикали */
+    int             spriteNum; /* РќРѕРјРµСЂ СЃРїСЂР°Р№С‚Р° */
+    int             clipNum;   /* РќРѕРјРµСЂ РєР°РґСЂР° */
+    int             x;         /* Р“РѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅР°СЏ РїРѕР·РёС†РёСЏ */
+    int             y;         /* Р’РµСЂС‚РёРєР°Р»СЊРЅР°СЏ РїРѕР·РёС†РёСЏ */
+    int             width;     /* Р”Р»РёРЅР° */
+    int             height;    /* Р’С‹СЃРѕС‚Р° */
+    double          angle;     /* РЈРіРѕР» РїРѕРІРѕСЂРѕС‚Р° */
+    int             centerX;   /* РўРѕС‡РєР° РїРѕРІРѕСЂРѕС‚Р° */
+    int             centerY;   /* РўРѕС‡РєР° РїРѕРІРѕСЂРѕС‚Р° */
+    int             r;         /* РљСЂР°СЃРЅС‹Р№ РґР»СЏ РѕРєСЂР°СЃРєРё РїСЂРёРјРёС‚РёРІРѕРІ */
+    int             g;         /* Р—РµР»РµРЅС‹Р№ РґР»СЏ РѕРєСЂР°СЃРєРё РїСЂРёРјРёС‚РёРІРѕРІ */
+    int             b;         /* РЎРёРЅРёР№ РґР»СЏ РѕРєСЂР°СЃРєРё РїСЂРёРјРёС‚РёРІРѕРІ */
+    int             a;         /* РђР»СЊС„Р° РєР°РЅР°Р» СЃРїСЂР°Р№С‚Р° РёР»Рё РїСЂРёРјРёС‚РёРІР° */
+    int             flip;      /* РћС‚СЂР°Р¶РµРЅРёРµ СЃРїСЂР°Р№С‚Р° РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё Рё РІРµСЂС‚РёРєР°Р»Рё*/
 } *DrawRound;
 
 struct {
-    SDL_Surface *renderer; /* Рендерер */
-    int roundLength; /* Длина очереди рисования */
+    SDL_Surface *   renderer;       /* Р РµРЅРґРµСЂРµСЂ */
+    int             roundLength;    /* Р”Р»РёРЅР° РѕС‡РµСЂРµРґРё СЂРёСЃРѕРІР°РЅРёСЏ */
 //    SDL_RendererInfo rendererInfo;
 } Draw;
 
-void DrawInit(int, int); /* Инициализация рисовалки */
-void DrawDestroy(void); /* Уничтожение рисовалки */
-void DrawAddSprite(int, int, int, int); /* Добавление спрайта в очередь */
-void DrawAddSpriteSized(int, int, int, int, int, int); /* Добавление увеличенного или уменьшенного спрайта в очередь */
-void DrawAddSpriteAngled(int, int, int, int, int, int, double); /* Добавление повернутого спрайта в очередь */
-void DrawAddSpriteAlpha(int, int, int, int, int); /* Добавление спрайта c прозрачностью в очередь */
-void DrawAddSpriteGeneral(int, int, int, int, int, int, int, int, double, int, int); /* Добавление увеличенного или уменьшенного повернутого спрайта с прозрачностью в очередь */
-void DrawAddPoint(int, int, int, int, int, int); /* Добавление точки в очередь */
-void DrawAddLine(int, int, int, int, int, int, int, int); /* Добавление линии в очередь */
-void DrawAddRect(int, int, int, int, int, int, int, int); /* Добавление прямоугольника в очередь */
-void DrawAddFilledRect(int, int, int, int, int, int, int, int); /* Добавление закрашеного прямоугольника в очередь */
-void DrawAddFill(int, int, int, int); /* Добавление заливки экрана в очередь */
-int DrawOutput(void); /* Вывод всех элементов из очереди */
-void DrawFlip(void); /* Обновление рендерера */
+/* РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЂРёСЃРѕРІР°Р»РєРё */
+void DrawInit(int, int);
+/* РЈРЅРёС‡С‚РѕР¶РµРЅРёРµ СЂРёСЃРѕРІР°Р»РєРё */
+void DrawDestroy(void);
+/* Р”РѕР±Р°РІР»РµРЅРёРµ СЃРїСЂР°Р№С‚Р° РІ РѕС‡РµСЂРµРґСЊ */
+void DrawAddSprite(int, int, int, int);
+/* Р”РѕР±Р°РІР»РµРЅРёРµ СѓРІРµР»РёС‡РµРЅРЅРѕРіРѕ РёР»Рё СѓРјРµРЅСЊС€РµРЅРЅРѕРіРѕ СЃРїСЂР°Р№С‚Р° РІ РѕС‡РµСЂРµРґСЊ */
+void DrawAddSpriteSized(int, int, int, int, int, int);
+/* Р”РѕР±Р°РІР»РµРЅРёРµ РїРѕРІРµСЂРЅСѓС‚РѕРіРѕ СЃРїСЂР°Р№С‚Р° РІ РѕС‡РµСЂРµРґСЊ */
+void DrawAddSpriteAngled(int, int, int, int, int, int, double);
+/* Р”РѕР±Р°РІР»РµРЅРёРµ СЃРїСЂР°Р№С‚Р° c РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊСЋ РІ РѕС‡РµСЂРµРґСЊ */
+void DrawAddSpriteAlpha(int, int, int, int, int);
+/* Р”РѕР±Р°РІР»РµРЅРёРµ СѓРІРµР»РёС‡РµРЅРЅРѕРіРѕ РёР»Рё СѓРјРµРЅСЊС€РµРЅРЅРѕРіРѕ РїРѕРІРµСЂРЅСѓС‚РѕРіРѕ СЃРїСЂР°Р№С‚Р° СЃ РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊСЋ
+   РІ РѕС‡РµСЂРµРґСЊ */
+void DrawAddSpriteGeneral(int, int, int, int, int, int, int, int, double, int,
+                          int);
+/* Р”РѕР±Р°РІР»РµРЅРёРµ С‚РѕС‡РєРё РІ РѕС‡РµСЂРµРґСЊ */
+void DrawAddPoint(int, int, int, int, int, int);
+/* Р”РѕР±Р°РІР»РµРЅРёРµ Р»РёРЅРёРё РІ РѕС‡РµСЂРµРґСЊ */
+void DrawAddLine(int, int, int, int, int, int, int, int);
+/* Р”РѕР±Р°РІР»РµРЅРёРµ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР° РІ РѕС‡РµСЂРµРґСЊ */
+void DrawAddRect(int, int, int, int, int, int, int, int);
+/* Р”РѕР±Р°РІР»РµРЅРёРµ Р·Р°РєСЂР°С€РµРЅРѕРіРѕ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР° РІ РѕС‡РµСЂРµРґСЊ */
+void DrawAddFilledRect(int, int, int, int, int, int, int, int);
+/* Р”РѕР±Р°РІР»РµРЅРёРµ Р·Р°Р»РёРІРєРё СЌРєСЂР°РЅР° РІ РѕС‡РµСЂРµРґСЊ */
+void DrawAddFill(int, int, int, int);
+/* Р’С‹РІРѕРґ РІСЃРµС… СЌР»РµРјРµРЅС‚РѕРІ РёР· РѕС‡РµСЂРµРґРё */
+int DrawOutput(void);
+/* РћР±РЅРѕРІР»РµРЅРёРµ СЂРµРЅРґРµСЂРµСЂР° */
+void DrawFlip(void);
 
 #endif
 

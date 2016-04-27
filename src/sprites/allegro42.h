@@ -15,41 +15,49 @@
 #include "defines.h"
 
 typedef struct rect {
-	int x;
-	int y;
-	int w;
-	int h;
+    int x;
+    int y;
+    int w;
+    int h;
 } Rect;
 
 struct sprite {
-    BITMAP *texture; /* Картинка спрайта */
-    Rect *clip; /* Максимальное число кадров анимации */
-    int clipsCount; /* Количество кадров анимации */
-    char *name; /* Имя спрайта (имя файла или строка для текстового спрайта) */
-    int width; /* Ширина кадра спрайта */
-    int height; /* Высота кадра спрайта */
-    /* Значения для текстовых спрайтов */
-    char *text; /* Текст */
-    int fontNum; /* Номер шрифта */
-    int textR; /* Красный компонент */
-    int textG; /* Зеленый компонент */
-    int textB; /* Синий компонент */
-    int wrapLength; /* Длина строки для многострочного текста (не будет работать) */
+    BITMAP *texture;    /* РљР°СЂС‚РёРЅРєР° СЃРїСЂР°Р№С‚Р° */
+    Rect *  clip;       /* РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ РєР°РґСЂРѕРІ Р°РЅРёРјР°С†РёРё */
+    int     clipsCount; /* РљРѕР»РёС‡РµСЃС‚РІРѕ РєР°РґСЂРѕРІ Р°РЅРёРјР°С†РёРё */
+    char *  name;       /* РРјСЏ СЃРїСЂР°Р№С‚Р° (РёРјСЏ С„Р°Р№Р»Р° РёР»Рё СЃС‚СЂРѕРєР° РґР»СЏ С‚РµРєСЃС‚РѕРІРѕРіРѕ
+                           СЃРїСЂР°Р№С‚Р°) */
+    int     width;      /* РЁРёСЂРёРЅР° РєР°РґСЂР° СЃРїСЂР°Р№С‚Р° */
+    int     height;     /* Р’С‹СЃРѕС‚Р° РєР°РґСЂР° СЃРїСЂР°Р№С‚Р° */
+    /* Р—РЅР°С‡РµРЅРёСЏ РґР»СЏ С‚РµРєСЃС‚РѕРІС‹С… СЃРїСЂР°Р№С‚РѕРІ */
+    char *  text;       /* РўРµРєСЃС‚ */
+    int     fontNum;    /* РќРѕРјРµСЂ С€СЂРёС„С‚Р° */
+    int     textR;      /* РљСЂР°СЃРЅС‹Р№ РєРѕРјРїРѕРЅРµРЅС‚ */
+    int     textG;      /* Р—РµР»РµРЅС‹Р№ РєРѕРјРїРѕРЅРµРЅС‚ */
+    int     textB;      /* РЎРёРЅРёР№ РєРѕРјРїРѕРЅРµРЅС‚ */
+    int     wrapLength; /* Р”Р»РёРЅР° СЃС‚СЂРѕРєРё РґР»СЏ РјРЅРѕРіРѕСЃС‚СЂРѕС‡РЅРѕРіРѕ С‚РµРєСЃС‚Р° (РЅРµ Р±СѓРґРµС‚
+                           СЂР°Р±РѕС‚Р°С‚СЊ) */
 } *Sprite;
 
 struct {
     int spritesCount;
-    //SDL_Surface *loadedImage; /* временная поверхность для загруженных изображений */
 } Sprites;
 
-void SpritesInit(int);/* Инициализация */
-int SpritesCreateSprite(char *, int);/* Создание спрайта */
-int SpritesCreateText(char *, int, int, int, int, int);/* Создание текстового спрайта */
-void SpritesChangeText(int, char *, int, int, int, int, int);/* Измененяет текста на существующем текстовом спрайте */
-                                                        /* и возвращает его номер */
-void SpritesBlitSprite(int, int, int, int, int, int, int, int, double, int, int); /* Вывод спрайта */
-void SpritesDestroySprite(int); /* уничтожение спрайта */
-void SpritesQuit(void); /* завершаем работу манеджера спрайтов */
+/* РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ */
+void SpritesInit(int);
+/* РЎРѕР·РґР°РЅРёРµ СЃРїСЂР°Р№С‚Р° */
+int SpritesCreateSprite(char *, int);
+/* РЎРѕР·РґР°РЅРёРµ С‚РµРєСЃС‚РѕРІРѕРіРѕ СЃРїСЂР°Р№С‚Р° */
+int SpritesCreateText(char *, int, int, int, int, int);
+/* РР·РјРµРЅРµРЅСЏРµС‚ С‚РµРєСЃС‚Р° РЅР° СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРј С‚РµРєСЃС‚РѕРІРѕРј СЃРїСЂР°Р№С‚Рµ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РµРіРѕ РЅРѕРјРµСЂ */
+void SpritesChangeText(int, char *, int, int, int, int, int);
+/* Р’С‹РІРѕРґ СЃРїСЂР°Р№С‚Р° */
+void SpritesBlitSprite(int, int, int, int, int, int, int, int, double, int,
+                       int);
+/* СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ СЃРїСЂР°Р№С‚Р° */
+void SpritesDestroySprite(int);
+/* Р·Р°РІРµСЂС€Р°РµРј СЂР°Р±РѕС‚Сѓ РјР°РЅРµРґР¶РµСЂР° СЃРїСЂР°Р№С‚РѕРІ */
+void SpritesQuit(void);
 
 #endif
 

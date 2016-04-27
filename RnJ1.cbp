@@ -131,6 +131,10 @@
 		</Unit>
 		<Unit filename="src/files.h" />
 		<Unit filename="src/fonts.h" />
+		<Unit filename="src/fonts/allegro42font.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/fonts/allegro42font.h" />
 		<Unit filename="src/fonts/allegro5.c">
 			<Option compilerVar="CC" />
 		</Unit>

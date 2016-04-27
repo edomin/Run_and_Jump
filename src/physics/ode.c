@@ -1,57 +1,69 @@
 #include "physics/ode.h"
 
-/* Инициализация */
-void PhysicsInit(dReal xGrav, dReal yGrav, dReal cfm, dReal stepSize, int blocks, int objects)
+/* РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ */
+void PhysicsInit(dReal xGrav, dReal yGrav, dReal cfm, dReal stepSize,
+                 int blocks, int objects)
 {
     LogWrite("Initializing Physics Subsystem", 0, MT_INFO, NULL);
-    dInitODE(); /* Инициализация ОДЕ */
-    Physics.world = dWorldCreate(); /* Создание общего мира */
-    Physics.space = dHashSpaceCreate(PHYS_SPACE_NONE); /* Создание общего пространства */
-    dWorldSetGravity(Physics.world, xGrav, yGrav, ZAXIS_COORD); /* Установка графитации */
-    dWorldSetCFM(Physics.world, cfm); /* Установка жесткости соединений */
-    Physics.jointGroup = dJointGroupCreate(PHYS_JOINT_MAX_SIZE); /* Создание общей группы контактов */
-    /* Инициализация структур блоков и объектов */
+    /* РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РћР”Р• */
+    dInitODE();
+    /* РЎРѕР·РґР°РЅРёРµ РѕР±С‰РµРіРѕ РјРёСЂР° */
+    Physics.world = dWorldCreate();
+    /* РЎРѕР·РґР°РЅРёРµ РѕР±С‰РµРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° */
+    Physics.space = dHashSpaceCreate(PHYS_SPACE_NONE);
+    /* РЈСЃС‚Р°РЅРѕРІРєР° РіСЂР°С„РёС‚Р°С†РёРё */
+    dWorldSetGravity(Physics.world, xGrav, yGrav, ZAXIS_COORD);
+    /* РЈСЃС‚Р°РЅРѕРІРєР° Р¶РµСЃС‚РєРѕСЃС‚Рё СЃРѕРµРґРёРЅРµРЅРёР№ */
+    dWorldSetCFM(Physics.world, cfm);
+    /* РЎРѕР·РґР°РЅРёРµ РѕР±С‰РµР№ РіСЂСѓРїРїС‹ РєРѕРЅС‚Р°РєС‚РѕРІ */
+    Physics.jointGroup = dJointGroupCreate(PHYS_JOINT_MAX_SIZE);
+    /* РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃС‚СЂСѓРєС‚СѓСЂ Р±Р»РѕРєРѕРІ Рё РѕР±СЉРµРєС‚РѕРІ */
     Physics.blocksCount = 0;
     Physics.block = malloc(sizeof(staticGeom) * blocks);
     Physics.objectsCount = 0;
     Physics.object = malloc(sizeof(tbody) * objects);
-    Physics.stepSize = stepSize; /* Установка длины шага симуляции */
+    /* РЈСЃС‚Р°РЅРѕРІРєР° РґР»РёРЅС‹ С€Р°РіР° СЃРёРјСѓР»СЏС†РёРё */
+    Physics.stepSize = stepSize;
     LogWrite("Physics Subsystem initialized", 0, MT_INFO, NULL);
 }
 
-/* Уничтожение */
+/* РЈРЅРёС‡С‚РѕР¶РµРЅРёРµ */
 void PhysicsDestroy(void)
 {
     LogWrite("Destroying Physics Subsystem", 0, MT_INFO, NULL);
     int i;
-    /* Уничтожение объектов */
+    /* РЈРЅРёС‡С‚РѕР¶РµРЅРёРµ РѕР±СЉРµРєС‚РѕРІ */
     for (i = 0; i < Physics.objectsCount; i++)
     {
         dBodyDestroy(Physics.object[i].body);
         dGeomDestroy(Physics.object[i].geom);
         LogWrite("Object Destroyed", 1, MT_INFO, NULL);
     }
-    /* Уничтожение блоков */
+    /* РЈРЅРёС‡С‚РѕР¶РµРЅРёРµ Р±Р»РѕРєРѕРІ */
     for (i = 0; i < Physics.blocksCount; i++)
     {
         dGeomDestroy(Physics.block[i].geom);
         LogWrite("Block Destroyed", 1, MT_INFO, NULL);
     }
-    /* Освобождение памяти массивов блоков и объектов */
+    /* РћСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё РјР°СЃСЃРёРІРѕРІ Р±Р»РѕРєРѕРІ Рё РѕР±СЉРµРєС‚РѕРІ */
     free(Physics.block);
     free(Physics.object);
-    dSpaceDestroy(Physics.space); /* Уничтожение обзего пространства */
-    dWorldDestroy(Physics.world); /* Уничтожение Обзего мира */
-    dCloseODE(); /* Деинициалзация ОДЕ */
+    dSpaceDestroy(Physics.space); /* РЈРЅРёС‡С‚РѕР¶РµРЅРёРµ РѕР±Р·РµРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° */
+    dWorldDestroy(Physics.world); /* РЈРЅРёС‡С‚РѕР¶РµРЅРёРµ РћР±Р·РµРіРѕ РјРёСЂР° */
+    dCloseODE(); /* Р”РµРёРЅРёС†РёР°Р»Р·Р°С†РёСЏ РћР”Р• */
     LogWrite("Physics Subsystem Destroyed", 0, MT_INFO, NULL);
 }
 
-/* Добавление блока */
+/* Р”РѕР±Р°РІР»РµРЅРёРµ Р±Р»РѕРєР° */
 int PhysicsPlaceBlock(dReal x, dReal y, dReal width, dReal height)
 {
-    Physics.block[Physics.blocksCount].geom = dCreateBox(Physics.space, width, height, ZAXIS_LENGTH); /* Создаем геометрию (пока только квадрат) */
-    dGeomSetPosition(Physics.block[Physics.blocksCount].geom, x, y, ZAXIS_COORD); /* Устанавливаем позицию геометрии */
-    /* Заполняем данные для чтения */
+    /* РЎРѕР·РґР°РµРј РіРµРѕРјРµС‚СЂРёСЋ (РїРѕРєР° С‚РѕР»СЊРєРѕ РєРІР°РґСЂР°С‚) */
+    Physics.block[Physics.blocksCount].geom = dCreateBox(Physics.space, width,
+                                                         height, ZAXIS_LENGTH);
+    /* РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїРѕР·РёС†РёСЋ РіРµРѕРјРµС‚СЂРёРё */
+    dGeomSetPosition(Physics.block[Physics.blocksCount].geom, x, y,
+                     ZAXIS_COORD);
+    /* Р—Р°РїРѕР»РЅСЏРµРј РґР°РЅРЅС‹Рµ РґР»СЏ С‡С‚РµРЅРёСЏ */
     Physics.block[Physics.blocksCount].width = (double)width;
     Physics.block[Physics.blocksCount].height = (double)height;
     Physics.block[Physics.blocksCount].x = (double)x;
@@ -61,18 +73,31 @@ int PhysicsPlaceBlock(dReal x, dReal y, dReal width, dReal height)
     return Physics.blocksCount - 1;
 }
 
-/* Добавление объекта */
+/* Р”РѕР±Р°РІР»РµРЅРёРµ РѕР±СЉРµРєС‚Р° */
 int PhysicsPlaceObject(dReal x, dReal y, dReal width, dReal height, dReal mass)
 {
-    Physics.object[Physics.objectsCount].body = dBodyCreate(Physics.world); /* Создаем тело объекта */
-    dMassSetZero(&Physics.object[Physics.objectsCount].mass); /* Инициализируем массу */
-    dMassSetBoxTotal(&Physics.object[Physics.objectsCount].mass, mass, width, height, ZAXIS_LENGTH); /* Распределяем массу для квадрата */
-    dBodySetMass(Physics.object[Physics.objectsCount].body, &Physics.object[Physics.objectsCount].mass); /* станавливаем распределенную массу телу */
-    dBodySetPosition(Physics.object[Physics.objectsCount].body, x, y, ZAXIS_COORD); /* Устанавливаем позицию тела */
-    Physics.object[Physics.objectsCount].geom = dCreateBox(Physics.space, width, height, ZAXIS_LENGTH); /* Создаем геометрию (пока только квадрат) */
-    dGeomSetBody(Physics.object[Physics.objectsCount].geom, Physics.object[Physics.objectsCount].body); /* Сопоставляем тело и геометрию */
+    /* РЎРѕР·РґР°РµРј С‚РµР»Рѕ РѕР±СЉРµРєС‚Р° */
+    Physics.object[Physics.objectsCount].body = dBodyCreate(Physics.world);
+    /* РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РјР°СЃСЃСѓ */
+    dMassSetZero(&Physics.object[Physics.objectsCount].mass);
+    /* Р Р°СЃРїСЂРµРґРµР»СЏРµРј РјР°СЃСЃСѓ РґР»СЏ РєРІР°РґСЂР°С‚Р° */
+    dMassSetBoxTotal(&Physics.object[Physics.objectsCount].mass, mass, width,
+                     height, ZAXIS_LENGTH);
+    /* СЃС‚Р°РЅР°РІР»РёРІР°РµРј СЂР°СЃРїСЂРµРґРµР»РµРЅРЅСѓСЋ РјР°СЃСЃСѓ С‚РµР»Сѓ */
+    dBodySetMass(Physics.object[Physics.objectsCount].body,
+                 &Physics.object[Physics.objectsCount].mass);
+    /* РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїРѕР·РёС†РёСЋ С‚РµР»Р° */
+    dBodySetPosition(Physics.object[Physics.objectsCount].body, x, y,
+                     ZAXIS_COORD);
+    /* РЎРѕР·РґР°РµРј РіРµРѕРјРµС‚СЂРёСЋ (РїРѕРєР° С‚РѕР»СЊРєРѕ РєРІР°РґСЂР°С‚) */
+    Physics.object[Physics.objectsCount].geom = dCreateBox(Physics.space,
+                                                           width, height,
+                                                           ZAXIS_LENGTH);
+    /* РЎРѕРїРѕСЃС‚Р°РІР»СЏРµРј С‚РµР»Рѕ Рё РіРµРѕРјРµС‚СЂРёСЋ */
+    dGeomSetBody(Physics.object[Physics.objectsCount].geom,
+                 Physics.object[Physics.objectsCount].body);
 
-    /* Заполняем данные для чтения */
+    /* Р—Р°РїРѕР»РЅСЏРµРј РґР°РЅРЅС‹Рµ РґР»СЏ С‡С‚РµРЅРёСЏ */
     Physics.object[Physics.objectsCount].width = (double)width;
     Physics.object[Physics.objectsCount].height = (double)height;
     Physics.object[Physics.objectsCount].x = (double)x;
@@ -83,15 +108,16 @@ int PhysicsPlaceObject(dReal x, dReal y, dReal width, dReal height, dReal mass)
     return Physics.objectsCount - 1;
 }
 
-/* Функция обработки столкновений */
+/* Р¤СѓРЅРєС†РёСЏ РѕР±СЂР°Р±РѕС‚РєРё СЃС‚РѕР»РєРЅРѕРІРµРЅРёР№ */
 void PhysicsCollide(void* data, dGeomID o1, dGeomID o2)
 {
-    /* Я хз, как это работает. Выдрал кусок кода из интернета */
+    /* РЇ С…Р·, РєР°Рє СЌС‚Рѕ СЂР°Р±РѕС‚Р°РµС‚. Р’С‹РґСЂР°Р» РєСѓСЃРѕРє РєРѕРґР° РёР· РёРЅС‚РµСЂРЅРµС‚Р° */
     dBodyID b1 = dGeomGetBody(o1);
     dBodyID b2 = dGeomGetBody(o2);
     dContact contacts[PHYS_MAX_CONTACTS];
     int i, numc;
-    numc = dCollide(o1, o2, PHYS_MAX_CONTACTS, &contacts[0].geom, sizeof(dContact));
+    numc = dCollide(o1, o2, PHYS_MAX_CONTACTS, &contacts[0].geom,
+                    sizeof(dContact));
     if (numc)
     {
         for (i = 0; i < numc; i++)
@@ -102,30 +128,38 @@ void PhysicsCollide(void* data, dGeomID o1, dGeomID o2)
             contacts[i].surface.slip2 = 0.1;
             contacts[i].surface.soft_erp = 0.5;
             contacts[i].surface.soft_cfm = 0.0;
-            dJointID c = dJointCreateContact(Physics.world, Physics.jointGroup, &contacts[i]);
+            dJointID c = dJointCreateContact(Physics.world, Physics.jointGroup,
+                                             &contacts[i]);
             dJointAttach(c, b1, b2);
         }
     }
 }
 
-/* Итерация мира */
+/* РС‚РµСЂР°С†РёСЏ РјРёСЂР° */
 void PhysicsStep(void)
 {
-    dSpaceCollide(Physics.space, PHYS_COLLIDE_DATA, &PhysicsCollide); /* Проверяем столкновения. Хз как работает */
-    dWorldStep(Physics.world, Physics.stepSize); /* Выполняем шаг итерации */
-    dJointGroupEmpty(Physics.jointGroup); /* Освобождаем группу точек контактов, которая заполнялась функцией PhysicsCollide() */
+    /* РџСЂРѕРІРµСЂСЏРµРј СЃС‚РѕР»РєРЅРѕРІРµРЅРёСЏ. РҐР· РєР°Рє СЂР°Р±РѕС‚Р°РµС‚ */
+    dSpaceCollide(Physics.space, PHYS_COLLIDE_DATA, &PhysicsCollide);
+    /* Р’С‹РїРѕР»РЅСЏРµРј С€Р°Рі РёС‚РµСЂР°С†РёРё */
+    dWorldStep(Physics.world, Physics.stepSize);
+    /* РћСЃРІРѕР±РѕР¶РґР°РµРј РіСЂСѓРїРїСѓ С‚РѕС‡РµРє РєРѕРЅС‚Р°РєС‚РѕРІ, РєРѕС‚РѕСЂР°СЏ Р·Р°РїРѕР»РЅСЏР»Р°СЃСЊ С„СѓРЅРєС†РёРµР№
+       PhysicsCollide() */
+    dJointGroupEmpty(Physics.jointGroup);
 }
 
-/* Обновление данных о положении объекта */
+/* РћР±РЅРѕРІР»РµРЅРёРµ РґР°РЅРЅС‹С… Рѕ РїРѕР»РѕР¶РµРЅРёРё РѕР±СЉРµРєС‚Р° */
 void PhysicsBodyRefreshStats(int object)
 {
-    /* Хз как работает. Выдрал кусок кода из интернета. Вобщем массив a - это вектор положения в пространстве, из него */
-    /* достаются координаты. an - это матрица поворота, она каким-то чудом преобразовывется в угол поворота относительно оси Z */
+    /* РҐР· РєР°Рє СЂР°Р±РѕС‚Р°РµС‚. Р’С‹РґСЂР°Р» РєСѓСЃРѕРє РєРѕРґР° РёР· РёРЅС‚РµСЂРЅРµС‚Р°. Р’РѕР±С‰РµРј РјР°СЃСЃРёРІ a - СЌС‚Рѕ
+       РІРµРєС‚РѕСЂ РїРѕР»РѕР¶РµРЅРёСЏ РІ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРµ, РёР· РЅРµРіРѕ РґРѕСЃС‚Р°СЋС‚СЃСЏ РєРѕРѕСЂРґРёРЅР°С‚С‹. a n - СЌС‚Рѕ
+       РјР°С‚СЂРёС†Р° РїРѕРІРѕСЂРѕС‚Р°, РѕРЅР° РєР°РєРёРј-С‚Рѕ С‡СѓРґРѕРј РїСЂРµРѕР±СЂР°Р·РѕРІС‹РІРµС‚СЃСЏ РІ СѓРіРѕР» РїРѕРІРѕСЂРѕС‚Р°
+       РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РѕСЃРё Z */
     const dReal *a = dBodyGetPosition(Physics.object[object].body);
     const dReal *an = dBodyGetRotation(Physics.object[object].body);
     if (an[8] < 1 - 0.0000001 && an[8] > -1 + 0.0000001)
     {
-        Physics.object[object].angle = atan2(an[4] / (cos(-asin(an[8]))), an[0] / (cos(-asin(an[8]))));
+        Physics.object[object].angle = atan2(an[4] / (cos(-asin(an[8]))),
+                                             an[0] / (cos(-asin(an[8]))));
     }
     else
     {

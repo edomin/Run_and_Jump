@@ -1,7 +1,7 @@
 #ifndef RNJ_DIALOGS_NATIVE_H
 #define RNJ_DIALOGS_NATIVE_H
 
-/* В данный момент модуль только для KolibriOS */
+/* Р’ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ РјРѕРґСѓР»СЊ С‚РѕР»СЊРєРѕ РґР»СЏ KolibriOS */
 
 #include BOOLLIB
 
@@ -9,7 +9,7 @@
 #include "log.h"
 
 //struct {
-//	Uint8 dialogStack[1024];
+//    Uint8 dialogStack[1024];
 //} Dialogs;
 
 void kolibrios_DialogThread(void);

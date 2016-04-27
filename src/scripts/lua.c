@@ -17,19 +17,19 @@ void ScriptsInit(void)
 
 void ScriptsRegisterFunction(lua_CFunction func, char * funcname)
 {
-    lua_register(Scripts.vm, funcname, func); /* регистрируем функцию */
+    lua_register(Scripts.vm, funcname, func); /* СЂРµРіРёСЃС‚СЂРёСЂСѓРµРј С„СѓРЅРєС†РёСЋ */
 }
 
 void ScriptsRegisterStringVariable(char *name, char *value)
 {
     lua_pushstring(Scripts.vm, value);
-	lua_setglobal(Scripts.vm, name);
+    lua_setglobal(Scripts.vm, name);
 }
 
 void ScriptsRegisterNumericVariable(char *name, double value)
 {
     lua_pushnumber(Scripts.vm, value);
-	lua_setglobal(Scripts.vm, name);
+    lua_setglobal(Scripts.vm, name);
 }
 
 int ScriptsDoFile(char * filename)

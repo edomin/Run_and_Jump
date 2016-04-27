@@ -42,7 +42,8 @@ int FontsLoadFont(char *filename, int size)
     alfont_set_char_extra_spacing(Fonts.font[Fonts.fontsCount - 1], 0);
     alfont_text_mode(-1); /* Не знаю, зачем эта строчка */
     alfont_set_font_background(Fonts.font[Fonts.fontsCount - 1], FALSE);
-    if (alfont_set_font_size(Fonts.font[Fonts.fontsCount - 1], size) == ALFONT_OK)
+    /* Здесь мы переведём размер шрифта в точках в размер в пикселях */
+    if (alfont_set_font_size(Fonts.font[Fonts.fontsCount - 1], size * 1.333333) == ALFONT_OK)
         LogWrite("Font size set", 0, MT_INFO, NULL);
     else
         LogWrite("Unable to set font size", 0, MT_WARNING, NULL);

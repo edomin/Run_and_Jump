@@ -39,8 +39,8 @@ LDIALOGS = dummy
 LINPUT = allegro42
 #sdl2, dummy
 LSPEC = dummy
-#sdl12, sdl2, time_h, allegro5, native
-LTIMER = time_h
+#sdl12, sdl2, time_h, allegro42, allegro5, native
+LTIMER = allegro42
 #sdl2_mixer, dummy
 LSOUNDS = dummy
 #freeimage, sdl2_image, allegro5_image, dummy
@@ -403,6 +403,9 @@ ifeq ($(LTIMER), sdl2)
 endif
 ifeq ($(LTIMER), time_h)
   LTIMER_DEF = -DLTIMER_TIME_H
+endif
+ifeq ($(LTIMER), allegro42)
+  LTIMER_DEF = -DLTIMER_ALLEGRO42
 endif
 ifeq ($(LTIMER), allegro5)
   LTIMER_DEF = -DLTIMER_ALLEGRO5

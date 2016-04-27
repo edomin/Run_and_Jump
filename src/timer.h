@@ -7,6 +7,9 @@
 #ifdef LTIMER_SDL2
     #include "timer/sdl2.h"
 #endif
+#ifdef LTIMER_ALLEGRO42
+    #include "timer/allegro42.h"
+#endif
 #ifdef LTIMER_ALLEGRO5
     #include "timer/allegro5.h"
 #endif

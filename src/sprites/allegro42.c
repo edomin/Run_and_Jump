@@ -117,15 +117,15 @@ void SpritesChangeText(int num, char *text, int fontnum, int text_r, int text_g,
     Sprite[num].wrapLength = wrapLength;
 
     Sprite[num].width =  alfont_text_length(Fonts.font[fontnum],
-                                            (const char *)Sprite[Sprites.spritesCount - 1].text);
+                                            (const char *)Sprite[num].text);
     Sprite[num].height = alfont_get_font_height(Fonts.font[fontnum]);
     /* обнуляем поверхность спрайта */
     Sprite[num].texture = NULL;
     /* разбиваем спрайтшит на кадры */
     Sprite[num].clip[0].x = 0;
     Sprite[num].clip[0].y = 0;
-    Sprite[num].clip[0].w = Sprite[Sprites.spritesCount - 1].width;
-    Sprite[num].clip[0].h = Sprite[Sprites.spritesCount - 1].height;
+    Sprite[num].clip[0].w = Sprite[num].width;
+    Sprite[num].clip[0].h = Sprite[num].height;
 
     Sprite[num].clipsCount = 1;
 }
@@ -138,50 +138,21 @@ void SpritesBlitSprite(int num, int clip, int x, int y, int width, int height,
         if (Sprite[num].texture != NULL)
         {
             set_clip_rect(
-              Sprite[num].texture,
-              Sprite[num].clip[clip].x,
-              Sprite[num].clip[clip].y,
-              Sprite[num].clip[clip].x + Sprite[num].clip[clip].w,
-              Sprite[num].clip[clip].y + Sprite[num].clip[clip].w
+              Draw.renderer,
+              x,
+              y,
+              x + Sprite[num].clip[clip].w,
+              y + Sprite[num].clip[clip].h
             );
-            if ((width == Sprite[num].width) && (height == Sprite[num].height) && (angle == 0) && (flip == DRAW_FLIP_NONE))
-            {
-                set_alpha_blender();
-                draw_trans_sprite(Draw.renderer, Sprite[num].texture, x, y);
-            }
-            else
-            {
-                set_trans_blender(0xFF, 0xFF, 0xFF, 255);
-                switch (flip)
-                {
-                    case DRAW_FLIP_HORIZONTAL:
-                        pivot_scaled_sprite_v_flip(Draw.renderer,
-                                                   Sprite[num].texture, x, y,
-                                                   centerX, centerY,
-                                                   ftofix(128 - angle * 0.711111),
-                                                   ftofix(width / Sprite[Sprites.spritesCount - 1].width));
-                        break;
-                    case DRAW_FLIP_VERTICAL:
-                        pivot_scaled_sprite_v_flip(Draw.renderer,
-                                                   Sprite[num].texture, x, y,
-                                                   centerX, centerY,
-                                                   ftofix(0 - angle * 0.711111),
-                                                   ftofix(width / Sprite[Sprites.spritesCount - 1].width));
-                        break;
-                    case DRAW_FLIP_BOTH:
-                        pivot_scaled_sprite(Draw.renderer, Sprite[num].texture,
-                                            x, y, centerX, centerY,
-                                            ftofix(128 - angle * 0.711111),
-                                            ftofix(width / Sprite[Sprites.spritesCount - 1].width));
-                        break;
-                    default:
-                        pivot_scaled_sprite(Draw.renderer, Sprite[num].texture,
-                                            x, y, centerX, centerY,
-                                            ftofix(0 - angle * 0.711111),
-                                            ftofix(width / Sprite[Sprites.spritesCount - 1].width));
-                        break;
-                }
-            }
+            set_alpha_blender();
+            draw_trans_sprite(Draw.renderer, Sprite[num].texture, x - Sprite[num].clip[clip].x, y - Sprite[num].clip[clip].y);
+            set_clip_rect(
+              Draw.renderer,
+              0,
+              0,
+              Draw.renderer->w,
+              Draw.renderer->h
+            );
         }
     }
     else

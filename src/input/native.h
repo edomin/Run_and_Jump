@@ -6,8 +6,6 @@
 #include <stdlib.h>
 
 #include BOOLLIB
-//#include "SDL2/SDL.h"
-//#include "SDL2/SDL_gamecontroller.h"
 
 #include "log.h"
 #include "error.h"

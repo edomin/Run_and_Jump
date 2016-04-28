@@ -41,8 +41,8 @@ LINPUT = allegro42
 LSPEC = dummy
 #sdl12, sdl2, time_h, allegro42, allegro5, native
 LTIMER = allegro42
-#sdl2_mixer, dummy
-LSOUNDS = dummy
+#sdl2_mixer, allegro42, dummy
+LSOUNDS = allegro42
 #freeimage, sdl2_image, allegro5_image, dummy
 LIMAGES = dummy
 #ode, dummy
@@ -424,6 +424,10 @@ ifeq ($(LSOUNDS), sdl2_mixer)
 	$(DLL_VORBIS) \
 	$(DLL_VORBISFILE) \
 	$(DLL_SMPEG2)
+endif
+ifeq ($(LSOUNDS), allegro42)
+  LSOUNDS_DEF = -DLSOUNDS_ALLEGRO42
+  LIBS += -llogg
 endif
 ifeq ($(LSOUNDS), dummy)
   LSOUNDS_DEF = -DLSOUNDS_DUMMY

@@ -47,6 +47,7 @@
 			<Add option="-lglu32" />
 			<Add directory="lib" />
 		</Linker>
+		<Unit filename=".gitignore" />
 		<Unit filename="Config.mk" />
 		<Unit filename="Makefile" />
 		<Unit filename="src/app.h" />
@@ -169,6 +170,10 @@
 		</Unit>
 		<Unit filename="src/images/sdl2_image.h" />
 		<Unit filename="src/input.h" />
+		<Unit filename="src/input/allegro42.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/input/allegro42.h" />
 		<Unit filename="src/input/allegro5.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -252,6 +257,10 @@
 		</Unit>
 		<Unit filename="src/scripts/squirrel.h" />
 		<Unit filename="src/sounds.h" />
+		<Unit filename="src/sounds/allegro42.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/sounds/allegro42.h" />
 		<Unit filename="src/sounds/allegro5_audio.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -295,6 +304,10 @@
 		</Unit>
 		<Unit filename="src/sprites/sdl2_image.h" />
 		<Unit filename="src/timer.h" />
+		<Unit filename="src/timer/allegro42.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/timer/allegro42.h" />
 		<Unit filename="src/timer/allegro5.c">
 			<Option compilerVar="CC" />
 		</Unit>

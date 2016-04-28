@@ -252,6 +252,28 @@ endif
 ifeq ($(LSPRITES), dummy)
   LSPRITES_DEF = -DLSPRITES_DUMMY
 endif
+############ = SOUNDS = ########
+ifeq ($(LSOUNDS), sdl2_mixer)
+  LSOUNDS_DEF = -DLSOUNDS_SDL2_MIXER
+  LIBS += -lSDL2_mixer
+  DLLS += $(DLL_SDL2_MIXER) \
+	$(DLL_FLAC) \
+	$(DLL_MODPLUG) \
+	$(DLL_OGG) \
+	$(DLL_VORBIS) \
+	$(DLL_VORBISFILE) \
+	$(DLL_SMPEG2)
+endif
+ifeq ($(LSOUNDS), allegro42)
+  LSOUNDS_DEF = -DLSOUNDS_ALLEGRO42
+  LIBS += -llogg \
+	-lvorbisfile \
+	-lvorbis \
+	-logg
+endif
+ifeq ($(LSOUNDS), dummy)
+  LSOUNDS_DEF = -DLSOUNDS_DUMMY
+endif
 ############ = APP = ########
 ifeq ($(LAPP), sdl12)
   LAPP_DEF = -DLAPP_SDL12
@@ -412,25 +434,6 @@ ifeq ($(LTIMER), allegro5)
 endif
 ifeq ($(LTIMER), native)
   LTIMER_DEF = -DLTIMER_NATIVE
-endif
-############ = SOUNDS = ########
-ifeq ($(LSOUNDS), sdl2_mixer)
-  LSOUNDS_DEF = -DLSOUNDS_SDL2_MIXER
-  LIBS += -lSDL2_mixer
-  DLLS += $(DLL_SDL2_MIXER) \
-	$(DLL_FLAC) \
-	$(DLL_MODPLUG) \
-	$(DLL_OGG) \
-	$(DLL_VORBIS) \
-	$(DLL_VORBISFILE) \
-	$(DLL_SMPEG2)
-endif
-ifeq ($(LSOUNDS), allegro42)
-  LSOUNDS_DEF = -DLSOUNDS_ALLEGRO42
-  LIBS += -llogg
-endif
-ifeq ($(LSOUNDS), dummy)
-  LSOUNDS_DEF = -DLSOUNDS_DUMMY
 endif
 ############ = IMAGES = ########
 ifeq ($(LIMAGES), freeimage)

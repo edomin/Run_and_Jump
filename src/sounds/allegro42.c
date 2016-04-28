@@ -15,19 +15,8 @@ void SoundsInit(int maxSounds, int maxMusic, unsigned int freq, int channels,
     else
         LogWrite("Audio hardware is not present", 2, MT_WARNING, NULL);
     #ifdef PLATFORM_WIN32
-    if (RnjuIsPowerOfTwo(channels))
-    {
-        reserve_voices(channels, -1);
-        LogWrite2("Voices reserved", 1, MT_INFO, channels);
-    }
-    else
-    {
-        reserve_voices(RnjuPreviousPowerOfTwo(channels), -1);
-        LogWrite("Voices count floored to neares power of 2",
-                 1, MT_WARNING, NULL);
-        LogWrite2("Voices reserved", 1, MT_INFO,
-                  RnjuPreviousPowerOfTwo(channels));
-    }
+    reserve_voices(32, -1);
+        LogWrite2("Voices reserved", 1, MT_INFO, 32);
     #endif
     LogWrite("Initialising Allegro sound module", 1, MT_INFO, NULL);
     if (install_sound(DIGI_AUTODETECT, MIDI_NONE, NULL) == 0)
@@ -38,10 +27,10 @@ void SoundsInit(int maxSounds, int maxMusic, unsigned int freq, int channels,
 
     Sound = malloc(sizeof(sound *) * maxSounds);
     if (Sound == NULL)
-        ErrorGive("Can not allocate memory for Sounds", 1);
-//    Music = malloc(sizeof(Mix_Music*) * maxMusic);
-//    if (Music == NULL)
-//        ErrorGive("Can not allocate memory for Music", 1);
+        ErrorGive("Unable to allocate memory for Sounds", 1);
+    Music = malloc(sizeof(music *) * maxMusic);
+    if (Music == NULL)
+        ErrorGive("Unable to allocate memory for Music", 1);
 
     LogWrite("Sound Manager initialized", 0, MT_INFO, NULL);
 }
@@ -49,11 +38,12 @@ void SoundsInit(int maxSounds, int maxMusic, unsigned int freq, int channels,
 int SoundsMusicLoad(char *filename)
 {
     Sounds.musicCount += 1;
-//    Music[Sounds.musicCount - 1] = Mix_LoadMUS(filename);
-//    if (Music[Sounds.musicCount - 1] != NULL)
-//        LogWrite("Music Loaded", 0, MT_INFO, NULL);
-//    else
-//        ErrorGive("Can not load music", 0);
+    Music[Sounds.musicCount - 1].sample = logg_load((const char *)filename);
+    Music[Sounds.musicCount - 1].volume = 127;
+    if (Sound[Sounds.musicCount - 1].sample != NULL)
+        LogWrite("Sound loaded", 0, MT_INFO, NULL);
+    else
+        ErrorGive("Unable to load sound", 0);
     return Sounds.musicCount - 1;
 }
 
@@ -104,44 +94,34 @@ void SoundsSoundStop(void)
 
 void SoundsMusicPlay(int musicNumber)
 {
-//    if(Mix_PlayingMusic() == 0)
-//    {
-//        Mix_PlayMusic(Music[musicNumber], -1);
-//    }
-//    else
-//    {
-//        Mix_HaltMusic();
-//        Mix_PlayMusic(Music[musicNumber], -1);
-//    }
+    play_sample((const SAMPLE*)(Music[musicNumber].sample),
+                Music[musicNumber].volume, 127, 1000, 0);
 }
 
 void SoundsMusicPause(void)
 {
-//    if(Mix_PausedMusic() == 0)
-//    {
-//        Mix_PauseMusic();
-//    }
+    /* Not supported */
 }
 
 void SoundsMusicResume(void)
 {
-//    if(Mix_PausedMusic() == 1)
-//    {
-//        Mix_ResumeMusic();
-//    }
+    /* Not supported */
 }
 
 void SoundsMusicStop(void)
 {
-//    if (Mix_PlayingMusic() == 1)
-//    {
-//        Mix_HaltMusic();
-//    }
+    int i;
+    for (i = 0; i < Sounds.musicCount; i++)
+        stop_sample((const SAMPLE*)(Music[i].sample));
 }
 
 void SoundsMusicSetVolume(int volume)
 {
-//    Mix_VolumeMusic(MIX_MAX_VOLUME / 100 * volume);
+    int i;
+    for (i = 0; i < Sounds.musicCount; i++)
+    {
+        Music[i].volume = 255 / 100 * volume;
+    }
 }
 
 void SoundsDestroy(void)
@@ -154,11 +134,11 @@ void SoundsDestroy(void)
         destroy_sample(Sound[i].sample);
     }
     free(Sound);
-//    for (i = 0; i < Sounds.musicCount; i++)
-//    {
-//        LogWrite("Freeing music", 1, MT_INFO, NULL);
-//        Mix_FreeMusic(Music[i]);
-//    }
-//    free(Music);
+    for (i = 0; i < Sounds.musicCount; i++)
+    {
+        LogWrite("Freeing music", 1, MT_INFO, NULL);
+        destroy_sample(Music[i].sample);
+    }
+    free(Music);
     LogWrite("Sound Manager destroyed", 0, MT_INFO, NULL);
 }

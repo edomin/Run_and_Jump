@@ -3,6 +3,7 @@
 
 #define ALLEGRO_NO_MAGIC_MAIN
 #include "allegro42/allegro.h"
+#include "allegro42/logg.h"
 
 #include "log.h"
 #include "error.h"

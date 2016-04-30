@@ -3,15 +3,8 @@ include Config.mk
 #IA32
 ARCH = IA32
 #Win32, DOS, KolibriOS
-PLATFORM = Win32
-#$(TC_MINGW_4_8_1), $(TC_DJGPP_2_03), $(TC_KOS_4_8_2)
-TOOLCHAIN = $(TC_MINGW_4_8_1)
+PLATFORM = DOS
 
-#Compiler, Linker and options
-#$(CC_MINGW), $(CC_DJGPP), $(CC_KOS)
-CC = $(CC_MINGW)
-#$(LD_MINGW), $(LD_DJGPP), $(LD_KOS)
-LD = $(LD_MINGW)
 CFLAGS =
 LDFLAGS =
 INCLUDE_DIRS = -Isrc -I$(DIR_PROJECT)/Include
@@ -47,7 +40,7 @@ LSOUNDS = allegro42
 LIMAGES = dummy
 #ode, dummy
 LPHYSICS = dummy
-#Если ни в одном из подключаемых модулей нет типа bool, то надо включить эту директиву для подключения специальной библиотеки
+#Р•СЃР»Рё РЅРё РІ РѕРґРЅРѕРј РёР· РїРѕРґРєР»СЋС‡Р°РµРјС‹С… РјРѕРґСѓР»РµР№ РЅРµС‚ С‚РёРїР° bool, С‚Рѕ РЅР°РґРѕ РІРєР»СЋС‡РёС‚СЊ СЌС‚Сѓ РґРёСЂРµРєС‚РёРІСѓ РґР»СЏ РїРѕРґРєР»СЋС‡РµРЅРёСЏ СЃРїРµС†РёР°Р»СЊРЅРѕР№ Р±РёР±Р»РёРѕС‚РµРєРё
 LBOOL_DEF =
 
 SRC_APP = app/$(LAPP).c
@@ -158,7 +151,7 @@ OBJS = $(OBJSDIR)/main.o \
 
 all: defines path mk_out_dir RnJ1
 
-#Настроить переменные и параметры сборки
+#РќР°СЃС‚СЂРѕРёС‚СЊ РїРµСЂРµРјРµРЅРЅС‹Рµ Рё РїР°СЂР°РјРµС‚СЂС‹ СЃР±РѕСЂРєРё
 defines: FORCE
 vpath %.c $(SRCDIR)
 vpath %.h $(SRCDIR)
@@ -302,6 +295,9 @@ ifeq ($(LAPP), allegro42)
   LAPP_DEF = -DLAPP_ALLEGRO42
   LIBS += -lalleg42
   INCLUDE_DIRS += -I$(DIR_PROJECT)/Include/allegro42
+  ifeq ($(PLATFORM), DOS)
+    CFLAGS += -UALLEGRO_MINGW32 -DALLEGRO_DJGPP -DALLEGRO_HAVE_INTTYPES_H
+  endif
 endif
 ifeq ($(LAPP), allegro5)
   LAPP_DEF = -DLAPP_ALLEGRO5
@@ -467,21 +463,36 @@ ifeq ($(strip $(LBOOL_DEF)),)
   INCLUDE_DIRS += -I$(DIR_PROJECT)/Include/bool
 endif
 ########## = PLATFORM = #########
-ifeq ($(CC), $(CC_MINGW))
-  CFLAGS = -c -Wall
-#  LDFLAGS = -s -Wl,--subsystem,windows
-  LDFLAGS = -s -mwindows
+#Compiler, Linker and options
+ifeq ($(PLATFORM), Win32)
+  TOOLCHAIN = $(TC_MINGW_4_8_1)
+  CC = $(DIR_TOOLCHAINS)/$(TOOLCHAIN)/bin/$(CC_MINGW)
+  LD = $(DIR_TOOLCHAINS)/$(TOOLCHAIN)/bin/$(LD_MINGW)
+endif
+ifeq ($(PLATFORM), DOS)
+  TOOLCHAIN = $(TC_DJGPP_MINGW_5_1_0)
+  CC = $(DIR_TOOLCHAINS)/$(TOOLCHAIN)/bin/$(CC_DJGPP_MINGW)
+  LD = $(DIR_TOOLCHAINS)/$(TOOLCHAIN)/bin/$(LD_DJGPP_MINGW)
+endif
+ifeq ($(PLATFORM), KolibriOS)
+  TOOLCHAIN = $(TC_KOS_4_8_2)
+  CC = $(DIR_TOOLCHAINS)/$(TOOLCHAIN)/bin/$(CC_KOS)
+  LD = $(DIR_TOOLCHAINS)/$(TOOLCHAIN)/bin/$(LD_KOS)
+endif
+
+ifeq ($(PLATFORM), Win32)
+  CFLAGS += -c -Wall
+  LDFLAGS += -s -mwindows
   DEFINES += -DPLATFORM_WIN32
 endif
-ifeq ($(CC), $(CC_DJGPP))
-  CFLAGS = -c -Wall
-  LDFLAGS = -s -mwindows
+ifeq ($(PLATFORM), DOS)
+  CFLAGS += -c -Wall
   LIBS += -lc -lgcc
   DEFINES += -DPLATFORM_DOS
 endif
-ifeq ($(CC), $(CC_KOS))
-  CFLAGS = -c -O2 -fomit-frame-pointer -U__WIN32__ -U_Win32 -U_WIN32 -U__MINGW32__ -UWIN32 -Wall
-  LDFLAGS = -static -S -nostdlib -Tapp.lds -Map test.map --image-base 0 -L$(DIR_TOOLCHAINS)/$(TOOLCHAIN)/mingw32/lib \
+ifeq ($(PLATFORM), KolibriOS)
+  CFLAGS += -c -O2 -fomit-frame-pointer -U__WIN32__ -U_Win32 -U_WIN32 -U__MINGW32__ -UWIN32 -Wall
+  LDFLAGS += -static -S -nostdlib -Tapp.lds -Map test.map --image-base 0 -L$(DIR_TOOLCHAINS)/$(TOOLCHAIN)/mingw32/lib \
     -L$(DIR_TOOLCHAINS)/$(TOOLCHAIN)/libc
   LIBS += -lmenuet_os_h -lgcc -lapp -lc.dll
   INCLUDE_DIRS += -I$(DIR_TOOLCHAINS)/$(TOOLCHAIN)/libc/include
@@ -504,27 +515,29 @@ DEFINES += $(LBOOL_DEF) \
 	$(LPHYSICS_DEF)
 PATH += :$(DIR_TOOLCHAINS)/$(TOOLCHAIN)/bin
 
-#Устанавливаем директории поиска исполняемых файлов (компилятора и т. д.)
+#РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РґРёСЂРµРєС‚РѕСЂРёРё РїРѕРёСЃРєР° РёСЃРїРѕР»РЅСЏРµРјС‹С… С„Р°Р№Р»РѕРІ (РєРѕРјРїРёР»СЏС‚РѕСЂР° Рё С‚. Рґ.)
 path: FORCE
+ifneq ($(PLATFORM), DOS)
 	export PATH
+endif
 
-#Создать директории для объектных файлов
+#РЎРѕР·РґР°С‚СЊ РґРёСЂРµРєС‚РѕСЂРёРё РґР»СЏ РѕР±СЉРµРєС‚РЅС‹С… С„Р°Р№Р»РѕРІ
 mk_out_dir: FORCE
 	-mkdir obj/$(ARCH)
 	-mkdir obj/$(ARCH)/$(PLATFORM)
 	-mkdir obj/$(ARCH)/$(PLATFORM)/$(TOOLCHAIN)
 
-#Очистка директории объектных файлов
+#РћС‡РёСЃС‚РєР° РґРёСЂРµРєС‚РѕСЂРёРё РѕР±СЉРµРєС‚РЅС‹С… С„Р°Р№Р»РѕРІ
 clean: FORCE
 	-rm -f -r $(OBJSDIR)/*
 
-#Перекомпиляция
+#РџРµСЂРµРєРѕРјРїРёР»СЏС†РёСЏ
 remake: clean defines RnJ1
 
-#Копирование скомпилированной программы, длл-ок, игровых модулей и дополнительных утилит в папку билда
+#РљРѕРїРёСЂРѕРІР°РЅРёРµ СЃРєРѕРјРїРёР»РёСЂРѕРІР°РЅРЅРѕР№ РїСЂРѕРіСЂР°РјРјС‹, РґР»Р»-РѕРє, РёРіСЂРѕРІС‹С… РјРѕРґСѓР»РµР№ Рё РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… СѓС‚РёР»РёС‚ РІ РїР°РїРєСѓ Р±РёР»РґР°
 full_build: build copy_utils
 
-#Копирование дополнительных утилит в папку билда (только для Win32)
+#РљРѕРїРёСЂРѕРІР°РЅРёРµ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… СѓС‚РёР»РёС‚ РІ РїР°РїРєСѓ Р±РёР»РґР° (С‚РѕР»СЊРєРѕ РґР»СЏ Win32)
 copy_utils: FORCE
 ifeq ($(PLATFORM), DOS)
 	-cp $(DIR_PROJECT)/Utils/*.* $(DIR_ROOT)/Builds/$(RNJ_VERSION)/$(PLATFORM)/
@@ -532,7 +545,7 @@ else
 	-cp -t $(DIR_ROOT)/Builds/$(RNJ_VERSION)/$(PLATFORM)/ $(DIR_PROJECT)/Utils/*.*
 endif
 
-#Копирование скомпилированной программы, длл-ок и игровых модулей в папку билда
+#РљРѕРїРёСЂРѕРІР°РЅРёРµ СЃРєРѕРјРїРёР»РёСЂРѕРІР°РЅРЅРѕР№ РїСЂРѕРіСЂР°РјРјС‹, РґР»Р»-РѕРє Рё РёРіСЂРѕРІС‹С… РјРѕРґСѓР»РµР№ РІ РїР°РїРєСѓ Р±РёР»РґР°
 build: defines RnJ1 FORCE
 	-rm -f -r $(DIR_ROOT)/Builds/$(RNJ_VERSION)/$(ARCH)/$(PLATFORM)/*
 	-mkdir $(DIR_ROOT)/Builds

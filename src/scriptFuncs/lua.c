@@ -945,7 +945,7 @@ int SFMax(lua_State* l)
 {
     double x = lua_tonumber(Scripts.vm, 1);
     double y = lua_tonumber(Scripts.vm, 2);
-    #ifndef CC_DJGPP
+    #ifndef PLATFORM_DOS
         lua_pushnumber(Scripts.vm, fmax(x, y));
     #else
         if (x > y)
@@ -960,7 +960,7 @@ int SFMin(lua_State* l)
 {
     double x = lua_tonumber(Scripts.vm, 1);
     double y = lua_tonumber(Scripts.vm, 2);
-    #ifndef CC_DJGPP
+    #ifndef PLATFORM_DOS
         lua_pushnumber(Scripts.vm, fmin(x, y));
     #else
         if (x < y)
@@ -974,7 +974,7 @@ int SFMin(lua_State* l)
 int SFRound(lua_State* l)
 {
     double x = lua_tonumber(Scripts.vm, 1);
-    #ifndef CC_DJGPP
+    #ifndef PLATFORM_DOS
         lua_pushnumber(Scripts.vm, round(x));
     #else
         if (floor(x) < x - 0.5)

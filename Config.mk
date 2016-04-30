@@ -10,16 +10,20 @@ MTOOLS = $(DIR_ROOT)/Utils/mtools
 #Toolchains
 TC_MINGW_4_8_1 = MinGW_4.8.1
 TC_DJGPP_2_03 = DJGPP_2.03
+TC_DJGPP_2_04 = DJGPP_2.04
+TC_DJGPP_MINGW_5_1_0 = DJGPP_MinGW_5.1.0
 TC_KOS_4_8_2 = KOS_4.8.2
 
 #Compilers
 CC_MINGW = mingw32-gcc
 CC_DJGPP = gcc
+CC_DJGPP_MINGW = i586-pc-msdosdjgpp-gcc
 CC_KOS = kos32-gcc
 
 #Linkers
 LD_MINGW = mingw32-gcc
 LD_DJGPP = gcc
+LD_DJGPP_MINGW = i586-pc-msdosdjgpp-gcc
 LD_KOS = kos32-ld
 
 #Utils

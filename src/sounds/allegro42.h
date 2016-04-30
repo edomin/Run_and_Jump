@@ -13,15 +13,15 @@
 typedef struct {
     SAMPLE *sample;
     uint8_t volume;
-} sound;
+} tSound;
 
 typedef struct {
     SAMPLE *sample;
     uint8_t volume;
-} music;
+} tMusic;
 
-sound *Sound;
-music *Music;
+tSound *Sound;
+tMusic *Music;
 
 struct {
     int soundsCount;

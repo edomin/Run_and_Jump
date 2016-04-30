@@ -25,10 +25,10 @@ void SoundsInit(int maxSounds, int maxMusic, unsigned int freq, int channels,
         ErrorGive("Unable to initialise Allegro sound module", 2);
     set_mixer_quality(2);
 
-    Sound = malloc(sizeof(sound *) * maxSounds);
+    Sound = malloc(sizeof(tSound *) * maxSounds);
     if (Sound == NULL)
         ErrorGive("Unable to allocate memory for Sounds", 1);
-    Music = malloc(sizeof(music *) * maxMusic);
+    Music = malloc(sizeof(tMusic *) * maxMusic);
     if (Music == NULL)
         ErrorGive("Unable to allocate memory for Music", 1);
 

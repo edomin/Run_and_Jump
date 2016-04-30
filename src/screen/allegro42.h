@@ -3,7 +3,9 @@
 
 #define ALLEGRO_NO_MAGIC_MAIN
 #include "allegro42/allegro.h"
-#include "allegro42/winalleg.h"
+#ifdef PLATFORM_WIN32
+    #include "allegro42/winalleg.h"
+#endif
 
 #include "app.h"
 #include "log.h"
@@ -13,7 +15,9 @@
 struct {
     int     width;  /* Высота окна */
     int     height; /* Ширина окна */
+    #ifdef PLATFORM_WIN32
     HWND    hwnd;
+    #endif
 } Screen;
 
 void ScreenInit(int, int, const char *, bool);  /* Инициализация окна */

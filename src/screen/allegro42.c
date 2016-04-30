@@ -18,7 +18,9 @@ void ScreenInit(int w, int h, const char *title, bool fullscreen)
     }
 
     set_color_conversion(COLORCONV_NONE);
+    #ifdef PLATFORM_WIN32
     Screen.hwnd = win_get_window();
+    #endif
 
     LogWrite("Screen initialized", 0, MT_INFO, NULL);
 }

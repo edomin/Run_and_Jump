@@ -23,7 +23,7 @@ LDRAW = allegro42
 #sdl12_image, sdl2_image, allegro42, allegro5_image, dummy
 LSPRITES = allegro42
 #sdl12_ttf, sdl2_ttf, allegro42font, allegro5, dummy
-LFONTS = allegro42font
+LFONTS = dummy
 #lua, squirrel, dummy
 LS = lua
 #sdl2, windows_h, allegro5_nd, native, dummy
@@ -296,7 +296,7 @@ ifeq ($(LAPP), allegro42)
   LIBS += -lalleg42
   INCLUDE_DIRS += -I$(DIR_PROJECT)/Include/allegro42
   ifeq ($(PLATFORM), DOS)
-    CFLAGS += -UALLEGRO_MINGW32 -DALLEGRO_DJGPP -DALLEGRO_HAVE_INTTYPES_H
+    CFLAGS += -fgnu89-inline -UALLEGRO_MINGW32 -DALLEGRO_DJGPP -DALLEGRO_HAVE_INTTYPES_H
   endif
 endif
 ifeq ($(LAPP), allegro5)
@@ -517,9 +517,7 @@ PATH += :$(DIR_TOOLCHAINS)/$(TOOLCHAIN)/bin
 
 #Устанавливаем директории поиска исполняемых файлов (компилятора и т. д.)
 path: FORCE
-ifneq ($(PLATFORM), DOS)
 	export PATH
-endif
 
 #Создать директории для объектных файлов
 mk_out_dir: FORCE
@@ -563,7 +561,7 @@ else
 endif
 
 RnJ1: $(OBJTARGETS)
-	$(LD) -o bin/RnJ1 $(LDFLAGS) $(OBJS) -L$(DIR_PROJECT)/Lib/$(TOOLCHAIN) $(LIBS)
+	$(LD) -o bin/RnJ1 $(LDFLAGS) $(OBJS) -L$(DIR_PROJECT)/Lib/$(TOOLCHAIN) $(LIBS) 2>build.log
   ifeq ($(CC), $(CC_KOS))
 	$(OBJCOPY) bin/RnJ1 -O binary
 #	$(KPACK) bin/RnJ1

@@ -4,6 +4,10 @@
 #include "error.h"
 #include "specification.h"
 
+#if defined(LAPP_ALLEGRO42) && !defined(PLATFORM_WIN32)
+    #include "allegro42/allegro.h"
+#endif
+
 int main(int argc, char* argv[])
 {
     #ifdef CC_KOS /* ¬ KolibriOS относительные пути поддерживаютс€ только к текущей директории, котора€ по умолчанию */
@@ -64,3 +68,6 @@ int main(int argc, char* argv[])
     LogWrite("Finish logging", 0, MT_NONE, NULL);
     return 0;
 }
+#if defined(LAPP_ALLEGRO42) && !defined(PLATFORM_WIN32)
+END_OF_MAIN()
+#endif

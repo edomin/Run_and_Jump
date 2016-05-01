@@ -2,6 +2,9 @@
 #define RNJ_TIMER_ALLEGRO42_H
 
 #include <stdlib.h>
+#ifdef PLATFORM_WIN32
+    #define ALLEGRO_NO_MAGIC_MAIN
+#endif
 #include "allegro42/allegro.h"
 
 #include "defines.h"

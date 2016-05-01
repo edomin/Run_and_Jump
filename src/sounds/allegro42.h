@@ -1,7 +1,9 @@
 #ifndef RNJ_SOUNDS_ALLEGRO42_H
 #define RNJ_SOUNDS_ALLEGRO42_H
 
-#define ALLEGRO_NO_MAGIC_MAIN
+#ifdef PLATFORM_WIN32
+    #define ALLEGRO_NO_MAGIC_MAIN
+#endif
 #include "allegro42/allegro.h"
 #include "allegro42/logg.h"
 

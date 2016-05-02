@@ -14,12 +14,12 @@ void RegisterAll()
     ScriptsRegisterFunction(SFInitImages, "InitImages"); /* void InitImages(int imagesCount) */
     ScriptsRegisterFunction(SFInitPhysics, "InitPhysics"); /* void InitPhysics(int blocksCount, int objectsCount, double xGrav, double yGrav, double cfm, double stepSize) */
 
-	ScriptsRegisterFunction(SFConfigfileCreateConfig, "ConfigCreate"); /* void ConfigCreate() */
-	ScriptsRegisterFunction(SFConfigfileLoadConfig, "ConfigLoad"); /* void ConfigLoad(char *filename) */
-	ScriptsRegisterFunction(SFConfigfileSaveConfig, "ConfigSave"); /* void ConfigSave(char *filename) */
-	ScriptsRegisterFunction(SFConfigfileAddSection, "ConfigAddSection"); /* void ConfigAddSection(char *sectionname) */
-	ScriptsRegisterFunction(SFConfigfileSetKeyValue, "ConfigSetValue"); /* void ConfigSetValue(char *sectionname, char *key, char *value) */
-	ScriptsRegisterFunction(SFConfigfileGetKeyValue, "ConfigGetValue"); /* void ConfigGetValue(char *sectionname, char *key) */
+    ScriptsRegisterFunction(SFConfigfileCreateConfig, "ConfigCreate"); /* void ConfigCreate() */
+    ScriptsRegisterFunction(SFConfigfileLoadConfig, "ConfigLoad"); /* void ConfigLoad(char *filename) */
+    ScriptsRegisterFunction(SFConfigfileSaveConfig, "ConfigSave"); /* void ConfigSave(char *filename) */
+    ScriptsRegisterFunction(SFConfigfileAddSection, "ConfigAddSection"); /* void ConfigAddSection(char *sectionname) */
+    ScriptsRegisterFunction(SFConfigfileSetKeyValue, "ConfigSetValue"); /* void ConfigSetValue(char *sectionname, char *key, char *value) */
+    ScriptsRegisterFunction(SFConfigfileGetKeyValue, "ConfigGetValue"); /* void ConfigGetValue(char *sectionname, char *key) */
 
     ScriptsRegisterFunction(SFFontLoad, "FontLoad"); /* int(fontNumber) FontLoad(char *filename, int size) */
     ScriptsRegisterFunction(SFSpriteLoad, "SpriteLoad"); /* int(spriteNumber) SpriteLoad(char *filename, int clipsCount) */
@@ -131,8 +131,8 @@ void RegisterAll()
     ScriptsRegisterFunction(SFDialogShowSimpleMessageBox, "DialogShowSimpleMessageBox"); /* void DialogShowSimpleMessageBox(int type, char *title, char *message) */
     ScriptsRegisterFunction(SFDialogShowYesNoMessageBox, "DialogShowYesNoMessageBox"); /* bool DialogShowYesNoMessageBox(char *title, char *message) */
     ScriptsRegisterFunction(SFLogWrite, "LogWrite"); /* void LogWrite(char *text, int level, int messageType, char *argument) */
-	ScriptsRegisterFunction(SFScriptRegisterNumericVariable, "GlobalNum"); /* void GlobalNum(char *name, double value) */
-	ScriptsRegisterFunction(SFScriptRegisterStringVariable, "GlobalString"); /* void GlobalString(char *name, char *value) */
+    ScriptsRegisterFunction(SFScriptRegisterNumericVariable, "GlobalNum"); /* void GlobalNum(char *name, double value) */
+    ScriptsRegisterFunction(SFScriptRegisterStringVariable, "GlobalString"); /* void GlobalString(char *name, char *value) */
 
     ScriptsRegisterNumericVariable("KEY_UNKNOWN", RNJ_KEY_UNKNOWN);
 

@@ -1,6 +1,9 @@
 #ifndef RNJ_SPRITES_H
 #define RNJ_SPRITES_H
 
+#ifdef LSPRITES_DEVIL
+    #include "sprites/devil.h"
+#endif
 #ifdef LSPRITES_SDL12_IMAGE
     #include "sprites/sdl12_image.h"
 #endif

@@ -1,6 +1,9 @@
 #ifndef RNJ_DRAW_H
 #define RNJ_DRAW_H
 
+#ifdef LDRAW_FREEGLUT
+    #include "draw/freeglut.h"
+#endif
 #ifdef LDRAW_SDL12
     #include "draw/sdl12.h"
 #endif

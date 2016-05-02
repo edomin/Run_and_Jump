@@ -23,16 +23,19 @@ void ScriptsRegisterFunction(SQFUNCTION func, char *funcname)
 
 void ScriptsRegisterStringVariable(char *name, char *value)
 {
-//    lua_pushstring(Scripts.vm, value);
-//    lua_setglobal(Scripts.vm, name);
-    ;
+    sq_pushconsttable(Scripts.vm);
+    sq_pushstring(Scripts.vm, name, -1);
+    sq_pushstring(Scripts.vm, value);
+    sq_rawset(Scripts.vm, -3);
+
 }
 
 void ScriptsRegisterNumericVariable(char *name, double value)
 {
-//    lua_pushnumber(Scripts.vm, value);
-//    lua_setglobal(Scripts.vm, name);
-    ;
+    sq_pushconsttable(Scripts.vm);
+    sq_pushstring(Scripts.vm, name, -1);
+    sq_pushinteger(Scripts.vm, value);
+    sq_rawset(Scripts.vm, -3);
 }
 
 int ScriptsDoFile(char * filename)

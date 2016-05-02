@@ -247,34 +247,34 @@ void SpritesBlitSprite(int num, int clip, int x, int y, int width, int height, i
         {
             case 0: /* Without flipping */
                 glBegin(GL_QUADS);
-                    glTexCoord2f(texLeft, texTop); 		glVertex2f(0.0f, 0.0f);
-                    glTexCoord2f(texRight, texTop); 	glVertex2f(quadWidth, 0.0f);
-                    glTexCoord2f(texRight, texBottom); 	glVertex2f(quadWidth, quadHeight);
-                    glTexCoord2f(texLeft, texBottom); 	glVertex2f(0.0f, quadHeight);
+                    glTexCoord2f(texLeft, texTop);      glVertex2f(0.0f, 0.0f);
+                    glTexCoord2f(texRight, texTop);     glVertex2f(quadWidth, 0.0f);
+                    glTexCoord2f(texRight, texBottom);  glVertex2f(quadWidth, quadHeight);
+                    glTexCoord2f(texLeft, texBottom);   glVertex2f(0.0f, quadHeight);
                 glEnd();
                 break;
             case 1: /* Flip horizontally */
                 glBegin(GL_QUADS);
-                    glTexCoord2f(texLeft, texTop); 		glVertex2f(quadWidth, 0.0f);
-                    glTexCoord2f(texRight, texTop); 	glVertex2f(0.0f, 0.0f);
-                    glTexCoord2f(texRight, texBottom); 	glVertex2f(0.0f, quadHeight);
-                    glTexCoord2f(texLeft, texBottom); 	glVertex2f(quadWidth, quadHeight);
+                    glTexCoord2f(texLeft, texTop);      glVertex2f(quadWidth, 0.0f);
+                    glTexCoord2f(texRight, texTop);     glVertex2f(0.0f, 0.0f);
+                    glTexCoord2f(texRight, texBottom);  glVertex2f(0.0f, quadHeight);
+                    glTexCoord2f(texLeft, texBottom);   glVertex2f(quadWidth, quadHeight);
                 glEnd();
                 break;
             case 2: /* Flip Vertically */
                 glBegin(GL_QUADS);
-                    glTexCoord2f(texLeft, texTop); 		glVertex2f(0.0f, quadHeight);
-                    glTexCoord2f(texRight, texTop); 	glVertex2f(quadWidth, quadHeight);
-                    glTexCoord2f(texRight, texBottom); 	glVertex2f(quadWidth, 0.0f);
-                    glTexCoord2f(texLeft, texBottom); 	glVertex2f(0.0f, 0.0f);
+                    glTexCoord2f(texLeft, texTop);      glVertex2f(0.0f, quadHeight);
+                    glTexCoord2f(texRight, texTop);     glVertex2f(quadWidth, quadHeight);
+                    glTexCoord2f(texRight, texBottom);  glVertex2f(quadWidth, 0.0f);
+                    glTexCoord2f(texLeft, texBottom);   glVertex2f(0.0f, 0.0f);
                 glEnd();
                 break;
             case 3: /* Flip both axes */
                 glBegin(GL_QUADS);
-                    glTexCoord2f(texLeft, texTop); 		glVertex2f(quadWidth, quadHeight);
-                    glTexCoord2f(texRight, texTop); 	glVertex2f(0.0f, quadHeight);
-                    glTexCoord2f(texRight, texBottom); 	glVertex2f(0.0f, 0.0f);
-                    glTexCoord2f(texLeft, texBottom); 	glVertex2f(quadWidth, 0.0f);
+                    glTexCoord2f(texLeft, texTop);      glVertex2f(quadWidth, quadHeight);
+                    glTexCoord2f(texRight, texTop);     glVertex2f(0.0f, quadHeight);
+                    glTexCoord2f(texRight, texBottom);  glVertex2f(0.0f, 0.0f);
+                    glTexCoord2f(texLeft, texBottom);   glVertex2f(quadWidth, 0.0f);
                 glEnd();
                 break;
             default:
@@ -295,5 +295,5 @@ void SpritesDestroySprite(int num)
     {
         free(Sprite[num].name);
     }
-    // free(Sprite[num].clip);
+    free(Sprite[num].clip);
 }

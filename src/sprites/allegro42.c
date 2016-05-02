@@ -86,9 +86,16 @@ int SpritesCreateText(char *text, int fontnum, int text_r, int text_g,
     Sprite[Sprites.spritesCount - 1].textB = text_b;
     Sprite[Sprites.spritesCount - 1].wrapLength = wrapLength;
 
-    Sprite[Sprites.spritesCount - 1].width =  alfont_text_length(Fonts.font[fontnum],
-                                                                 (const char *)Sprite[Sprites.spritesCount - 1].text);
+    #if defined(LFONTS_ALLEGRO42_FONT)
+    Sprite[Sprites.spritesCount - 1].width = alfont_text_length(Fonts.font[fontnum],
+                                                                (const char *)Sprite[Sprites.spritesCount - 1].text);
     Sprite[Sprites.spritesCount - 1].height = alfont_get_font_height(Fonts.font[fontnum]);
+    #else
+    Sprite[Sprites.spritesCount - 1].width = gk_text_width_utf8 (Fonts.font[fontnum].rend,
+                                                                 Sprite[Sprites.spritesCount - 1].text);
+    Sprite[Sprites.spritesCount - 1].height = gk_text_height_utf8 (Fonts.font[fontnum].rend,
+                                                                   Sprite[Sprites.spritesCount - 1].text);
+    #endif
     /* обнуляем поверхность спрайта */
     Sprite[Sprites.spritesCount - 1].texture = NULL;
 
@@ -116,9 +123,16 @@ void SpritesChangeText(int num, char *text, int fontnum, int text_r, int text_g,
     Sprite[num].textB = text_b;
     Sprite[num].wrapLength = wrapLength;
 
-    Sprite[num].width =  alfont_text_length(Fonts.font[fontnum],
-                                            (const char *)Sprite[num].text);
+    #if defined(LFONTS_ALLEGRO42_FONT)
+    Sprite[num].width = alfont_text_length(Fonts.font[fontnum],
+                                           (const char *)Sprite[num].text);
     Sprite[num].height = alfont_get_font_height(Fonts.font[fontnum]);
+    #else
+    Sprite[num].width = gk_text_width_utf8(Fonts.font[fontnum].rend,
+                                           Sprite[num].text);
+    Sprite[num].height = gk_text_height_utf8(Fonts.font[fontnum].rend,
+                                             Sprite[num].text);
+    #endif
     /* обнуляем поверхность спрайта */
     Sprite[num].texture = NULL;
     /* разбиваем спрайтшит на кадры */
@@ -145,7 +159,9 @@ void SpritesBlitSprite(int num, int clip, int x, int y, int width, int height,
               y + Sprite[num].clip[clip].h
             );
             set_alpha_blender();
-            draw_trans_sprite(Draw.renderer, Sprite[num].texture, x - Sprite[num].clip[clip].x, y - Sprite[num].clip[clip].y);
+            draw_trans_sprite(Draw.renderer, Sprite[num].texture,
+                              x - Sprite[num].clip[clip].x,
+                              y - Sprite[num].clip[clip].y);
             set_clip_rect(
               Draw.renderer,
               0,
@@ -157,6 +173,7 @@ void SpritesBlitSprite(int num, int clip, int x, int y, int width, int height,
     }
     else
     {
+        #if defined(LFONTS_ALLEGRO42_FONT)
         set_alpha_blender();
         alfont_textout(
           Draw.renderer,
@@ -166,6 +183,13 @@ void SpritesBlitSprite(int num, int clip, int x, int y, int width, int height,
           y,
           makecol(Sprite[num].textR, Sprite[num].textG, Sprite[num].textB)
         );
+        #else
+        gk_rend_set_text_color_rgb(Fonts.font[Sprite[num].fontNum].rend,
+                                   Sprite[num].textR, Sprite[num].textG,
+                                   Sprite[num].textB);
+        gk_render_line_utf8(Draw.renderer, Fonts.font[Sprite[num].fontNum].rend,
+                            Sprite[num].text, x, y);
+        #endif
     }
 }
 

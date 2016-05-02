@@ -22,8 +22,8 @@ LSCREEN = allegro42
 LDRAW = allegro42
 #sdl12_image, sdl2_image, allegro42, allegro5_image, dummy
 LSPRITES = allegro42
-#sdl12_ttf, sdl2_ttf, allegro42font, allegro5, dummy
-LFONTS = dummy
+#sdl12_ttf, sdl2_ttf, allegro42font, glyph_keeper, allegro5, dummy
+LFONTS = glyph_keeper
 #lua, squirrel, dummy
 LS = lua
 #sdl2, windows_h, allegro5_nd, native, dummy
@@ -194,6 +194,10 @@ endif
 ifeq ($(LFONTS), allegro42font)
   LFONTS_DEF = -DLFONTS_ALLEGRO42_FONT
   LIBS += -lalfont
+endif
+ifeq ($(LFONTS), glyph_keeper)
+  LFONTS_DEF = -DLFONTS_GLYPH_KEEPER
+  LIBS += -lglyph-alleg
 endif
 ifeq ($(LFONTS), allegro5)
   LFONTS_DEF = -DLFONTS_ALLEGRO5
@@ -561,7 +565,7 @@ else
 endif
 
 RnJ1: $(OBJTARGETS)
-	$(LD) -o bin/RnJ1 $(LDFLAGS) $(OBJS) -L$(DIR_PROJECT)/Lib/$(TOOLCHAIN) $(LIBS) 2>build.log
+	$(LD) -o bin/RnJ1 $(LDFLAGS) $(OBJS) -L$(DIR_PROJECT)/Lib/$(TOOLCHAIN) $(LIBS)
   ifeq ($(CC), $(CC_KOS))
 	$(OBJCOPY) bin/RnJ1 -O binary
 #	$(KPACK) bin/RnJ1

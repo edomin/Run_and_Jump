@@ -2,13 +2,17 @@
 
 bool FontsInit(int fonts)
 {
+    LogWrite("Initializing Font Manager", 0, MT_INFO, NULL);
     Fonts.fontsCount = 0; /* устанавливаем количество загруженных шрифтов в 0 */
 
     Fonts.font = malloc(sizeof(TTF_Font *) * fonts);
     if (Fonts.font == NULL)
-        // ErrorGive("Can not allocate memory for Fonts", 1);
+         ErrorGive("Can not allocate memory for Fonts", 1);
     Fonts.name = malloc(sizeof(char *) * fonts);
+    if (Fonts.name == NULL)
+         ErrorGive("Can not allocate memory for Font names", 1);
 
+    LogWrite("Font Manager initialized", 0, MT_INFO, NULL);
     return true;
 }
 

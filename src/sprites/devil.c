@@ -18,33 +18,33 @@ GLuint powerOfTwo(GLuint num)
 void SpritesInit(int sprites)
 {
     ILenum ilError;
-
+    LogWrite("Initializing Sprite Manager", 0, MT_INFO, NULL);
     Sprites.spritesCount = 0; /* устанавливаем количество загруженных спрайтов в 0 */
     Sprite = malloc(sizeof(struct sprite) * sprites);
     if (Sprite == NULL)
-        ;
-        // ErrorGive("Can not allocate memory for Sprites", 1);
+        ErrorGive("Unable to allocate memory for Sprites", 1);
 
     ilInit();
     ilClearColour(255, 255, 255, 000);
     ilError = ilGetError();
     if (ilError != IL_NO_ERROR)
     {
-        //Error initializing DevIL!
+        ErrorGive("Error of initializing DevIL!", 1);
     }
+    LogWrite("Sprite Manager initialized", 0, MT_INFO, NULL);
 }
 
 void SpritesQuit(void)
 {
     int i;
-    // LogWrite("Destroying Sprite Manager.", 0, MT_INFO, NULL);
+    LogWrite("Destroying Sprite Manager.", 0, MT_INFO, NULL);
     for (i = 0; i < Sprites.spritesCount; i++)
     {
-        // LogWrite("Destroying sprite", 1, MT_INFO, Sprite[i].name);
+        LogWrite("Destroying sprite", 1, MT_INFO, Sprite[i].name);
         SpritesDestroySprite(i);
     }
     free(Sprite);
-    // LogWrite("Sprite Manager Destroyed.", 0, MT_INFO, NULL);
+    LogWrite("Sprite Manager Destroyed.", 0, MT_INFO, NULL);
 }
 
 int SpritesCreateSprite(char *filename, int clips)
@@ -57,7 +57,10 @@ int SpritesCreateSprite(char *filename, int clips)
     ILboolean success;
     GLenum error;
 
+    LogWrite("Creating sprite", 0, MT_INFO, Sprite[Sprites.spritesCount].name);
     Sprite[Sprites.spritesCount].name = malloc(sizeof(char) * (strlen(filename) + 1));
+    if (Sprite[Sprites.spritesCount].name == NULL)
+        ErrorGive("Unable to allocate memory for sprite name", 1);
     Sprite[Sprites.spritesCount].name = strcpy(Sprite[Sprites.spritesCount].name, (const char *)filename);
     Sprites.spritesCount += 1; /* Увеличиваем кол-во спрайтов на 1 */
     /* Загружаем файл */
@@ -87,11 +90,12 @@ int SpritesCreateSprite(char *filename, int clips)
         ilDeleteImages(1, &imgID);
     }
     if (error != GL_NO_ERROR)
-        {};
-        //Unable to load texture
+        ErrorGive("Unable to load texture", 1);
 
     /* устанавливаем число кадров для спрайта */
     Sprite[Sprites.spritesCount - 1].clip = malloc(sizeof(Rect) * clips);
+    if (Sprite[Sprites.spritesCount - 1].clip == NULL)
+        ErrorGive("Unable to allocate memory for sprite clips", 1);
     /* разбиваем спрайтшит на кадры */
     for (i = 0; i <= clips - 1; i++)
     {
@@ -101,7 +105,7 @@ int SpritesCreateSprite(char *filename, int clips)
         Sprite[Sprites.spritesCount - 1].clip[i].h = Sprite[Sprites.spritesCount - 1].height;
     }
     Sprite[Sprites.spritesCount - 1].clipsCount = clips;
-    // LogWrite("Sprite Created", 0, MT_INFO, NULL);
+    LogWrite("Sprite Created", 0, MT_INFO, NULL);
     return Sprites.spritesCount - 1;
 }
 

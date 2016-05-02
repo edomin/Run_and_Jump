@@ -2,14 +2,13 @@
 
 void DrawInit(int driver, int filtering)
 {
-    int i = 0;
-    char *temp;
-
+    LogWrite("Initializing Draw Subsystem", 0, MT_INFO, NULL);
     // Draw.renderer = NULL;
     DrawRound = malloc(sizeof(struct drawStep) * RNJ_DRAW_ROUND_LENGTH);
     if (DrawRound == NULL)
-        // ErrorGive("Can not allocate memory for DrawRound", 1);
+         ErrorGive("Can not allocate memory for DrawRound", 1);
     Draw.roundLength = 0;
+    LogWrite("Draw subsystem initialized", 0, MT_INFO, NULL);
 }
 
 void DrawDestroy(void)

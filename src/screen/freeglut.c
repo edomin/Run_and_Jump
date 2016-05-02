@@ -2,6 +2,7 @@
 
 void ScreenInit(int w, int h, const char *title, bool fullscreen)
 {
+    LogWrite("Initializing Screen", 0, MT_INFO, NULL);
     // glutInitContextVersion(2, 1);
     glutInitDisplayMode(GLUT_DOUBLE);
     glutInitWindowSize(w, h);
@@ -29,8 +30,9 @@ void ScreenInit(int w, int h, const char *title, bool fullscreen)
     if (error != GL_NO_ERROR)
     {
         //Error initializing OpenGL!
-        return false;
+        ErrorGive("Error of initializing OpenGL!", 1);
     }
+    LogWrite("Screen initialized", 0, MT_INFO, NULL);
 }
 
 void ScreenDestroy(void)

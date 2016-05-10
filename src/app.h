@@ -1,6 +1,9 @@
 #ifndef RNJ_APP_H
 #define RNJ_APP_H
 
+#ifdef LAPP_FREEGLUT
+    #include "app/freeglut.h"
+#endif
 #ifdef LAPP_SDL12
     #include "app/sdl12.h"
 #endif

@@ -3,7 +3,7 @@ include Config.mk
 #IA32
 ARCH = IA32
 #Win32, DOS, KolibriOS
-PLATFORM = DOS
+PLATFORM = Win32
 
 CFLAGS =
 LDFLAGS =
@@ -12,30 +12,30 @@ DEFINES =
 
 RNJ_VERSION ="1.3.2"
 
-#sdl12, sdl2, allegro42, allegro5
-LAPP = allegro42
+#freeglut, sdl12, sdl2, allegro42, allegro5
+LAPP = freeglut
 #allegro5, iniparser, dummy
 LCONFIGFILE = dummy
-#sdl12, sdl2, allegro42, allegro5
-LSCREEN = allegro42
-#sdl12, sdl2, allegro42, allegro5, dummy
-LDRAW = allegro42
-#sdl12_image, sdl2_image, allegro42, allegro5_image, dummy
-LSPRITES = allegro42
-#sdl12_ttf, sdl2_ttf, allegro42font, glyph_keeper, allegro5, dummy
-LFONTS = glyph_keeper
+#freeglut, sdl12, sdl2, allegro42, allegro5
+LSCREEN = freeglut
+#freeglut, sdl12, sdl2, allegro42, allegro5, dummy
+LDRAW = freeglut
+#devil, sdl12_image, sdl2_image, allegro42, allegro5_image, dummy
+LSPRITES = devil
+#freetype2, sdl12_ttf, sdl2_ttf, allegro42font, glyph_keeper, allegro5, dummy
+LFONTS = dummy
 #lua, squirrel, dummy
 LS = lua
 #sdl2, windows_h, allegro5_nd, native, dummy
 LDIALOGS = dummy
 #sdl12, sdl2, allegro42, allegro5, native, dummy
-LINPUT = allegro42
+LINPUT = dummy
 #sdl2, dummy
 LSPEC = dummy
 #sdl12, sdl2, time_h, allegro42, allegro5, native
-LTIMER = allegro42
+LTIMER = time_h
 #sdl2_mixer, allegro42, dummy
-LSOUNDS = allegro42
+LSOUNDS = dummy
 #freeimage, sdl2_image, allegro5_image, dummy
 LIMAGES = dummy
 #ode, dummy
@@ -174,13 +174,20 @@ RNJ_SPEC = -DRNJ_VERSION=\"$(RNJ_VERSION)\" \
 	-DRNJ_IMAGES=\"$(LIMAGES)\" \
 	-DRNJ_PHYSICS=\"$(LPHYSICS)\"
 ############ = FONTS = ########
+ifeq ($(LFONTS), freetype2)
+  LFONTS_DEF = -DLFONTS_FREETYPE2
+  LIBS += -lfreetype.dll
+  ifeq ($(PLATFORM), Win32)
+    DLLS += $(DLL_FREE_TYPE_6)
+  endif
+endif
 ifeq ($(LFONTS), sdl12_ttf)
   LFONTS_DEF = -DLFONTS_SDL12_TTF
   LIBS += -lSDL_ttf
-  ifeq ($(CC), $(CC_KOS))
+  ifeq ($(PLATFORM), KolibriOS)
     LIBS += -lfreetype
   endif
-  ifeq ($(CC), $(CC_MINGW))
+  ifeq ($(PLATFORM), Win32)
     DLLS += $(DLL_SDL12_TTF) \
 	  $(DLL_FREE_TYPE)
   endif
@@ -210,15 +217,22 @@ ifeq ($(LFONTS), dummy)
   LFONTS_DEF = -DLFONTS_DUMMY
 endif
 ############ = SPRITES = ########
+ifeq ($(LSPRITES), devil)
+  LSPRITES_DEF = -DLSPRITES_DEVIL
+  LIBS += -lDevIL
+  ifeq ($(PLATFORM), Win32)
+    DLLS += $(DLL_DEVIL)
+  endif
+endif
 ifeq ($(LSPRITES), sdl12_image)
   LSPRITES_DEF = -DLSPRITES_SDL12_IMAGE
   LIBS += -lSDL_image
-  ifeq ($(CC), $(CC_KOS))
+  ifeq ($(PLATFORM), KolibriOS)
     LIBS += -lpng \
       -ljpeg \
       -lz
   endif
-  ifeq ($(CC), $(CC_MINGW))
+  ifeq ($(PLATFORM), Win32)
     DLLS += $(DLL_SDL12_IMAGE) \
 	  $(DLL_JPEG_8) \
 	  $(DLL_PNG_15) \
@@ -272,13 +286,21 @@ ifeq ($(LSOUNDS), dummy)
   LSOUNDS_DEF = -DLSOUNDS_DUMMY
 endif
 ############ = APP = ########
+ifeq ($(LAPP), freeglut)
+  LAPP_DEF = -DLAPP_FREEGLUT
+  DLLS += $(DLL_FREEGLUT)
+  LIBS += -lopengl32 \
+    -lglu32 \
+    -lfreeglut
+  DLLS += $(DLL_FREEGLUT)
+endif
 ifeq ($(LAPP), sdl12)
   LAPP_DEF = -DLAPP_SDL12
   DLLS += $(DLL_README_SDL_TXT)
-  ifeq ($(CC), $(CC_KOS))
+  ifeq ($(PLATFORM), KolibriOS)
     LIBS += -lSDL12
   endif
-  ifeq ($(CC), $(CC_MINGW))
+  ifeq ($(PLATFORM), Win32)
     LIBS += -lmingw32 \
       -lSDLmain \
       -lSDL.dll
@@ -323,6 +345,9 @@ ifeq ($(LCONFIGFILE), dummy)
   LCONFIGFILE_DEF = -DLCONFIGFILE_DUMMY
 endif
 ############ = SCREEN = ########
+ifeq ($(LSCREEN), freeglut)
+  LSCREEN_DEF = -DLSCREEN_FREEGLUT
+endif
 ifeq ($(LSCREEN), sdl12)
   LSCREEN_DEF = -DLSCREEN_SDL12
 endif
@@ -336,6 +361,9 @@ ifeq ($(LSCREEN), allegro5)
   LSCREEN_DEF = -DLSCREEN_ALLEGRO5
 endif
 ############ = DRAW = ########
+ifeq ($(LDRAW), freeglut)
+  LDRAW_DEF = -DLDRAW_FREEGLUT
+endif
 ifeq ($(LDRAW), sdl12)
   LDRAW_DEF = -DLDRAW_SDL12
 endif

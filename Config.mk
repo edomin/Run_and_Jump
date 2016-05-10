@@ -58,6 +58,7 @@ DLL_VORBIS_FILE = $(DLLPATH)/libvorbisfile-3.dll
 DLL_SMPEG = $(DLLPATH)/smpeg2.dll
 
 DLL_FREE_TYPE = $(DLLPATH)/libfreetype-6.dll
+DLL_FREE_TYPE_6 = $(DLLPATH)/freetype6.dll
 
 DLL_JPEG_8 = $(DLLPATH)/libjpeg-8.dll
 DLL_JPEG_9 = $(DLLPATH)/libjpeg-9.dll
@@ -66,6 +67,9 @@ DLL_PNG_16 = $(DLLPATH)/libpng16-16.dll
 DLL_TIFF = $(DLLPATH)/libtiff-5.dll
 DLL_WEBP_2 = $(DLLPATH)/libwebp-2.dll
 DLL_WEBP_4 = $(DLLPATH)/libwebp-4.dll
+
+DLL_FREEGLUT = $(DLLPATH)/freeglut.dll
+DLL_DEVIL = $(DLLPATH)/DevIL.dll
 
 DLL_OPEN_INPUT = $(DLLPATH)/libopeninput-0-2-1.dll
 

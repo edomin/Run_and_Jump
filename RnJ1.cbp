@@ -59,6 +59,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/app/allegro5.h" />
+		<Unit filename="src/app/freeglut.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/app/freeglut.h" />
 		<Unit filename="src/app/sdl12.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -115,6 +119,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/draw/dummy.h" />
+		<Unit filename="src/draw/freeglut.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/draw/freeglut.h" />
 		<Unit filename="src/draw/sdl12.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -144,6 +152,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/fonts/dummy.h" />
+		<Unit filename="src/fonts/freetype2.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/fonts/freetype2.h" />
+		<Unit filename="src/fonts/glyph_keeper.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/fonts/glyph_keeper.h" />
 		<Unit filename="src/fonts/sdl12_ttf.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -219,6 +235,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/screen/allegro5.h" />
+		<Unit filename="src/screen/freeglut.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/screen/freeglut.h" />
 		<Unit filename="src/screen/sdl12.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -291,6 +311,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/sprites/allegro5_image.h" />
+		<Unit filename="src/sprites/devil.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/sprites/devil.h" />
 		<Unit filename="src/sprites/dummy.c">
 			<Option compilerVar="CC" />
 		</Unit>

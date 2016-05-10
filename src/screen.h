@@ -1,6 +1,9 @@
 #ifndef RNJ_SCREEN_H
 #define RNJ_SCREEN_H
 
+#ifdef LSCREEN_FREEGLUT
+    #include "screen/freeglut.h"
+#endif
 #ifdef LSCREEN_SDL12
     #include "screen/sdl12.h"
 #endif

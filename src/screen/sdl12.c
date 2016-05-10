@@ -41,7 +41,7 @@ void ScreenInit(int w, int h, const char *title, bool fullscreen)
         ErrorGive("Can not initialize Video", 1);
     }
 
-    #if defined (CC_KOS)
+    #if defined (PLATFORM_KOLIBRIOS)
     if (!((w == 640) && (h == 480)) || !((w == 320) && (h == 240)))
     {
         ErrorGive("Resolution not supported. Only 640x480 or 320x240", 1);

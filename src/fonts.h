@@ -1,6 +1,9 @@
 #ifndef RNJ_FONTS_H
 #define RNJ_FONTS_H
 
+#ifdef LFONTS_FREETYPE2
+    #include "fonts/freetype2.h"
+#endif
 #ifdef LFONTS_SDL12_TTF
     #include "fonts/sdl12_ttf.h"
 #endif

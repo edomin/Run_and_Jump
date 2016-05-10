@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+//#include <stddef.h>
 
 #include "GL/gl.h"
 #include "GL/glu.h"
@@ -10,10 +11,10 @@
 
 #include "app.h"
 #include "draw.h"
- #include "fonts.h"
- #include "error.h"
- #include "log.h"
- #include "defines.h"
+#include "fonts.h"
+#include "error.h"
+#include "log.h"
+#include "defines.h"
 
 typedef struct rect {
     int x;

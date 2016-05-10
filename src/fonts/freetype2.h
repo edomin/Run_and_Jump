@@ -2,7 +2,8 @@
 #define RNJ_FONTS_FREETYPE2_H
 
 #include <string.h>
-#include <ft2build.h>
+#include "GL/gl.h"
+#include "ft2build.h"
 #include FT_FREETYPE_H
 #include "bool.h"
 

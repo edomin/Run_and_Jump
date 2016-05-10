@@ -50,8 +50,8 @@ void SpritesQuit(void)
 int SpritesCreateSprite(char *filename, int clips)
 {
     int i;
-    int w;
-    int h;
+//    int w;
+//    int h;
     bool textureLoaded;
     ILuint imgID;
     ILboolean success;
@@ -78,12 +78,12 @@ int SpritesCreateSprite(char *filename, int clips)
         {
             Sprite[Sprites.spritesCount - 1].width = (GLuint)ilGetInteger(IL_IMAGE_WIDTH);
             Sprite[Sprites.spritesCount - 1].height = (GLuint)ilGetInteger(IL_IMAGE_HEIGHT);
-            glGenTextures(1, &(Sprite[Sprites.spritesCount - 1].texture));
-            glBindTexture(GL_TEXTURE_2D, Sprite[Sprites.spritesCount - 1].texture);
+            glGenTextures(1, Sprite[Sprites.spritesCount - 1].texture);
+            glBindTexture(GL_TEXTURE_2D, *(Sprite[Sprites.spritesCount - 1].texture));
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Sprite[Sprites.spritesCount - 1].width, Sprite[Sprites.spritesCount - 1].height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLuint *)ilGetData());
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-            glBindTexture(GL_TEXTURE_2D, NULL);
+            glBindTexture(GL_TEXTURE_2D, 0);
 
             error = glGetError();
         }
@@ -233,16 +233,16 @@ void SpritesBlitSprite(int num, int clip, int x, int y, int width, int height, i
     quadWidth = (float)Sprite[num].clip[clip].w;
     quadHeight = (float)Sprite[num].clip[clip].h;
 
-    if (width != 0 & width != quadWidth)
+    if ((width != 0) & (width != quadWidth))
         quadWidth = width;
-    if (height != 0 & height != quadHeight)
+    if ((height != 0) & (height != quadHeight))
         quadHeight = height;
 
     if (Sprite[num].texture != 0)
     {
         glLoadIdentity();
         glTranslatef(x, y, 0.0f);
-        glBindTexture(GL_TEXTURE_2D, Sprite[num].texture);
+        glBindTexture(GL_TEXTURE_2D, *(Sprite[num].texture));
         switch (flip)
         {
             case 0: /* Without flipping */
@@ -288,7 +288,7 @@ void SpritesDestroySprite(int num)
 {
     if (Sprite[num].texture != 0)
     {
-        glDeleteTextures(1, &Sprite[num].texture);
+        glDeleteTextures(1, Sprite[num].texture);
         Sprite[num].texture = 0;
     }
     if (Sprite[num].name != NULL)

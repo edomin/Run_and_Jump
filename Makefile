@@ -3,7 +3,7 @@ include Config.mk
 #IA32
 ARCH = IA32
 #Win32, DOS, KolibriOS
-PLATFORM = DOS
+PLATFORM = Win32
 
 CFLAGS =
 LDFLAGS =
@@ -23,7 +23,7 @@ LDRAW = freeglut
 #devil, sdl12_image, sdl2_image, allegro42, allegro5_image, dummy
 LSPRITES = devil
 #freetype2, sdl12_ttf, sdl2_ttf, allegro42font, glyph_keeper, allegro5, dummy
-LFONTS = freetype2
+LFONTS = dummy
 #lua, squirrel, dummy
 LS = lua
 #sdl2, windows_h, allegro5_nd, native, dummy
@@ -177,17 +177,17 @@ RNJ_SPEC = -DRNJ_VERSION=\"$(RNJ_VERSION)\" \
 ifeq ($(LFONTS), freetype2)
   LFONTS_DEF = -DLFONTS_FREETYPE2
   LIBS += -lfreetype.dll
-  ifeq ($(CC), $(CC_MINGW))
+  ifeq ($(PLATFORM), Win32)
     DLLS += $(DLL_FREE_TYPE_6)
   endif
 endif
 ifeq ($(LFONTS), sdl12_ttf)
   LFONTS_DEF = -DLFONTS_SDL12_TTF
   LIBS += -lSDL_ttf
-  ifeq ($(CC), $(CC_KOS))
+  ifeq ($(PLATFORM), KolibriOS)
     LIBS += -lfreetype
   endif
-  ifeq ($(CC), $(CC_MINGW))
+  ifeq ($(PLATFORM), Win32)
     DLLS += $(DLL_SDL12_TTF) \
 	  $(DLL_FREE_TYPE)
   endif
@@ -220,19 +220,19 @@ endif
 ifeq ($(LSPRITES), devil)
   LSPRITES_DEF = -DLSPRITES_DEVIL
   LIBS += -lDevIL
-  ifeq ($(CC), $(CC_MINGW))
+  ifeq ($(PLATFORM), Win32)
     DLLS += $(DLL_DEVIL)
   endif
 endif
 ifeq ($(LSPRITES), sdl12_image)
   LSPRITES_DEF = -DLSPRITES_SDL12_IMAGE
   LIBS += -lSDL_image
-  ifeq ($(CC), $(CC_KOS))
+  ifeq ($(PLATFORM), KolibriOS)
     LIBS += -lpng \
       -ljpeg \
       -lz
   endif
-  ifeq ($(CC), $(CC_MINGW))
+  ifeq ($(PLATFORM), Win32)
     DLLS += $(DLL_SDL12_IMAGE) \
 	  $(DLL_JPEG_8) \
 	  $(DLL_PNG_15) \
@@ -289,20 +289,18 @@ endif
 ifeq ($(LAPP), freeglut)
   LAPP_DEF = -DLAPP_FREEGLUT
   DLLS += $(DLL_FREEGLUT)
-  ifeq ($(CC), $(CC_MINGW))
-    LIBS += -lopengl32 \
-      -lglu32 \
-      -lfreeglut
-    DLLS += $(DLL_FREEGLUT)
-  endif
+  LIBS += -lopengl32 \
+    -lglu32 \
+    -lfreeglut
+  DLLS += $(DLL_FREEGLUT)
 endif
 ifeq ($(LAPP), sdl12)
   LAPP_DEF = -DLAPP_SDL12
   DLLS += $(DLL_README_SDL_TXT)
-  ifeq ($(CC), $(CC_KOS))
+  ifeq ($(PLATFORM), KolibriOS)
     LIBS += -lSDL12
   endif
-  ifeq ($(CC), $(CC_MINGW))
+  ifeq ($(PLATFORM), Win32)
     LIBS += -lmingw32 \
       -lSDLmain \
       -lSDL.dll

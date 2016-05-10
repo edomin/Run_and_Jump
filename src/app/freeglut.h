@@ -4,11 +4,14 @@
 #include "bool.h"
 #include "GL/freeglut.h"
 
+#include "log.h"
+#include "defines.h"
+
 struct {
     bool quit; /* Выход из программы */
     // SDL_Event event; /* Событие приложения */
-    // signed int mouseX; /* Горизонтальная позиция курсора */
-    // signed int mouseY; /* Вертикальная позиция курсора */
+     signed int mouseX; /* Горизонтальная позиция курсора */
+     signed int mouseY; /* Вертикальная позиция курсора */
 } App;
 
 void AppInit(void); /* Инициализация приложения */

@@ -6,6 +6,9 @@
 #include "GL/gl.h"
 #include "GL/glu.h"
 
+#include "log.h"
+#include "error.h"
+
 struct {
     int width; /* Высота окна */
     int height; /* Ширина окна */
